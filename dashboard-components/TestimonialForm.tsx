@@ -1,0 +1,241 @@
+"use client";
+import { Send, X } from "lucide-react";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { LoadingBTN } from "@/components";
+import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import Image from "next/image";
+import { place_holder_image } from "@/assets/photos";
+import {
+  TestimonialSchemaType,
+  TestimonialSchema,
+} from "@/schemas/testimonialSchema";
+import { TestimonialTypes } from "@/models/types";
+
+interface FormDataType extends TestimonialSchemaType {
+  photo: File;
+}
+
+function TestimonialForm({
+  closeForm,
+}: {
+  closeForm: Dispatch<SetStateAction<boolean>>;
+}) {
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [photo, setPhoto] = useState<null | File>(null);
+
+  function closeTestimonialForm() {
+    closeForm(false);
+  }
+  const postTestimony = async (
+    formData: FormDataType
+  ): Promise<TestimonialTypes> => {
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
+      const data = new FormData();
+      data.append("name", formData.name);
+      data.append("project", formData.title);
+      data.append("title", formData.title);
+      data.append("rating", String(formData.rating));
+      data.append("message", formData.message);
+      data.append("photo", formData.photo);
+
+      const response = await fetch(
+        `${baseUrl}/api/testimonials/create-single-testimony`,
+        {
+          method: "POST",
+          body: data, // 👈 send FormData object
+        }
+      );
+      const result = await response.json();
+      if (!result.data) {
+        setErrorMessage(result.message);
+      }
+      return result;
+    } catch (ex) {
+      if (ex instanceof Error) {
+        return { success: false, message: ex.message, data: [] };
+      }
+      return {
+        success: false,
+        message: `Error occoured in posting Testimony`,
+        data: [],
+      };
+    }
+  };
+  const { mutate, isPending } = useMutation({
+    mutationFn: postTestimony,
+    onSuccess: () => {
+      setSuccessMessage("Testimony created successfully.");
+      kitchenClient.invalidateQueries({ queryKey: ["admin-testimonies"] });
+      setPhoto(null)
+      reset();
+    },
+    onError: () => {
+      setErrorMessage("Faild to create Testimony.");
+    },
+  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm<TestimonialSchemaType>({
+    resolver: zodResolver(TestimonialSchema),
+  });
+  const onSubmit = (formData: TestimonialSchemaType) => {
+    setErrorMessage("");
+    setSuccessMessage("");
+    if (!photo) {
+      return setErrorMessage("Photo is Required.");
+    }
+    const data = { ...formData, photo };
+    mutate(data); //
+  };
+
+  return (
+    <div className=" w-full h-full lg:h-auto overflow-y-auto lg:max-h-[90vh]">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="relative w-[95%] lg:w-lg border my-12 border-gray-300 shadow-indigo-200 text-neutral-700 p-6 lg:p-6 text-sm mx-auto rounded-md bg-white mt-12"
+      >
+        <h1 className="font-semibold text-lg lg:text-2xl text-indigo-800">
+          Create a Testimony
+        </h1>
+        <p className="text-xs text-neutral-500">
+          Add new Testimony using the form below.
+        </p>
+
+        <button
+          onClick={closeTestimonialForm}
+          type="button"
+          className="absolute top-4 right-4 rounded cursor-pointer hover:bg-slate-200 bg-slate-100 trans p-1"
+        >
+          <X size={25} />
+        </button>
+
+        {/* Photo */}
+
+        <div>
+          <div
+            title="Add Photo"
+            className=" mt-6 overflow-hidden trans rounded-sm w-[70%] h-[40%] border border-gray-300 shadow grid place-items-center  mx-auto cursor-pointer "
+          >
+            <label
+              htmlFor="photo"
+              className="cursor-pointer size-full  overflow-hidden"
+            >
+              <Image
+                width={200}
+                height={50}
+                src={photo ? URL.createObjectURL(photo) : place_holder_image}
+                alt="Testimony photos"
+                className="size-full object-cover "
+              />
+              <input
+                type="file"
+                required
+                onChange={(e) =>
+                  setPhoto(
+                    e.target.files && e.target.files[0]
+                      ? e.target.files[0]
+                      : null
+                  )
+                }
+                id="photo"
+                hidden
+                name="photo"
+              />
+            </label>
+          </div>
+        </div>
+
+        <div className="mt-8">
+          <label htmlFor="name" className="block m-1 ">
+            Full Name
+          </label>
+          <input
+            type="text"
+            placeholder="Mary Jones"
+            {...register("name", { required: true })}
+            className="w-full border border-gray-300 py-2 px-4 rounded"
+          />
+          {errors.name && (
+            <p className="text-pink-400">{errors.name.message}</p>
+          )}
+        </div>
+
+        <div className="mt-4 flex items-center gap-2">
+          <div className="w-1/2">
+            <label htmlFor="project" className="block m-1 ">
+              Title
+            </label>
+            <input
+              type="text"
+              placeholder="CEO of Tradex"
+              {...register("title", { required: true })}
+              className="w-full border border-gray-300 py-2 px-4 rounded"
+            />
+            {errors.title && (
+              <p className="text-pink-400 ">{errors.title.message}</p>
+            )}
+          </div>{" "}
+          <div className="w-1/2">
+            <label htmlFor="rating" className="block m-1 ">
+              Rating
+            </label>
+            <input
+              type="number"
+              placeholder="4.5"
+              {...register("rating", { required: true, valueAsNumber: true })}
+              className="w-full border border-gray-300 py-2 px-4 rounded"
+            />
+            {errors.rating && (
+              <p className="text-pink-400 ">{errors.rating.message}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <label htmlFor="subject" className="block m-1 ">
+            Bio
+          </label>
+          <textarea
+            rows={3}
+            {...register("message", { required: true })}
+            placeholder="We strongly recommend this company."
+            className="w-full border border-gray-300 py-2 px-4 rounded "
+          ></textarea>
+          {errors.message && (
+            <p className="text-pink-400 ">{errors.message.message}</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          disabled={isPending}
+          className="mt-6 w-full bg-indigo-600 items-center justify-center text-indigo-100 flex cursor-pointer hover:bg-indigo-500 disabled:bg-gray-400 trans rounded  py-2 px-4  "
+        >
+          {isPending ? (
+            <LoadingBTN message="Creating..." />
+          ) : (
+            <div className="flex items-center gap-2 mx-auto">
+              <Send size={18} />
+              <span>Create Testimony</span>
+            </div>
+          )}
+        </button>
+        {successMessage && !isPending && (
+          <p className="text-green-500 text-center my-1">{successMessage}</p>
+        )}
+        {errorMessage && !isPending && (
+          <p className="text-pink-400 text-center my-1">{errorMessage}</p>
+        )}
+      </form>
+    </div>
+  );
+}
+
+export default TestimonialForm;
