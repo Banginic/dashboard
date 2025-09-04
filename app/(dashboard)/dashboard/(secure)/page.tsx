@@ -22,7 +22,7 @@ import {
 
 function KitchenHomePage() {
   return (
-    <section className="w-[95%]  mx-auto lg:w-full">
+    <section className="w-[95%] mx-auto lg:w-full bg-primary text-primary-foreground">
       {/* HERO */}
       <div className="relative  h-48 lg:h-92 2xl:h-121 rounded-xl overflow-hidden">
         <Image

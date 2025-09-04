@@ -6,7 +6,7 @@ import React, { useState } from "react";
 function AdminLayout({ children }: { children: React.ReactNode }) {
 const [ showSidebar, setSidebar ] = useState(false)
   return (
-    <div className="relative bg-gradient-to-r from-yellow-50  via-purple-50 to bg-pink-50">
+    <div className="relative bg-primary text-primary-forground ">
       <Navbar showSidebar={showSidebar} setSidebar={setSidebar} />
       <div className="">
         <Sidebar showSidebar ={showSidebar} setSidebar={setSidebar} />

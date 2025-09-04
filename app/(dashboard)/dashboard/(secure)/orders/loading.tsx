@@ -1,4 +1,4 @@
-import Title from "@/components/adminComponents/Title";
+import Title from "@/dashboard-components/Title";
 import React from "react";
 
 function OrderCardSkeleton() {

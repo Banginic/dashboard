@@ -23,20 +23,20 @@ function Sidebar({
 }) {
   const pathname = usePathname();
   const SIDELINKS = [
-    { name: "Home", Icon: House, href: "/kitchen" },
-    { name: "Orders", Icon: Bike, href: "/kitchen/orders" },
-    { name: "Messages", Icon: MessageCircle, href: "/kitchen/messages" },
-    { name: "Products", Icon: Cake, href: "/kitchen/products" },
-    { name: "Employees", Icon: Users, href: "/kitchen/employees" },
-    { name: "News", Icon: MessageSquareText, href: "/kitchen/news" },
-    { name: "Testimonials", Icon: Award, href: "/kitchen/testimonials" },
+    { name: "Home", Icon: House, href: "/dashboard" },
+    { name: "Orders", Icon: Bike, href: "/dashboard/orders" },
+    { name: "Messages", Icon: MessageCircle, href: "/dashboard/messages" },
+    { name: "Products", Icon: Cake, href: "/dashboard/products" },
+    { name: "Employees", Icon: Users, href: "/dashboard/employees" },
+    { name: "News", Icon: MessageSquareText, href: "/dashboard/news" },
+    { name: "Testimonials", Icon: Award, href: "/dashboard/testimonials" },
   ] as const;
   function closeSidebar() {
     setSidebar(false);
   }
   return (
     <section
-      className={`bg-primary text-foreground borde border-gray-200 ${
+      className={`bg-secondary-foreground text-secondary  ${
         showSidebar ? "w-[45vw]" : "w-[0vw] hidden lg:block"
       } ${
         showSidebar ? "lg:w-[12vw] block" : "lg:w-[6vw] block"
@@ -52,12 +52,12 @@ function Sidebar({
               onClick={closeSidebar}
               className={`flex items-center gap-4 flex-nowrap px-4 2xl:px-9 py-2 ${
                 pathname === href
-                  ? "text-accent font-semibold "
-                  : "text-neutral-100 "
+                  ? "text-accent-foreground font-semibold "
+                  : ""
               } ${
                 showSidebar && pathname === href
-                  ? "bg-indigo-100 shadow w-[95%] rounded mx-0 "
-                  : " hover:bg-indigo-50/70 w-[95%] rounded mx-0"
+                  ? "bg-accent shadow w-[95%] rounded mx-0 "
+                  : " hover:bg-accent-foreground/20 w-[95%] rounded mx-0"
               } `}
             >
               <Icon size={22} className="" />
