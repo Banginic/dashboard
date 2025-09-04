@@ -3,8 +3,8 @@ import React from 'react'
 
 function page() {
   return (
-    <div className='bg-primary'>
-     
+    <div className=''>
+     <h1>Public</h1>
     </div>
   )
 }
