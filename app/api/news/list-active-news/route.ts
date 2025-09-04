@@ -1,0 +1,49 @@
+import { NextResponse } from "next/server";
+import { newsTable } from "@/drizzle/schema";
+import { db } from "@/drizzle/index";
+import { eq, and } from "drizzle-orm";
+
+export async function GET(req: Request) {
+    
+  try {
+    const {searchParams} = new URL(req.url)
+    const  news_id = searchParams.get('news_id')
+    const  isActive = searchParams.get('is_active')
+
+    if(!isActive){
+           return NextResponse.json(
+        { success: false, error: 'Please Provide a News ', data: [] },
+        { status: 400 }
+      );
+    }
+    const news = await db.select().from(newsTable)
+    .where(
+        eq(newsTable.isActive, true),
+    )
+    .limit(1);
+
+    if (news.length === 0) {
+      return NextResponse.json({
+        success: true,
+        message: "No Active News Available",
+        data: [],
+      });
+    }
+    return NextResponse.json({
+      success: true,
+      message: "Success Active Fetching News",
+      data: news,
+    });
+  } catch (ex) {
+    if (ex instanceof Error) {
+      return NextResponse.json(
+        { success: false, error: ex.message, data: [] },
+        { status: 500 }
+      );
+    }
+    return NextResponse.json(
+      { success: false, error: "Error Fetching News", data: [] },
+      { status: 500 }
+    );
+  }
+}
