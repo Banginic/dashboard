@@ -36,7 +36,7 @@ function Sidebar({
   }
   return (
     <section
-      className={`bg-white borde border-gray-200 ${
+      className={`bg-primary text-foreground borde border-gray-200 ${
         showSidebar ? "w-[45vw]" : "w-[0vw] hidden lg:block"
       } ${
         showSidebar ? "lg:w-[12vw] block" : "lg:w-[6vw] block"
@@ -52,8 +52,8 @@ function Sidebar({
               onClick={closeSidebar}
               className={`flex items-center gap-4 flex-nowrap px-4 2xl:px-9 py-2 ${
                 pathname === href
-                  ? "text-indigo-500 font-semibold "
-                  : "text-neutral-700 "
+                  ? "text-accent font-semibold "
+                  : "text-neutral-100 "
               } ${
                 showSidebar && pathname === href
                   ? "bg-indigo-100 shadow w-[95%] rounded mx-0 "

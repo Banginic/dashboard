@@ -5,16 +5,16 @@ import React from "react";
 import MessageCard from "./MessageCard";
 import MessageCardSkeleton from "./skeletons/MessageCardSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import { NoData, ErrorFetching } from "@/components/adminComponents/index";
 import { useFetch } from "@/hooks/useFetch";
 import { MessageTypes } from "@/models/types";
+import { NoData, ErrorFetching } from "@/dashboard-components/index";
 
 function RecenctMessages() {
   const fetchDetails = {
-    endpoint: '/api/messages/list-all-messages?limit=3',
-    method: 'GET',
-   title: 'Messages'
-  }
+    endpoint: "/api/messages/list-all-messages?limit=3",
+    method: "GET",
+    title: "Messages",
+  };
   const { data, refetch, isPending, isError } = useQuery({
     queryKey: ["kitchen-messages"],
     queryFn: () => useFetch<MessageTypes>(fetchDetails),
@@ -45,7 +45,7 @@ function RecenctMessages() {
           <NoData message={data.message} />
         ) : (
           <div className="space-y-2 lg:space-y-4 mt-4">
-            { data.data.map( item => (
+            {data.data.map((item) => (
               <MessageCard message={item} key={item.id} />
             ))}
           </div>

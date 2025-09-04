@@ -1,7 +1,7 @@
-import Title from "@/components/adminComponents/Title";
 import React from "react";
 import Image from "next/image";
 import { place_holder_image } from "@/assets/photos";
+import { Title } from "@/dashboard-components/index";
 
 function page() {
   const myArray = [1, 2, 3, 4];

@@ -1,16 +1,17 @@
 "use client";
-import Back from "@/components/adminComponents/Back";
-import Title from "@/components/adminComponents/Title";
+
 import React, { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   NoData,
+  Back,
+  Title,
   ErrorFetching,
   EmployeeDetails,
-} from "@/components/adminComponents/index";
+  EmployeeDetailsSkeleton,
+} from "@/dashboard-components/index";
 import { useFetch } from "@/hooks/useFetch";
 import { EmployeeTypes } from "@/models/types";
-import EmployeeDetailsSkeleton from "@/components/adminComponents/skeletons/EmployeeDetailsSkeleton";
 
 function EmployeeDetail({
   params,

@@ -6,8 +6,8 @@ import Image from "next/image";
 import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "react-toastify";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
-import LoadingBTN from "../LoadingBTN";
+import { LoadingBTN } from '@/dashboard-components/index'
+import { dashboardProvider } from "@/providers/dashboard-provider";
 
 export default function TestimonialCard({
   testimonial,
@@ -24,7 +24,7 @@ export default function TestimonialCard({
     mutationFn: () => useFetch<TestimonialTypes>(fetchDetails),
     onSuccess: () => {
       toast.success("Testimony deleted successfully");
-      kitchenClient.invalidateQueries({ queryKey: ["admin-testimonies"] });
+      dashboardProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
     },
     onError: () => {
       toast.error("Error deleting testimony");

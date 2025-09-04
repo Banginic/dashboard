@@ -1,14 +1,18 @@
 "use client";
-import EmployeeCard from "@/components/adminComponents/EmployeeCard";
-import Title from "@/components/adminComponents/Title";
+
 import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
 import { EmployeeTypes } from "@/models/types";
-import { ErrorFetching, NoData } from "@/components/adminComponents/index";
+import {
+  ErrorFetching,
+  NoData,
+  EmployeeForm,
+  EmployeeSkeleton,
+  Title,
+  EmployeeCard,
+} from "@/dashboard-components/index";
 import { useQuery } from "@tanstack/react-query";
-import EmployeeSkeleton from "@/components/adminComponents/skeletons/EmployeeSkeleton";
-import EmployeeForm from "@/components/adminComponents/EmployeeForm";
 
 function Employees() {
   const [showEmployeeForm, setEmployeeForm] = useState(false);

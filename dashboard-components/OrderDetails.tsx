@@ -1,5 +1,5 @@
-import Back from "@/components/adminComponents/Back";
-import Title from "@/components/adminComponents/Title";
+
+import {Title, Back} from "@/dashboard-components/index";
 import { OrderType } from "@/models/types";
 import { Car, Check, ChefHat, Trash, X } from "lucide-react";
 import React from "react";

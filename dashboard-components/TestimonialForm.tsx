@@ -4,14 +4,14 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
-import { LoadingBTN } from "@/components";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { LoadingBTN } from "@/dashboard-components/index";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 import Image from "next/image";
 import { place_holder_image } from "@/assets/photos";
 import {
   TestimonialSchemaType,
   TestimonialSchema,
-} from "@/schemas/testimonialSchema";
+} from "@/schemas/testimoniesSchema";
 import { TestimonialTypes } from "@/models/types";
 
 interface FormDataType extends TestimonialSchemaType {
@@ -70,7 +70,7 @@ function TestimonialForm({
     mutationFn: postTestimony,
     onSuccess: () => {
       setSuccessMessage("Testimony created successfully.");
-      kitchenClient.invalidateQueries({ queryKey: ["admin-testimonies"] });
+      dashboardProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
       setPhoto(null)
       reset();
     },

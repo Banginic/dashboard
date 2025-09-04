@@ -1,11 +1,11 @@
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 import { useFetch } from "@/hooks/useFetch";
 import { ProductType, ProductTypes } from "@/models/types";
 import { useMutation } from "@tanstack/react-query";
 import { Trash, X } from "lucide-react";
 import React from "react";
 import { toast } from "react-toastify";
-import { LoadingBTN } from "@/components/index";
+import { LoadingBTN } from "@/dashboard-components/index";
 import Image from "next/image";
 
 function ProductDetails({ product }: { product: ProductType }) {
@@ -27,7 +27,7 @@ function ProductDetails({ product }: { product: ProductType }) {
     mutationFn: () => useFetch<ProductTypes>(updateDetails),
     onSuccess: () => {
       toast.success("Product updated successfully.");
-      kitchenClient.invalidateQueries({ queryKey: [`kitchen-products-${id}`] });
+      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-products-${id}`] });
     },
     onError: () => {
       toast.error("Error updating product");
@@ -37,7 +37,7 @@ function ProductDetails({ product }: { product: ProductType }) {
     mutationFn: () => useFetch<ProductTypes>(deleteDetails),
     onSuccess: () => {
       toast.success("Product deleted successfully.");
-      kitchenClient.invalidateQueries({ queryKey: [`kitchen-products`] });
+      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-products`] });
     },
     onError: () => {
       toast.error("Error deleting product");

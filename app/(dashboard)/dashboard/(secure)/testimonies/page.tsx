@@ -1,5 +1,4 @@
 "use client";
-import Title from "@/components/adminComponents/Title";
 import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
@@ -7,11 +6,12 @@ import { TestimonialTypes } from "@/models/types";
 import {
   ErrorFetching,
   NoData,
-} from "@/components/adminComponents/index";
+  TestimonialForm,
+  TestimonialCard,
+  TestimonialCardSkeleton,
+  Title,
+} from "@/dashboard-components/index";
 import { useQuery } from "@tanstack/react-query";
-import TestimonialForm from "@/components/adminComponents/TestimonialForm";
-import TestimonialCard from "@/components/adminComponents/TestimonialCard";
-import TestimonialCardSkeleton from "@/components/adminComponents/skeletons/TestimonialCardSkeleton";
 
 function Testimonials() {
   const [showEmployeeForm, setEmployeeForm] = useState(false);

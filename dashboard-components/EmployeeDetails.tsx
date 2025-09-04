@@ -5,7 +5,7 @@ import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "react-toastify";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -29,7 +29,7 @@ function EmployeeDetails({ employee }: { employee: EmployeeType }) {
     mutationFn: () => useFetch<EmployeeTypes>(updateDetails),
     onSuccess: () => {
       toast.success("Employee updated");
-      kitchenClient.invalidateQueries({
+      dashboardProvider.invalidateQueries({
         queryKey: [`admin-employee-${id}`],
       });
       return;

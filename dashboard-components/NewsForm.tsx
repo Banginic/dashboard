@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { NewsSchema, NewsSchemaType } from "@/schemas/newsSchema";
 import { useMutation } from "@tanstack/react-query";
 import { NewsTypes } from "@/models/types";
-import { LoadingBTN } from "@/components";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { LoadingBTN } from "@/dashboard-components/index";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 
 function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   const [successMessage, setSuccessMessage] = useState("");
@@ -42,7 +42,7 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
     mutationFn: postNews,
     onSuccess: () => {
       setSuccessMessage("News created successfully.");
-      kitchenClient.invalidateQueries({ queryKey: ["kitchen-news"] });
+      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-news"] });
       reset();
     },
     onError: () => {

@@ -1,4 +1,5 @@
-import Title from "@/components/adminComponents/Title";
+
+import { Title } from "@/dashboard-components/index";
 import React from "react";
 
 function MessageCardSkeleton() {

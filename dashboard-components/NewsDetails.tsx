@@ -5,8 +5,8 @@ import { useFetch } from "@/hooks/useFetch";
 import { useMutation } from "@tanstack/react-query";
 import { NewsType, NewsTypes } from "@/models/types";
 import { toast } from "react-toastify";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
-import { LoadingBTN } from "@/components/index";
+import { dashboardProvider } from "@/providers/dashboard-provider";
+import { LoadingBTN } from "@/dashboard-components/index";
 
 function NewsDetails({ news }: { news: NewsType }) {
   const { id, subject, body, createdAt, isActive, updatedAt } = news;
@@ -29,7 +29,7 @@ function NewsDetails({ news }: { news: NewsType }) {
     mutationFn: () => useFetch<NewsTypes>(activeDetails),
     onSuccess: () => {
       toast.success("News updated successfully");
-      kitchenClient.invalidateQueries({ queryKey: [`kitchen-news`] });
+      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-news`] });
     },
     onError: () => {
       toast.error("Error updating news");
@@ -39,7 +39,7 @@ function NewsDetails({ news }: { news: NewsType }) {
     mutationFn: () => useFetch<NewsTypes>(deleteDetails),
     onSuccess: () => {
       toast.success("News deleted successfully");
-      kitchenClient.invalidateQueries({ queryKey: [`kitchen-news`] });
+      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-news`] });
     },
     onError: () => {
       toast.error("Error deleting news");

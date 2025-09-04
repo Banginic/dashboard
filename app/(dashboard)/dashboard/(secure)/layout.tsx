@@ -1,6 +1,6 @@
 "use client";
-import Navbar from "@/components/adminComponents/Navbar";
-import Sidebar from "@/components/adminComponents/Sidebar";
+
+import { Navbar, Sidebar } from "@/dashboard-components/index";
 import React, { useState } from "react";
 
 function AdminLayout({ children }: { children: React.ReactNode }) {

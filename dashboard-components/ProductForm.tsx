@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { ProductTypes } from "@/models/types";
-import { LoadingBTN } from "@/components";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { LoadingBTN } from "@/dashboard-components/index";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 import Image from "next/image";
 import { ProductSchema, ProductSchemaType } from "@/schemas/productsSchema";
 import { place_holder_image } from "@/assets/photos";
@@ -68,7 +68,7 @@ const [successMessage, setSuccessMessage] = useState("");
     mutationFn: postProduct,
     onSuccess: () => {
       setSuccessMessage("Product created successfully.");
-      kitchenClient.invalidateQueries({ queryKey: ["kitchen-products"] });
+      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-products"] });
       reset();
     },
     onError: () => {

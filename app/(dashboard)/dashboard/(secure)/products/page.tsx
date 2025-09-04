@@ -1,18 +1,15 @@
 "use client";
-import Title from "@/components/adminComponents/Title";
 import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
 import {
   ErrorFetching,
   NoData,
-  ProductCard,
-} from "@/components/adminComponents/index";
+  ProductCard, ProductCardSkeleton, ProductForm, Title
+} from "@/dashboard-components/index";
 import { useQuery } from "@tanstack/react-query";
-import TestimonialForm from "@/components/adminComponents/TestimonialForm";
 import { ProductTypes } from "@/models/types";
-import ProductCardSkeleton from "@/components/adminComponents/skeletons/ProductCardSkeleton";
-import ProductForm from "@/components/adminComponents/ProductForm";
+
 
 function products() {
   const [showProductForm, setProductForm] = useState(false);

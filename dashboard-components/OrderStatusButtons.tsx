@@ -2,9 +2,9 @@
 import { Car, Check, ChefHat, LoaderCircle, Trash, X } from "lucide-react";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 import { toast } from "react-toastify";
-import { LoadingBTN } from "@/components/index";
+import { LoadingBTN } from "@/dashboard-components/index";
 import { useFetch } from "@/hooks/useFetch";
 import { MessageTypes } from "@/models/types";
 
@@ -28,7 +28,7 @@ const updateDetails = {
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
     onSuccess: () => {
       toast.success(newStatus);
-      kitchenClient.invalidateQueries({
+      dashboardProvider.invalidateQueries({
         queryKey: [`kitchen-orders-${orderId}`],
       });
       return;
@@ -41,7 +41,7 @@ const updateDetails = {
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
     onSuccess: () => {
       toast.success(newStatus);
-      kitchenClient.invalidateQueries({
+      dashboardProvider.invalidateQueries({
         queryKey: [`kitchen-orders-${orderId}`],
       });
       return;
@@ -55,7 +55,7 @@ const updateDetails = {
       mutationFn: () => useFetch<MessageTypes>(updateDetails),
       onSuccess: () => {
         toast.success(newStatus);
-        kitchenClient.invalidateQueries({
+        dashboardProvider.invalidateQueries({
           queryKey: [`kitchen-orders-${orderId}`],
         });
         return;
@@ -69,7 +69,7 @@ const updateDetails = {
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
     onSuccess: () => {
       toast.success(newStatus);
-      kitchenClient.invalidateQueries({
+      dashboardProvider.invalidateQueries({
         queryKey: [`kitchen-orders-${orderId}`],
       });
       return;
@@ -82,7 +82,7 @@ const updateDetails = {
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
     onSuccess: () => {
       toast.success(newStatus);
-      kitchenClient.invalidateQueries({ queryKey: [`kitchen-orders`] });
+      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-orders`] });
       return;
     },
     onError: () => {

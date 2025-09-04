@@ -4,11 +4,7 @@ import Link from "next/link";
 import React from "react";
 import OrderCardSkeleton from "./skeletons/OrderCardSkeleton";
 import { useQuery } from "@tanstack/react-query";
-import {
-  NoData,
-  ErrorFetching,
-  OrderCard,
-} from "@/components/adminComponents/index";
+import { NoData, ErrorFetching, OrderCard } from "@/dashboard-components/index";
 import { OrdersTypes } from "@/models/types";
 import { useFetch } from "@/hooks/useFetch";
 

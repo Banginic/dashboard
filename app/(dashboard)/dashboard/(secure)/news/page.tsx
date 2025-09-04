@@ -1,5 +1,4 @@
 "use client";
-import Title from "@/components/adminComponents/Title";
 import { PlusCircle } from "lucide-react";
 import React, { useState } from "react";
 import { useFetch } from "@/hooks/useFetch";
@@ -8,10 +7,11 @@ import {
   ErrorFetching,
   NewsDetails,
   NoData,
-} from "@/components/adminComponents/index";
+  NewsForm,
+  NewsDetailsSkeleton,
+  Title,
+} from "@/dashboard-components/index";
 import { useQuery } from "@tanstack/react-query";
-import NewsForm from "@/components/adminComponents/NewsForm";
-import NewsDetailsSkeleton from "@/components/adminComponents/skeletons/NewsDetailsSkeleton";
 
 function News() {
   const [showNewsForm, setNewsForm] = useState(false);

@@ -3,7 +3,7 @@ import { MessageType, MessageTypes } from "@/models/types";
 import { LoaderCircle, Reply, Trash } from "lucide-react";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
+import { dashboardProvider } from "@/providers/dashboard-provider";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
@@ -23,7 +23,7 @@ function MessageDetails({ message }: { message: MessageType }) {
     mutationFn: () => useFetch<MessageTypes>(fetchDetails),
     onSuccess: () => {
       toast.success("Message Deleted Successfully");
-      kitchenClient.invalidateQueries({ queryKey: ["kitchen-messages"] });
+      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-messages"] });
       router.push("/kitchen/messages");
       return;
     },

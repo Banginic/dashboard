@@ -6,8 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { EmployeeTypes } from "@/models/types";
 import { LoadingBTN } from "@/components";
-import { kitchenClient } from "@/app/queryProviders/kitchenProvider";
-import { EmployeeSchema, EmployeeSchemaType } from "@/schemas/EmployeeSchema";
+import { dashboardProvider } from "@/providers/dashboard-provider";
+import { EmployeeSchema, EmployeeSchemaType } from "@/schemas/employeeSchema";
 import Image from "next/image";
 import { place_holder_image } from "@/assets/photos";
 import { toast } from "react-toastify";
@@ -64,7 +64,7 @@ function EmployeeForm({
     mutationFn: postNews,
     onSuccess: () => {
       toast.success("Employee created successfully");
-      kitchenClient.invalidateQueries({ queryKey: ["admin-employees"] });
+      dashboardProvider.invalidateQueries({ queryKey: ["admin-employees"] });
       reset();
       setPhoto(null);
     },

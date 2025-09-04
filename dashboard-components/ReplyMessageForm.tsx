@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   MessageReplySchema,
   MessageReplySchemaType,
-} from "@/schemas/messageReply";
+} from "@/schemas/messageReplySchema";
 import { toast } from "react-toastify";
 
 function MessageReplyForm({

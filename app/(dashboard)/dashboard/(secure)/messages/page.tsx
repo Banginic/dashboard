@@ -2,8 +2,8 @@ import {
   MessageCard,
   NoData,
   ErrorFetching,
-} from "@/components/adminComponents/index";
-import Title from "@/components/adminComponents/Title";
+  Title
+} from "@/dashboard-components/index";
 import { useFetch } from "@/hooks/useFetch";
 import { MessageTypes } from "@/models/types";
 import React from "react";
