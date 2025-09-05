@@ -1,5 +1,6 @@
 CREATE TABLE "contact_details" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"admin_id" uuid NOT NULL,
 	"whatsApp" varchar(255) DEFAULT '' NOT NULL,
 	"email" varchar(255) DEFAULT '' NOT NULL,
 	"phone" varchar(255) DEFAULT '' NOT NULL,
@@ -36,6 +37,7 @@ CREATE TABLE "employees" (
 --> statement-breakpoint
 CREATE TABLE "location" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"admin_id" uuid NOT NULL,
 	"country" varchar(255) DEFAULT '' NOT NULL,
 	"state" varchar(255) DEFAULT '' NOT NULL,
 	"city" varchar(255) DEFAULT '' NOT NULL,
@@ -118,4 +120,6 @@ CREATE TABLE "users" (
 	CONSTRAINT "users_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
+ALTER TABLE "contact_details" ADD CONSTRAINT "contact_details_admin_id_users_id_fk" FOREIGN KEY ("admin_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE "location" ADD CONSTRAINT "location_admin_id_users_id_fk" FOREIGN KEY ("admin_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "orders" ADD CONSTRAINT "orders_userId_users_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."users"("id") ON DELETE no action ON UPDATE no action;

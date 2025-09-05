@@ -1,6 +1,6 @@
 {
-  "id": "1ce4b7cf-6e3f-4744-9428-643335192804",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "03049a4e-3f0d-481f-abb2-f04cf1ee48c6",
+  "prevId": "1ce4b7cf-6e3f-4744-9428-643335192804",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -21,8 +21,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "whatsApp": {
-          "name": "whatsApp",
+        "whats_app": {
+          "name": "whats_app",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -63,8 +63,8 @@
           "notNull": true,
           "default": "''"
         },
-        "youTube": {
-          "name": "youTube",
+        "you_tube": {
+          "name": "you_tube",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,

@@ -1,7 +1,8 @@
 "use server";
 interface PropsTypes {
     endpoint: string,
-    title: string,
+    title?: string,
+    method: string;
     body: Object
 }
 interface ReturnType {
@@ -11,11 +12,11 @@ interface ReturnType {
 }
 export async function usePost<T>( props : PropsTypes ): Promise<T | ReturnType> {
 
-    const {endpoint, title, body } = props
+    const {endpoint, title, body, method } = props
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-    const response = await fetch(`${baseUrl}${endpoint}`, {
-      method: 'POST',
+    const response = await fetch(`${baseUrl}/api/v1${endpoint}`, {
+      method: method || 'POST',
       body: JSON.stringify(body),
       headers: { "Content-Type": "application/json" },
     });
