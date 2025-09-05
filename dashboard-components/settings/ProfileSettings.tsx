@@ -97,8 +97,8 @@ function ProfileSettings() {
         Project Information
       </h2>
 
-      <div className="flex gap-4 text-foreground/70">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex gap-4 flex-col lg:flex-row text-foreground/70">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Project name</span>
           <Input
             value={
@@ -115,7 +115,7 @@ function ProfileSettings() {
           />
         </p>
 
-        <div className="flex flex-col gap-1 text-sm w-1/2">
+        <div className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Project ID</span>
           <div className="flex py-2.5 px-4 border rounded-md bg-secondary justify-between">
             <span className={`text-sm ${isLoading && "animate-pulse"}`}>
@@ -162,7 +162,7 @@ function ProfileSettings() {
       </p>
 
       <>
-        {isChanged && (!isPending && data?.data )&&  (
+        {isChanged && (!isPending && data?.data ) && isError &&  (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

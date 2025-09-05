@@ -80,10 +80,12 @@ function ContactSettings() {
   const isChanged = data?.data[0] !== contactInfo;
 
   return (
-    <div className="border p-4 rounded-md  w-[95%] max-w-2xl mx-auto">
+    <form 
+    onSubmit={handleSubmit}
+    className="border p-4 rounded-md  w-[95%] max-w-2xl mx-auto">
       <h2 className="font-semibold text-lg lg:text-xl mb-4">Contact Details</h2>
-      <div className="flex gap-4 text-foreground/70">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex gap-4 flex-col lg:flex-row text-foreground/70">
+        <p className="flex flex-col   gap-1 text-sm w-full lg:w-1/2">
           <span>
             Phone number{" "}
             <span className="text-xs  text-muted-foreground">(No spaces)</span>
@@ -102,7 +104,7 @@ function ContactSettings() {
             onChange={handleChange}
           />
         </p>
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Email</span>
           <Input
             value={
@@ -119,8 +121,8 @@ function ContactSettings() {
           />
         </p>
       </div>
-      <div className="flex gap-4 text-foreground/70 mt-4">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex gap-4 text-foreground/70 flex-col lg:flex-row mt-4">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>
             WhatsApp{" "}
             <span className="text-xs  text-muted-foreground">(No spaces)</span>
@@ -139,7 +141,7 @@ function ContactSettings() {
             onChange={handleChange}
           />
         </p>
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Facebook</span>
           <Input
             value={
@@ -156,8 +158,8 @@ function ContactSettings() {
           />
         </p>
       </div>
-      <div className="flex gap-4 text-foreground/70 mt-4">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex gap-4 flex-col lg:flex-row text-foreground/70 mt-4">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Instagram</span>
           <Input
             value={
@@ -173,7 +175,7 @@ function ContactSettings() {
             onChange={handleChange}
           />
         </p>
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Tiktok</span>
           <Input
             value={
@@ -192,7 +194,7 @@ function ContactSettings() {
       </div>
 
       <>
-        {isChanged && !isPending && data?.data && (
+        {isChanged && (!isPending && data?.data ) && isError &&  (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"
@@ -201,7 +203,7 @@ function ContactSettings() {
           </Button>
         )}
       </>
-    </div>
+    </form>
   );
 }
 

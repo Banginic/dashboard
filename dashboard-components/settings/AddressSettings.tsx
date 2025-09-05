@@ -200,7 +200,7 @@ function AddressSettings() {
         <span>Set / Update map</span>
       </Link>
       <>
-        {isChanged && (!isPending && data?.data )&& (
+        {isChanged && (!isPending && data?.data ) && isError && (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"
