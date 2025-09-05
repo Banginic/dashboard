@@ -20,20 +20,17 @@ export const usersTable = pgTable("users", {
 
 export const ContactTable = pgTable("contact_details", {
   id: uuid("id").defaultRandom().primaryKey(),
-
-  adminId: uuid("admin_id")
-    .notNull()
-    .references(() => usersTable.id, { onDelete: "cascade" }),
-
+  // adminId: uuid("admin_id")
+  //   .notNull()
+  //   .references(() => usersTable.id, { onDelete: "cascade" }),
   whatsApp: varchar("whats_app", { length: 255 }).notNull().default(""),
   email: varchar("email", { length: 255 }).notNull().default(""),
   phone: varchar("phone", { length: 255 }).notNull().default(""),
   facebook: varchar("facebook", { length: 255 }).notNull().default(""),
   instagram: varchar("instagram", { length: 255 }).notNull().default(""),
   tiktok: varchar("tiktok", { length: 255 }).notNull().default(""),
-  youTube: varchar("you_tube", { length: 255 }).notNull().default(""),
-  twitter: varchar("twitter", { length: 255 }).notNull().default(""),
-
+  // youTube: varchar("you_tube", { length: 255 }).notNull().default(""),
+  // twitter: varchar("twitter", { length: 255 }).notNull().default(""),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });

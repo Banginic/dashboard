@@ -14,6 +14,20 @@ export interface ProfileInfoTypes extends APIResponse {
 }
 
 
+export interface ContactType {
+    id: string;
+    phone: string;
+    email: string;
+    whatsApp: string;
+    facebook: string;
+    instagram: string;
+    tiktok: string;
+    createdAt: Date;
+    updatedAt: Date
+  }
+export interface ContactTypes extends APIResponse {
+  data : ContactType [] | []
+}
 export interface AddressType {
     id: string;
     country: string;

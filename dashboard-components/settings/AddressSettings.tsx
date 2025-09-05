@@ -89,8 +89,8 @@ function AddressSettings() {
       <h2 className="font-semibold text-lg lg:text-xl mb-4">
         Address and Location
       </h2>
-      <div className="flex gap-4 text-foreground/70">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex flex-col lg:flex-row gap-4 text-foreground/70">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Country</span>
           <Input
             value={
@@ -107,7 +107,7 @@ function AddressSettings() {
           />
         </p>
 
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+        <p className="flex flex-col  gap-1 text-sm w-full lg:w-1/2">
           <span>State / Region</span>
           <Input
             value={
@@ -124,8 +124,8 @@ function AddressSettings() {
           />
         </p>
       </div>
-      <div className="flex gap-4 text-foreground/70 mt-4">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex flex-col lg:flex-row gap-4 text-foreground/70 mt-4">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Town / City</span>
           <Input
             value={
@@ -141,7 +141,7 @@ function AddressSettings() {
             onChange={handleChange}
           />
         </p>
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Address</span>
           <Input
             value={
@@ -158,8 +158,8 @@ function AddressSettings() {
           />
         </p>
       </div>
-      <div className="flex gap-4 text-foreground/70 mt-4">
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+      <div className="flex flex-col lg:flex-row gap-4 text-foreground/70 mt-4">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Currency</span>
           <Input
             value={
@@ -175,7 +175,7 @@ function AddressSettings() {
             onChange={handleChange}
           />
         </p>
-        <p className="flex flex-col gap-1 text-sm w-1/2">
+        <p className="flex flex-col gap-1 text-sm w-full lg:w-1/2">
           <span>Language</span>
           <Input
             value={
