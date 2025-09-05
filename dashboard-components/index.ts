@@ -10,6 +10,13 @@ export { default as Loader } from './Loader'
 export { default as NoData } from './NoData'
 export { default as LoadingBTN } from '../components/LoadingBTN'
 
+//SETTINGS
+export { default as ProfileSettings } from './settings/ProfileSettings'
+export { default as ContactSettings } from './settings/ContactSettings'
+export { default as AddressSettings } from './settings/AddressSettings'
+export { default as TransferSettings } from './settings/TransferSettings'
+export { default as DeleteSettings } from './settings/DeleteSettings'
+export { default as MapForm } from './settings/MapForm'
 
 export { default as HeroCard } from './HeroCard'
 export { default as HeroCardsSkeleton } from './skeletons/HeroCardsSkeleton'

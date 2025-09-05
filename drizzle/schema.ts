@@ -18,6 +18,41 @@ export const usersTable = pgTable("users", {
   createAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const ContactTable = pgTable("contact_details", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  whatsApp: varchar({ length: 255 }).notNull().default(''),
+  email: varchar({ length: 255 }).notNull().default(''),
+  phone: varchar({ length: 255 }).notNull().default(''),
+  facebook: varchar({ length: 255 }).notNull().default(''),
+  instagram: varchar({ length: 255 }).notNull().default(''),
+  tiktok: varchar({ length: 255 }).notNull().default(''),
+  youTube: varchar({ length: 255 }).notNull().default(''),
+  twitter: varchar({ length: 255 }).notNull().default(''),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const ProjectInfoTable = pgTable("project_info", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  projectName: varchar('project_name', { length: 255 }).notNull().default(''),
+  tagLine: varchar('tag_line', { length: 255 }).notNull().default(''),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const locationTable = pgTable("location", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  country: varchar( { length: 255 }).notNull().default(''),
+  state: varchar({ length: 255 }).notNull().default(''),
+  city: varchar({ length: 255 }).notNull().default(''),
+  address: varchar({ length: 255 }).notNull().default(''),
+  currency: varchar({ length: 255 }).notNull().default('USD'),
+  language: varchar({ length: 255 }).notNull().default('English (United States)'),
+  mapPin: jsonb( 'map_pin').notNull().default({lat: '', lgn: ''}),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 export const productsTable = pgTable("products", {
   id: uuid("id").defaultRandom().primaryKey(),
   name: varchar({ length: 255 }).notNull().unique(),

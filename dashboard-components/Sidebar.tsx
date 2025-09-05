@@ -73,7 +73,7 @@ function Sidebar({
         </div>
         <div className="flex flex-col  gap-1 ">
           <Link
-            href={""}
+            href={"/dashboard/settings"}
              onClick={closeSidebar}
             className="flex items-center gap-4 flex-nowrap px-4 2xl:px-9 py-2 "
           >
