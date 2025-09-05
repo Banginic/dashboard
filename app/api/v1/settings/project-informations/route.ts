@@ -16,7 +16,7 @@ export async function GET() {
     }
     return NextResponse.json(
       {
-        success: false,
+        success: true,
         messge: "success fetching project infor",
         data: projectInfo,
       },
@@ -43,12 +43,7 @@ export async function POST(req: Request) {
 
   const body = await req.json();
   try {
-    // if (!projectId) {
-    //   return NextResponse.json(
-    //     { success: false, messge: "Project ID is required", data: [] },
-    //     { status: 400 }
-    //   );
-    // }
+   
     if (!body) {
       return NextResponse.json(
         { success: false, messge: "Updated values are required", data: [] },
@@ -78,9 +73,18 @@ export async function POST(req: Request) {
     }
 
     //PROJECT EXIST......
+
+     if (!projectId) {
+      return NextResponse.json(
+        { success: false, messge: "Project ID is required", data: [] },
+        { status: 400 }
+      );
+    }
     project = await db
       .update(ProjectInfoTable)
-      .set({ projectName, tagLine });
+      .set({ projectName, tagLine })
+      .where(eq(ProjectInfoTable.id, projectId)) ;
+
     return NextResponse.json(
       {
         success: true,

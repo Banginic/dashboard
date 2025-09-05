@@ -47,9 +47,9 @@ export const ProjectInfoTable = pgTable("project_info", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-export const locationTable = pgTable("location", {
+export const LocationTable = pgTable("location", {
   id: uuid("id").defaultRandom().primaryKey(),
-  adminId: uuid('admin_id').notNull().references(() => usersTable.id, {onDelete: 'cascade'}),
+  // adminId: uuid('admin_id').notNull().references(() => usersTable.id, {onDelete: 'cascade'}),
   country: varchar( { length: 255 }).notNull().default(''),
   state: varchar({ length: 255 }).notNull().default(''),
   city: varchar({ length: 255 }).notNull().default(''),

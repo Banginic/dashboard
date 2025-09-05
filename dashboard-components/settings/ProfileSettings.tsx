@@ -13,7 +13,6 @@ import React, { useState, useEffect, ChangeEvent } from "react";
 import { toast } from "react-toastify";
 
 function ProfileSettings() {
-  const [hasChanged, setChange] = useState(false);
   const fetchDetails = {
     endpoint: "/settings/project-informations",
     method: "GET",
@@ -56,7 +55,7 @@ function ProfileSettings() {
 
   // ..................Update details..................
   const updateDetails = {
-    endpoint: "/settings/project-informations",
+    endpoint: `/settings/project-informations?project_id=${data?.data[0]?.id}`,
     method: "POST",
     title: "project info",
     body: projectInfo,
@@ -85,7 +84,6 @@ function ProfileSettings() {
   function handleChange(
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) {
-    setChange(true);
     const { value, name } = e.target;
     setProjectInfo({ ...projectInfo, [name]: value });
   }
@@ -164,7 +162,7 @@ function ProfileSettings() {
       </p>
 
       <>
-        {isChanged && !isPending && !data?.data && (
+        {isChanged && (!isPending && data?.data )&&  (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

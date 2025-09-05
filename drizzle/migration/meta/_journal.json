@@ -15,6 +15,13 @@
       "when": 1757081269984,
       "tag": "0001_supreme_winter_soldier",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757089254129,
+      "tag": "0002_wet_luke_cage",
+      "breakpoints": true
     }
   ]
 }

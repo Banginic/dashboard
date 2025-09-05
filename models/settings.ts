@@ -12,3 +12,19 @@ export interface ProfileInfoType {
 export interface ProfileInfoTypes extends APIResponse {
   data : ProfileInfoType [] | []
 }
+
+
+export interface AddressType {
+    id: string;
+    country: string;
+    state: string;
+    city: string;
+    address: string;
+    currency: string;
+    language: string;
+    createdAt: Date;
+    updatedAt: Date
+  }
+export interface AddressTypes extends APIResponse {
+  data : AddressType [] | []
+}

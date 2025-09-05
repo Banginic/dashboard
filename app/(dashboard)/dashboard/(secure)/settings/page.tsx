@@ -15,7 +15,7 @@ function Settings() {
       <Title text1="Settings" />
       <div className="space-y-6 mt-6 lg:mt-8">
         <ProfileSettings />
-        <ContactSettings />
+        {/* <ContactSettings /> */}
         <AddressSettings />
         <TransferSettings />
         <DeleteSettings />
