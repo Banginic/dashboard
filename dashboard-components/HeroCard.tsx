@@ -24,8 +24,8 @@ function HeroCard({
   Graph,
 }: PropsTypes) {
   return (
-    <div className="  overflow-hidden">
-      <article className="bg-secondary-foreground text-secondary border border-sidebar-ring/30 shadow-accent/10 hover:shadow-accent/30 p-6 shadow-md rounded-lg  lg:w-72 2xl:w-sm mx-auto trans">
+    <div className=" overflow-hidden">
+      <article className="bg-secondary text-secondary-foreground border border-sidebar-ring/70 shadow-accent/10 hover:shadow-accent/30 p-6 shadow-md rounded-lg  lg:w-72 2xl:w-sm mx-auto trans">
         <div className="flex justify-between items-center">
           <h1 className="font-semibold  text-sm">{title}</h1>
           <div className="size-8 rounded-full bg-accent grid place-items-center">

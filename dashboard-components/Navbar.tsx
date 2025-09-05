@@ -16,7 +16,7 @@ function Navbar({
   }
   return (
     <header>
-      <nav className="h-[10dvh] lg:h-[12dvh] flex bg-secondary-foreground text-secondary justify-between overflow-hidden items-center px-4 lg:px-12 fixed top-0 right-0 left-0">
+      <nav className="h-[10dvh] lg:h-[12dvh] flex bg-secondary text-secondary-foreground border-b border-sidebar-ring/50 justify-between overflow-hidden items-center px-4 lg:px-12 fixed top-0 right-0 left-0">
         <Button onClick={toggleSidebar} variant={"ghost"} className="">
           {showSidebar ? <ArrowLeft size={45} /> : <AlignLeft size={45} />}
         </Button>

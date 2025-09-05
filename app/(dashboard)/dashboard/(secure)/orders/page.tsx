@@ -17,7 +17,7 @@ async function Orders() {
  const data = await useFetch<OrdersTypes>(fetchDetails)
   function reFetch(){}
   return (
-    <div className="py-8">
+    <div className="py-8 bg-primary text-primary-foreground min-h-[88dvh]">
       <Title text1="Orders" />
       <section className="mt-12 ">
         { !data?.success ? (

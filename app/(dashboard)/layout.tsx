@@ -3,13 +3,13 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 
 function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-primary text-primary-foreground">
+    <div className="min-h-screen bg-background text-foreground">
       <NextThemesProvider
         attribute={"class"}
         defaultTheme="system"
-        enableSystem={true}
-        disableTransitionOnChange={true}
-        enableColorScheme={true}
+        enableSystem
+        disableTransitionOnChange
+        enableColorScheme
       >
         {children}
       </NextThemesProvider>

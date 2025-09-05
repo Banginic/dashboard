@@ -29,14 +29,14 @@ function Sidebar({
     { name: "Products", Icon: Cake, href: "/dashboard/products" },
     { name: "Employees", Icon: Users, href: "/dashboard/employees" },
     { name: "News", Icon: MessageSquareText, href: "/dashboard/news" },
-    { name: "Testimonials", Icon: Award, href: "/dashboard/testimonials" },
+    { name: "Testimonials", Icon: Award, href: "/dashboard/testimonies" },
   ] as const;
   function closeSidebar() {
     setSidebar(false);
   }
   return (
     <section
-      className={`bg-secondary-foreground text-secondary  ${
+      className={`bg-secondary text-secondary-foreground border border-sidebar-ring/50 ${
         showSidebar ? "w-[45vw]" : "w-[0vw] hidden lg:block"
       } ${
         showSidebar ? "lg:w-[12vw] block" : "lg:w-[6vw] block"
