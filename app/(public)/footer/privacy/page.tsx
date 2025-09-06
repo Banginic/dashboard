@@ -60,7 +60,7 @@ export default function PrivacyPolicyPage() {
   };
 
   return (
-    <section className="mx-auto bg-secondary/70 text-foreground border rounded-md w-full max-w-4xl my-8 px-4 sm:px-6 md:px-8 py-10 md:py-16">
+    <section className="mx-auto bg-secondary/70 text-foreground border rounded-md w-[95%] max-w-4xl my-8 px-4 sm:px-6 md:px-8 py-10 md:py-16">
       {/* JSON-LD for SEO */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
@@ -102,7 +102,7 @@ export default function PrivacyPolicyPage() {
       <div className="space-y-10">
         <Section id="intro" title={`About ${companyName}`}>
           <p className="text-secondary-foreground">
-            {companyName} ("we", "our", or "us") operates {websiteName}. This Privacy Policy explains how we
+            {companyName} operates {websiteName}. This Privacy Policy explains how we
             collect, use, disclose, and safeguard information when you visit our website or use our services.
             By accessing or using our services, you agree to the terms of this Policy.
           </p>
@@ -177,7 +177,6 @@ export default function PrivacyPolicyPage() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-2 text-sm text-muted-foreground">This list is illustrative; customize to match your actual stack.</p>
             </div>
           ) : null}
         </Section>
@@ -187,9 +186,6 @@ export default function PrivacyPolicyPage() {
             We use cookies and similar technologies to remember preferences, keep you signed in, provide security,
             analyze traffic, and personalize content. You can control cookies in your browser settings or via available
             in-product controls. Disabling cookies may affect site functionality.
-          </p>
-          <p className="mt-2 text-sm">
-            Tip: Provide a <Kbd>Cookie Settings</Kbd> link or banner if you use analytics/advertising cookies in regions that require consent.
           </p>
         </Section>
 

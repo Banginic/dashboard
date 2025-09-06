@@ -4,6 +4,7 @@ import { Logo } from "@/components/index";
 import { PERSONAL_DATA } from "@/assets/data";
 
 const MainFooter = () => {
+    
   const footerLinks = {
     company: [
       { name: "About Us", path: "/about" },
