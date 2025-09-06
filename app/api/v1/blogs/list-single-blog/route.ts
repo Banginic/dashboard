@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { JobTable } from "@/drizzle/schema";
+import { BlogTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { eq } from "drizzle-orm";
 
@@ -7,29 +7,29 @@ export async function GET(req: Request) {
     
   try {
     const {searchParams} = new URL(req.url)
-    const jobId = searchParams.get('job_id')
+    const blog_id = searchParams.get('blog_id')
 
-    if(!jobId){
+    if(!blog_id){
            return NextResponse.json(
-        { success: false, error: 'Please Provide a Job ID', data: [] },
+        { success: false, error: 'Please Provide a Blog ID', data: [] },
         { status: 400 }
       );
     }
-    const Job = await db.select().from(JobTable)
-    .where(eq(JobTable.id, jobId))
+    const blog = await db.select().from(BlogTable)
+    .where(eq(BlogTable.id, blog_id))
     .limit(1);
 
-    if (Job.length === 0) {
+    if (blog.length === 0) {
       return NextResponse.json({
         success: false,
-        error: "No Job Available",
+        error: "No Blog  Available",
         data: 404,
       });
     }
     return NextResponse.json({
       success: true,
-      message: "Success Fetching Job",
-      data: Job,
+      Blog: "Success Fetching Blog ",
+      data: blog,
     });
   } catch (ex) {
     if (ex instanceof Error) {
@@ -39,7 +39,7 @@ export async function GET(req: Request) {
       );
     }
     return NextResponse.json(
-      { success: false, error: "Error Fetching Job", data: [] },
+      { success: false, error: "Error Fetching Blog ", data: [] },
       { status: 500 }
     );
   }
