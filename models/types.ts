@@ -63,6 +63,46 @@ export interface EmployeeType {
 export interface EmployeeTypes extends APIResponse {
   data : EmployeeType [] | []
 }
+export interface JobType {
+    id: string;
+    title: string;
+    location: string;
+    description: string;
+    latestDate: Date;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+export interface JobTypes extends APIResponse {
+  data : JobType [] | []
+}
+export interface BlogType {
+    id: string;
+    author: string;
+    category: string;
+    likes: string;
+    post: string;
+    photo: string;
+    avatar: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+export interface BlogTypes extends APIResponse {
+  data : BlogType [] | []
+}
+export interface JobApplicationType {
+    id: string;
+    jobId: string;
+    name: string;
+    email: string;
+    phone: string;
+    motivation: string;
+    cv: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+export interface JobApplicationTypes extends APIResponse {
+  data : JobApplicationType [] | []
+}
 
 export interface OrderType {
     id: string;
