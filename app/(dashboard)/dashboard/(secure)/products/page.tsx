@@ -11,7 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ProductTypes } from "@/models/types";
 
 
-function products() {
+function Products() {
   const [showProductForm, setProductForm] = useState(false);
   const fetchDetails = {
     endpoint: "/products/list-all-products?limit=20",
@@ -67,4 +67,4 @@ function products() {
   );
 }
 
-export default products;
+export default Products;

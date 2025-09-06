@@ -1,43 +1,43 @@
 import { NextResponse } from "next/server";
-import { messagesTable } from "@/drizzle/schema";
+import { JobTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { eq } from "drizzle-orm";
 
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const messageId = searchParams.get("messageId");
+    const job_id = searchParams.get("job_id");
 
-    if (!messageId) {
+    if (!job_id) {
       return NextResponse.json(
-        { success: false, error: "Please Provide a Message ID", data: [] },
+        { success: false, error: "Please Provide a Job ID", data: [] },
         { status: 400 }
       );
     }
-    const message = await db
+    const job = await db
       .select()
-      .from(messagesTable)
-      .where(eq(messagesTable.id, messageId))
+      .from(JobTable)
+      .where(eq(JobTable.id, job_id))
       .limit(1);
 
-    if (message.length === 0) {
+    if (job.length === 0) {
       return NextResponse.json({
         success: false,
-        error: "No Message Available",
+        error: "No Job Available",
         data: [],
       },
     {status: 400});
     }
 
-    await db.delete(messagesTable)
-    .where(eq(messagesTable.id, messageId))
+    await db.delete(JobTable)
+    .where(eq(JobTable.id, job_id))
     .returning()
 
 
     return NextResponse.json(
       {
         success: true,
-        message: "Message Deleted Successfully",
+        Job: "Job Deleted Successfully",
         data: [],
       },
       { status: 203 }
@@ -50,7 +50,7 @@ export async function DELETE(req: Request) {
       );
     }
     return NextResponse.json(
-      { success: false, error: "Error Deleting Message", data: [] },
+      { success: false, error: "Error Deleting Job", data: [] },
       { status: 500 }
     );
   }
