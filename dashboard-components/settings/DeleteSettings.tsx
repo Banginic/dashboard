@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import {  Trash } from "lucide-react";
 import React from "react";
 
-function DeleteSettings() {
+function DeleteSettings({projectId} : {projectId: string}) {
   return (
     <div className="border  p-4 rounded-md  w-[95%] max-w-2xl mx-auto">
       <h2 className="font-semibold text-lg lg:text-xl  mb-4">Delete Project</h2>

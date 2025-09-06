@@ -48,6 +48,12 @@ export async function POST (req: Request){
             { status: 400 }
           );
         }
+        if (!projectId) {
+          return NextResponse.json(
+            { success: false, messge: "Project ID required", data: [] },
+            { status: 400 }
+          );
+        }
         const { country, state, city, address: newAddress, currency, language } = body;
     
         const projectInfo = await db
@@ -60,7 +66,7 @@ export async function POST (req: Request){
         // NO PROJECT EXIST......
         if (projectInfo.length === 0) {
           address = await db.insert(LocationTable)
-          .values({ currency, country, state, city, address:newAddress, language, mapPin: {lat: '', lgn: ''}})
+          .values({ currency, country, projectId, state, city, address:newAddress, language, mapPin: {lat: '', lgn: ''}})
            return NextResponse.json(
           {
             success: true,

@@ -18,11 +18,18 @@ export const usersTable = pgTable("users", {
   createAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const ProjectInfoTable = pgTable("project_info", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  // adminId: uuid('admin_id').notNull().references(() => usersTable.id, {onDelete: 'cascade'}),
+  projectName: varchar('project_name', { length: 255 }).notNull().default(''),
+  tagLine: varchar('tag_line', { length: 255 }).notNull().default(''),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 export const ContactTable = pgTable("contact_details", {
   id: uuid("id").defaultRandom().primaryKey(),
-  // adminId: uuid("admin_id")
-  //   .notNull()
-  //   .references(() => usersTable.id, { onDelete: "cascade" }),
+  projectId: uuid('project_id').notNull().references(() => ProjectInfoTable.id, {onDelete: 'cascade'}),
   whatsApp: varchar("whats_app", { length: 255 }).notNull().default(""),
   email: varchar("email", { length: 255 }).notNull().default(""),
   phone: varchar("phone", { length: 255 }).notNull().default(""),
@@ -35,18 +42,9 @@ export const ContactTable = pgTable("contact_details", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-export const ProjectInfoTable = pgTable("project_info", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  // adminId: uuid('admin_id').notNull().references(() => usersTable.id, {onDelete: 'cascade'}),
-  projectName: varchar('project_name', { length: 255 }).notNull().default(''),
-  tagLine: varchar('tag_line', { length: 255 }).notNull().default(''),
-  createAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
 export const LocationTable = pgTable("location", {
   id: uuid("id").defaultRandom().primaryKey(),
-  // adminId: uuid('admin_id').notNull().references(() => usersTable.id, {onDelete: 'cascade'}),
+  projectId: uuid('project_id').notNull().references(() => ProjectInfoTable.id, {onDelete: 'cascade'}),
   country: varchar( { length: 255 }).notNull().default(''),
   state: varchar({ length: 255 }).notNull().default(''),
   city: varchar({ length: 255 }).notNull().default(''),

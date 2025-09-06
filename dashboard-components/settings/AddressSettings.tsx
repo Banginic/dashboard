@@ -12,9 +12,9 @@ import { dashboardProvider } from "@/providers/dashboard-provider";
 import { toast } from "react-toastify";
 import LoadingBTN from "@/components/LoadingBTN";
 
-function AddressSettings() {
+function AddressSettings({ projectId }: { projectId: string }) {
   const fetchDetails = {
-    endpoint: "/settings/address",
+    endpoint: "/settings/address?project_id=" + projectId,
     method: "GET",
     title: "Address info",
   };
@@ -47,7 +47,7 @@ function AddressSettings() {
 
   // ..................Update details..................
   const updateDetails = {
-    endpoint: `/settings/address?project_id=${data?.data[0]?.id || '007'}`,
+    endpoint: `/settings/address?project_id=${projectId}`,
     method: "POST",
     title: "address info",
     body: addressInfo,
@@ -200,7 +200,7 @@ function AddressSettings() {
         <span>Set / Update map</span>
       </Link>
       <>
-        {isChanged && (!isPending && data?.data ) && isError && (
+        {isChanged && (!isPending && data?.data ) && !isError && (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

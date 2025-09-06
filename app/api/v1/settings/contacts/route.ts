@@ -48,6 +48,12 @@ export async function POST (req: Request){
             { status: 400 }
           );
         }
+        if (!projectId) {
+          return NextResponse.json(
+            { success: false, messge: "Project ID is required required", data: [] },
+            { status: 400 }
+          );
+        }
         const { phone, email, instagram, tiktok, whatsApp, facebook} = body;
     
         const contactInfo = await db
@@ -60,7 +66,7 @@ export async function POST (req: Request){
         // NO PROJECT EXIST......
         if (contactInfo.length === 0) {
           contact = await db.insert(ContactTable)
-          .values({ tiktok, phone, email, instagram, whatsApp, facebook })
+          .values({ tiktok, phone, email, instagram, whatsApp, facebook, projectId })
            return NextResponse.json(
           {
             success: true,

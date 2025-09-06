@@ -10,9 +10,9 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-function ContactSettings() {
+function ContactSettings({ projectId }: { projectId: string }) {
   const fetchDetails = {
-    endpoint: "/settings/contacts",
+    endpoint: `/settings/contacts?project_id=${projectId}`,
     method: "GET",
     title: "Address info",
   };
@@ -45,7 +45,7 @@ function ContactSettings() {
 
   // ..................Update details..................
   const updateDetails = {
-    endpoint: `/settings/contacts?project_id=${data?.data[0]?.id || "007"}`,
+    endpoint: `/settings/contacts?project_id=${projectId}`,
     method: "POST",
     title: "address info",
     body: contactInfo,
@@ -194,7 +194,7 @@ function ContactSettings() {
       </div>
 
       <>
-        {isChanged && (!isPending && data?.data ) && isError &&  (
+        {isChanged && (!isPending && data?.data ) && !isError &&  (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

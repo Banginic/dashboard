@@ -1,5 +1,5 @@
 {
-  "id": "1ce4b7cf-6e3f-4744-9428-643335192804",
+  "id": "ae8cb998-51cf-4778-a2cd-3f762a417463",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -15,14 +15,14 @@
           "notNull": true,
           "default": "gen_random_uuid()"
         },
-        "admin_id": {
-          "name": "admin_id",
+        "project_id": {
+          "name": "project_id",
           "type": "uuid",
           "primaryKey": false,
           "notNull": true
         },
-        "whatsApp": {
-          "name": "whatsApp",
+        "whats_app": {
+          "name": "whats_app",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
@@ -63,19 +63,108 @@
           "notNull": true,
           "default": "''"
         },
-        "youTube": {
-          "name": "youTube",
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "contact_details_project_id_project_info_id_fk": {
+          "name": "contact_details_project_id_project_info_id_fk",
+          "tableFrom": "contact_details",
+          "tableTo": "project_info",
+          "columnsFrom": [
+            "project_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.location": {
+      "name": "location",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "project_id": {
+          "name": "project_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "country": {
+          "name": "country",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "default": "''"
         },
-        "twitter": {
-          "name": "twitter",
+        "state": {
+          "name": "state",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true,
           "default": "''"
+        },
+        "city": {
+          "name": "city",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "address": {
+          "name": "address",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
+        },
+        "currency": {
+          "name": "currency",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'USD'"
+        },
+        "language": {
+          "name": "language",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'English (United States)'"
+        },
+        "map_pin": {
+          "name": "map_pin",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{\"lat\":\"\",\"lgn\":\"\"}'::jsonb"
         },
         "created_at": {
           "name": "created_at",
@@ -94,12 +183,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "contact_details_admin_id_users_id_fk": {
-          "name": "contact_details_admin_id_users_id_fk",
-          "tableFrom": "contact_details",
-          "tableTo": "users",
+        "location_project_id_project_info_id_fk": {
+          "name": "location_project_id_project_info_id_fk",
+          "tableFrom": "location",
+          "tableTo": "project_info",
           "columnsFrom": [
-            "admin_id"
+            "project_id"
           ],
           "columnsTo": [
             "id"
@@ -239,109 +328,6 @@
       },
       "indexes": {},
       "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.location": {
-      "name": "location",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "admin_id": {
-          "name": "admin_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "country": {
-          "name": "country",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "''"
-        },
-        "state": {
-          "name": "state",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "''"
-        },
-        "city": {
-          "name": "city",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "''"
-        },
-        "address": {
-          "name": "address",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "''"
-        },
-        "currency": {
-          "name": "currency",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'USD'"
-        },
-        "language": {
-          "name": "language",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'English (United States)'"
-        },
-        "map_pin": {
-          "name": "map_pin",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'{\"lat\":\"\",\"lgn\":\"\"}'::jsonb"
-        },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "location_admin_id_users_id_fk": {
-          "name": "location_admin_id_users_id_fk",
-          "tableFrom": "location",
-          "tableTo": "users",
-          "columnsFrom": [
-            "admin_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {},
       "policies": {},

@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1757080855023,
-      "tag": "0000_lean_the_liberteens",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1757081269984,
-      "tag": "0001_supreme_winter_soldier",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1757089254129,
-      "tag": "0002_wet_luke_cage",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1757091004559,
-      "tag": "0003_low_daredevil",
+      "when": 1757155918591,
+      "tag": "0000_married_jigsaw",
       "breakpoints": true
     }
   ]
