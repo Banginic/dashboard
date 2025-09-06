@@ -10,7 +10,7 @@ import React from "react";
 
 async function Orders() {
  const fetchDetails = {
-  endpoint: '/api/orders/list-all-orders?limit=15',
+  endpoint: '/orders/list-all-orders?limit=15',
   method: 'GET',
   title: 'orders'
  }

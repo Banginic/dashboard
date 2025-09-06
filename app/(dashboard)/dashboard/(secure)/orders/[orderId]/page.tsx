@@ -16,7 +16,7 @@ import { OrdersTypes } from "@/models/types";
 function OrderDetail({ params }: { params: Promise<{ orderId: string }> }) {
   const { orderId } = use(params);
   const fetchDetails = {
-    endpoint: `/api/orders/list-single-order?order_id=${orderId}`,
+    endpoint: `/orders/list-single-order?order_id=${orderId}`,
     method: "GET",
     title: "order",
   };

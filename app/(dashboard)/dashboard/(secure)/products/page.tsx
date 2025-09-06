@@ -14,7 +14,7 @@ import { ProductTypes } from "@/models/types";
 function products() {
   const [showProductForm, setProductForm] = useState(false);
   const fetchDetails = {
-    endpoint: "/api/products/list-all-products?limit=20",
+    endpoint: "/products/list-all-products?limit=20",
     method: "GET",
     title: "products",
   };

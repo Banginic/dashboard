@@ -16,7 +16,7 @@ import { MessageTypes } from "@/models/types";
 function MessageDetail({ params }: { params: Promise<{ messageId: string }> }) {
   const { messageId } = use(params);
   const fetchDetails = {
-    endpoint: `/api/messages/list-single-message?messageId=${messageId}`,
+    endpoint: `/messages/list-single-message?messageId=${messageId}`,
     method: "GET",
     title: "message",
   };

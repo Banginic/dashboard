@@ -16,7 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 function News() {
   const [showNewsForm, setNewsForm] = useState(false);
   const fetchDetails = {
-    endpoint: "/api/news/list-all-news?limit=15",
+    endpoint: "/news/list-all-news?limit=15",
     method: "GET",
     title: "news",
   };
@@ -34,7 +34,7 @@ function News() {
       <div className=" w-[95%] max-w-3xl mx-auto">
         <button
           onClick={toggleNewsForm}
-          className="py-2 px-4 rounded bg-indigo-800 mt-12 cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
+          className="py-2 px-4 ml-[5%] rounded bg-indigo-800 mt-12 cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
         >
           <PlusCircle size={18} />
           <span>Create News</span>

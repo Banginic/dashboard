@@ -13,12 +13,12 @@ function NewsDetails({ news }: { news: NewsType }) {
   
 
   const deleteDetails = {
-    endpoint: `/api/news/delete-single-news?news_id=${id}`,
+    endpoint: `/news/delete-single-news?news_id=${id}`,
     method: "DELETE",
     title: "News",
   };
   const activeDetails = {
-    endpoint: `/api/news/update-active-news?news_id=${id}&current_status=${
+    endpoint: `/news/update-active-news?news_id=${id}&current_status=${
       isActive ? "active" : "not-active"
     }`,
     method: "PUT",
@@ -56,21 +56,21 @@ function NewsDetails({ news }: { news: NewsType }) {
   return (
     <div >
 
-      <div className=" flex flex-col gap-4 lg:gap-4 w-[95%] max-w-3xl mx-auto">
-        <article className=" p-4 lg:p-6 bg-white rounded text-neutral-700 shadow-indigo-200 hover:shadow-indigo-400 shadow-md">
+      <div className=" flex flex-col gap-4 lg:gap-4 w-[95%]  max-w-3xl mx-auto">
+        <article className=" p-4 lg:p-6 bg-secondary border border-secondary-foreground/30 rounded text-foreground ">
           <div className="flex justify-between items-center ml-2 ">
             <div className="flex flex-col text-xs lg:text-sm">
-              <span className="text-neutral-500">News Id</span>
-              <span>NEWS-{id.slice(32)}</span>
+              <span className="text-foreground/70 ">News Id</span>
+              <span>{id.slice(22)}</span>
             </div>
             <div className="flex flex-col gap-1">
               <div className="flex flex-col text-[16px] h-8">
-                <span className="text-neutral-500 sr-only">Status</span>
+                <span className="text-foreground/70 sr-only">Status</span>
                 {isActive && <span className="text-green-500 ">Active</span>}
               </div>
               <div className="flex flex-col text-[16px] ">
-                <span className="text-neutral-500 sr-only">Date posted</span>
-                <span className="text-yellow-700">
+                <span className="text-foreground/70 sr-only">Date posted</span>
+                <span className="text-chart-3">
                   {isActive
                     ? new Date(updatedAt).toLocaleDateString("en-GB")
                     : new Date(createdAt).toLocaleDateString("en-GB")}
@@ -79,11 +79,11 @@ function NewsDetails({ news }: { news: NewsType }) {
             </div>
           </div>
           <div className="flex flex-col text-[16px]  mt-4 ml-2">
-            <span className="text-neutral-500 ">Subject</span>
+            <span className="text-foreground/70 ">Subject</span>
             <span>{subject}</span>
           </div>
-          <div className="flex flex-col text-[16px]  mt-2 bg-gray-100 rounded p-2 min-h-15">
-            <span className="text-neutral-500 sr-only">body</span>
+          <div className="flex flex-col text-[16px]  mt-2 bg-background/50 text-secondary-foreground/70 rounded p-2 min-h-15">
+            <span className="text-foreground/70 sr-only">body</span>
             <span>{body}</span>
           </div>
 
@@ -94,8 +94,8 @@ function NewsDetails({ news }: { news: NewsType }) {
               onClick={handleActiveNews}
               className={`py-2 px-4 ${
                 isActive
-                  ? "bg-yellow-100 hover:bg-yellow-400 text-yellow-800"
-                  : "bg-green-100 hover:bg-green-400  text-green-800"
+                  ? "bg-chart-3/70 hover:bg-chart-3 text-background"
+                  : "bg-chart-2 hover:bg-green-400  text-background"
               } hover:opacity-80 trans rounded text-sm cursor-pointer ${
                 DISABLED_BTN && "bg-gray-300 text-gray-800"
               }`}
@@ -127,7 +127,7 @@ function NewsDetails({ news }: { news: NewsType }) {
             <button
               disabled={DISABLED_BTN}
               onClick={handleDeleteNews}
-              className={`py-2 px-4 bg-red-100 text-red-800 hover:bg-red-400 trans rounded text-sm cursor-pointer  ${
+              className={`py-2 px-4 bg-destructive  text-white hover:scale-x-105 trans rounded text-sm cursor-pointer  ${
                 DISABLED_BTN && "bg-gray-300 text-gray-800"
               }`}
             >

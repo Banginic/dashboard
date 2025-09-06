@@ -22,7 +22,7 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   const postNews = async (formData: NewsSchemaType): Promise<NewsTypes> => {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-      const response = await fetch(`${baseUrl}/api/news/create-single-news`, {
+      const response = await fetch(`${baseUrl}/api/v1/news/create-single-news`, {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },
@@ -113,7 +113,7 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-6 w-full bg-accent items-center justify-center text-accent-foreground flex cursor-pointer hover:translate-x-105 disabled:bg-gray-400 trans rounded  py-2.5 trans px-4  "
+        className="mt-6 w-full bg-accent items-center justify-center text-accent-foreground flex cursor-pointer hover:scale-x-105 disabled:bg-gray-400 trans rounded  py-2.5 trans px-4  "
       >
         {isPending ? (
           <LoadingBTN message="Sending..." />

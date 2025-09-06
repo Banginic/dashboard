@@ -10,7 +10,7 @@ import React from "react";
 
 async function Messages() {
  const fetchDetails = {
-  endpoint: '/api/messages/list-all-messages',
+  endpoint: '/messages/list-all-messages',
   method: 'GET',
   title: 'messages'
  }

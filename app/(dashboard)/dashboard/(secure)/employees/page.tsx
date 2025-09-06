@@ -17,7 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 function Employees() {
   const [showEmployeeForm, setEmployeeForm] = useState(false);
   const fetchDetails = {
-    endpoint: "/api/employees/list-all-employees?limit=10",
+    endpoint: "/employees/list-all-employees?limit=10",
     method: "GET",
     title: "employees",
   };

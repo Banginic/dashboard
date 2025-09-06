@@ -16,7 +16,7 @@ import { useQuery } from "@tanstack/react-query";
 function Testimonials() {
   const [showEmployeeForm, setEmployeeForm] = useState(false);
   const fetchDetails = {
-    endpoint: "/api/testimonials/list-all-testimonials?limit=10",
+    endpoint: "/testimonials/list-all-testimonies?limit=10",
     method: "GET",
     title: "Testimonials",
   };

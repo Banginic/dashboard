@@ -20,7 +20,7 @@ function EmployeeDetail({
 }) {
   const { employeeId } = use(params);
   const fetchDetails = {
-    endpoint: `/api/employees/list-single-employee?employeeId=${employeeId}`,
+    endpoint: `/employees/list-single-employee?employeeId=${employeeId}`,
     method: "GET",
     title: "employee",
   };

@@ -15,7 +15,7 @@ import React, { use } from "react";
 function ProductDetail({ params }: { params: Promise<{ productId: string }> }) {
   const { productId } = use(params);
   const fetchDetails = {
-    endpoint: `/api/products/list-single-product?product_id=${productId}`,
+    endpoint: `/products/list-single-product?product_id=${productId}`,
     method: "GET",
     title: "Product details",
   };

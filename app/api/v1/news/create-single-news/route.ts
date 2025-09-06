@@ -39,6 +39,8 @@ export async function POST(req: Request) {
       success: true,
       message: "News created successfully.",
       data: newNews,
+    }, {
+      status: 201
     });
   } catch (ex) {
     if (ex instanceof Error) {
