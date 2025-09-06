@@ -8,6 +8,8 @@ import { useMutation } from "@tanstack/react-query";
 import { NewsTypes } from "@/models/types";
 import { LoadingBTN } from "@/dashboard-components/index";
 import { dashboardProvider } from "@/providers/dashboard-provider";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   const [successMessage, setSuccessMessage] = useState("");
@@ -66,17 +68,17 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="relative w-[90%] max-w-md border border-gray-300 shadow-indigo-200 text-neutral-700  p-4 lg:p-6 text-sm mx-auto rounded-md bg-white mt-12"
+      className="relative w-[90%] max-w-md border border-muted-foreground shadow-accent text-foreground  p-4 lg:p-6 text-sm mx-auto rounded-md bg-secondary mt-12"
     >
-      <h1 className="font-semibold text-lg lg:text-2xl text-indigo-800">Create News</h1>
-      <p className="text-xs text-neutral-500">
+      <h1 className="font-semibold text-lg lg:text-2xl text-foreground">Create News</h1>
+      <p className="text-sm text-secondary-foreground/70">
         Create news update using the form below.
       </p>
 
       <button
         type="button"
         onClick={closeNewsForm}
-        className="absolute top-4 right-4 rounded cursor-pointer hover:bg-slate-200 bg-slate-100 trans p-1"
+        className="absolute top-4 right-4 text-background rounded cursor-pointer  bg-foreground/80 hover:bg-foreground trans p-1"
       >
         <X size={25} />
       </button>
@@ -84,11 +86,11 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
         <label htmlFor="subject" className="block m-1 ">
           Subject
         </label>
-        <input
+        <Input
           type="text"
           placeholder="Get 20% Discount on your first purchase"
           {...register("subject", { required: true })}
-          className="w-full border border-gray-300 py-2 px-4 rounded"
+          className="w-full border border-muted-foreground py-2 px-4 rounded"
         />
         {errors.subject && (
           <p className="text-pink-400 ">{errors.subject.message}</p>
@@ -98,12 +100,12 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
         <label htmlFor="subject" className="block m-1 ">
           Message
         </label>
-        <textarea
+        <Textarea
           rows={5}
           {...register("message", { required: true })}
           placeholder="Enter the news body."
-          className="w-full border border-gray-300 py-2 px-4 rounded "
-        ></textarea>
+          className="w-full border border-muted-foreground py-2 px-4 rounded "
+        ></Textarea>
         {errors.message && (
           <p className="text-pink-400 ">{errors.message.message}</p>
         )}
@@ -111,7 +113,7 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
       <button
         type="submit"
         disabled={isPending}
-        className="mt-6 w-full bg-indigo-600 items-center justify-center text-indigo-100 flex cursor-pointer hover:bg-indigo-500 disabled:bg-gray-400 trans rounded  py-2 px-4  "
+        className="mt-6 w-full bg-accent items-center justify-center text-accent-foreground flex cursor-pointer hover:translate-x-105 disabled:bg-gray-400 trans rounded  py-2.5 trans px-4  "
       >
         {isPending ? (
           <LoadingBTN message="Sending..." />

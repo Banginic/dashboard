@@ -20,16 +20,16 @@ function RecenctMessages() {
     queryFn: () => useFetch<MessageTypes>(fetchDetails),
   });
   return (
-    <section className="mt-16 text-neutral-700 py-6 px-2">
+    <section className="mt-16 text-forground py-6 px-2">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-xl lg:text-2xl font-semibold">Recent Messages</h1>
-          <p className="text-neutral-600 text-xs lg:text-sm">
+          <p className="text-secondary-foreground/70 text-xs lg:text-sm">
             Latest messaeges from your website
           </p>
         </div>
         <Link
-          href={"/kitchen/messages"}
+          href={"/dashboard/messages"}
           className="text-xs flex items-center gap-2  border border-gray-300 hover:border-gray-500 cursor-pointer py-2 px-4 rounded"
         >
           <span>View All</span>

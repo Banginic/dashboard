@@ -11,6 +11,7 @@ import Image from "next/image";
 import { ProductSchema, ProductSchemaType } from "@/schemas/productsSchema";
 import { place_holder_image } from "@/assets/photos";
 import { CATEGORIES, SUB_CATEGORIES } from "@/assets/data";
+import { Input } from "@/components/ui/input";
 
 interface ProductFormType extends ProductSchemaType {
   photos: File[];
@@ -20,7 +21,7 @@ function ProductForm({
 }: {
   closeForm: Dispatch<SetStateAction<boolean>>;
 }) {
-const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [photos, setPhotos] = useState<File[]>([]);
 
@@ -100,19 +101,17 @@ const [successMessage, setSuccessMessage] = useState("");
     <div className=" w-full h-full lg:h-auto overflow-y-auto lg:max-h-[90vh]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="relative w-[90%] lg:w-lg border my-12 border-gray-300 s text-neutral-700  p-4 lg:p-6 text-sm mx-auto rounded-md bg-white mt-12"
+        className="relative w-[90%] lg:w-lg border my-12  text-foreground  p-4 lg:p-6 text-sm mx-auto rounded-md bg-secondary mt-12"
       >
-        <h1 className="font-semibold text-lg lg:text-2xl text-indigo-800">
-          Add Product
-        </h1>
-        <p className="text-xs text-neutral-500">
+        <h1 className="font-semibold text-lg lg:text-2xl ">Add Product</h1>
+        <p className="text-sm text-secondary-foreground/70">
           Add a new product using the form below.
         </p>
 
         <button
           type="button"
           onClick={closeProductForm}
-          className="absolute top-4 right-4 rounded cursor-pointer hover:bg-slate-200 bg-slate-100 trans p-1"
+          className="absolute top-4 right-4 rounded cursor-pointer text-background bg-foreground/80  hover:bg-foreground trans p-1"
         >
           <X size={25} />
         </button>
@@ -121,7 +120,7 @@ const [successMessage, setSuccessMessage] = useState("");
         <div className="flex items-center gap-2">
           <div
             title={photos[0] ? "Change photo 1" : "Add photo 1"}
-            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm border-gray-300 cursor-pointer mb-4"
+            className="border size-20 mt-8 hover:bg-muted trans rounded-sm  cursor-pointer mb-4"
           >
             <label htmlFor="photo1" className="cursor-pointer">
               <Image
@@ -135,7 +134,7 @@ const [successMessage, setSuccessMessage] = useState("");
                 alt="Employee image"
                 className="size-full object-cover"
               />
-              <input
+              <Input
                 type="file"
                 required
                 onChange={(e) => {
@@ -155,7 +154,7 @@ const [successMessage, setSuccessMessage] = useState("");
           {/* Photo 2 */}
           <div
             title={photos[1] ? "Change photo 2" : "Add photo 2"}
-            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm border-gray-300 cursor-pointer mb-4"
+            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm  cursor-pointer mb-4"
           >
             <label htmlFor="photo2" className="cursor-pointer">
               <Image
@@ -169,7 +168,7 @@ const [successMessage, setSuccessMessage] = useState("");
                 alt="Employee image"
                 className="size-full object-cover"
               />
-              <input
+              <Input
                 type="file"
                 required
                 onChange={(e) => {
@@ -189,7 +188,7 @@ const [successMessage, setSuccessMessage] = useState("");
           {/* Photo 3 */}
           <div
             title={photos[2] ? "Change photo 3" : "Add photo 3"}
-            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm border-gray-300 cursor-pointer mb-4"
+            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm  cursor-pointer mb-4"
           >
             <label htmlFor="photo3" className="cursor-pointer">
               <Image
@@ -203,7 +202,7 @@ const [successMessage, setSuccessMessage] = useState("");
                 alt="Employee image"
                 className="size-full object-cover"
               />
-              <input
+              <Input
                 type="file"
                 required
                 onChange={(e) => {
@@ -223,7 +222,7 @@ const [successMessage, setSuccessMessage] = useState("");
           {/* Photo 4 */}
           <div
             title={photos[3] ? "Change photo 4" : "Add photo 4"}
-            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm border-gray-300 cursor-pointer mb-4"
+            className="border size-20 mt-8 hover:bg-gray-500 trans rounded-sm  cursor-pointer mb-4"
           >
             <label htmlFor="photo4" className="cursor-pointer">
               <Image
@@ -237,7 +236,7 @@ const [successMessage, setSuccessMessage] = useState("");
                 alt="Employee image"
                 className="size-full object-cover"
               />
-              <input
+              <Input
                 type="file"
                 required
                 onChange={(e) => {
@@ -258,11 +257,11 @@ const [successMessage, setSuccessMessage] = useState("");
           <label htmlFor="name" className="block m-1 ">
             Product Name
           </label>
-          <input
+          <Input
             type="text"
             placeholder="Sweet cakes"
             {...register("name", { required: true })}
-            className="w-full border border-gray-300 py-2 px-4 rounded"
+            className="w-full border border-muted-foreground py-2 px-4 rounded"
           />
           {errors.name && (
             <p className="text-pink-400">{errors.name.message}</p>
@@ -275,7 +274,7 @@ const [successMessage, setSuccessMessage] = useState("");
             </label>
             <select
               {...register("category", { required: true })}
-              className="w-full border border-gray-300 py-2 px-4 rounded"
+              className="w-full border border-muted-foreground py-2 px-4 rounded"
             >
               <option value="">Please select category</option>
               {CATEGORIES.map((category) => (
@@ -294,7 +293,7 @@ const [successMessage, setSuccessMessage] = useState("");
             </label>
             <select
               {...register("subCategory", { required: true })}
-              className="w-full border border-gray-300 py-2 px-4 rounded"
+              className="w-full border border-muted-foreground py-2 px-4 rounded"
             >
               <option value="">Please select sub category</option>
               {SUB_CATEGORIES.map((category) => (
@@ -313,11 +312,11 @@ const [successMessage, setSuccessMessage] = useState("");
             <label htmlFor="rating" className="block m-1 ">
               Rating
             </label>
-            <input
+            <Input
               type="number"
               placeholder="4.5"
               {...register("rating", { required: true, valueAsNumber: true })}
-              className="w-full border border-gray-300 py-2 px-4 rounded"
+              className="w-full border border-muted-foreground py-2 px-4 rounded"
             />
             {errors.rating && (
               <p className="text-pink-400 ">{errors.rating.message}</p>
@@ -327,11 +326,11 @@ const [successMessage, setSuccessMessage] = useState("");
             <label htmlFor="price" className="block m-1 ">
               Price
             </label>
-            <input
+            <Input
               type="number"
               placeholder="5000"
               {...register("price", { required: true, valueAsNumber: true })}
-              className="w-full border border-gray-300 py-2 px-4 rounded"
+              className="w-full border border-muted-foreground py-2 px-4 rounded"
             />
             {errors.price && (
               <p className="text-pink-400 ">{errors.price.message}</p>
@@ -342,11 +341,11 @@ const [successMessage, setSuccessMessage] = useState("");
           <label htmlFor="allergies" className="block m-1 ">
             Allergies
           </label>
-          <input
+          <Input
             type="text"
             placeholder="Gluten, Wheat, Egg"
             {...register("allergies", { required: true })}
-            className="w-full border border-gray-300 py-2 px-4 rounded"
+            className="w-full border border-muted-foreground py-2 px-4 rounded"
           />
           {errors.allergies && (
             <p className="text-pink-400 ">{errors.allergies.message}</p>
@@ -360,7 +359,7 @@ const [successMessage, setSuccessMessage] = useState("");
             rows={3}
             {...register("description", { required: true })}
             placeholder="Cake is made up of Sweet vanilla."
-            className="w-full border border-gray-300 py-2 px-4 rounded "
+            className="w-full border border-muted-foreground py-2 px-4 rounded "
           ></textarea>
           {errors.description && (
             <p className="text-pink-400 ">{errors.description.message}</p>
@@ -369,7 +368,7 @@ const [successMessage, setSuccessMessage] = useState("");
         <button
           type="submit"
           disabled={isPending}
-          className="mt-6 w-full bg-indigo-600 items-center justify-center text-indigo-100 flex cursor-pointer hover:bg-indigo-500 disabled:bg-gray-400 trans rounded  py-2 px-4  "
+          className="mt-6 w-full bg-accent items-center justify-center text-accent-foreground flex cursor-pointer hover:translate-x-105 disabled:bg-gray-400 trans rounded  py-2.5 px-4  "
         >
           {isPending ? (
             <LoadingBTN message="Creating..." />

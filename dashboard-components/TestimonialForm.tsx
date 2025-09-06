@@ -13,6 +13,8 @@ import {
   TestimonialSchema,
 } from "@/schemas/testimoniesSchema";
 import { TestimonialTypes } from "@/models/types";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface FormDataType extends TestimonialSchemaType {
   photo: File;
@@ -100,19 +102,19 @@ function TestimonialForm({
     <div className=" w-full h-full lg:h-auto overflow-y-auto lg:max-h-[90vh]">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="relative w-[95%] lg:w-lg border my-12 border-gray-300 shadow-indigo-200 text-neutral-700 p-6 lg:p-6 text-sm mx-auto rounded-md bg-white mt-12"
+        className="relative w-[95%] lg:w-lg border my-12 shadow-accent text-foreground p-6 lg:p-6 text-sm mx-auto rounded-md bg-secondary mt-12"
       >
-        <h1 className="font-semibold text-lg lg:text-2xl text-indigo-800">
+        <h1 className="font-semibold text-lg lg:text-2xl text-foreground">
           Create a Testimony
         </h1>
-        <p className="text-xs text-neutral-500">
+        <p className="text-xs text-secondary-foreground/70">
           Add new Testimony using the form below.
         </p>
 
         <button
           onClick={closeTestimonialForm}
           type="button"
-          className="absolute top-4 right-4 rounded cursor-pointer hover:bg-slate-200 bg-slate-100 trans p-1"
+          className="absolute top-4 right-4 rounded cursor-pointer hover:bg-foreground bg-foreground/70 trans p-1 text-background"
         >
           <X size={25} />
         </button>
@@ -122,7 +124,7 @@ function TestimonialForm({
         <div>
           <div
             title="Add Photo"
-            className=" mt-6 overflow-hidden trans rounded-sm w-[70%] h-[40%] border border-gray-300 shadow grid place-items-center  mx-auto cursor-pointer "
+            className=" mt-6 overflow-hidden trans rounded-sm w-[70%] h-[40%] border shadow grid place-items-center  mx-auto cursor-pointer "
           >
             <label
               htmlFor="photo"
@@ -133,7 +135,7 @@ function TestimonialForm({
                 height={50}
                 src={photo ? URL.createObjectURL(photo) : place_holder_image}
                 alt="Testimony photos"
-                className="size-full object-cover "
+                className="size-full object-cover  "
               />
               <input
                 type="file"
@@ -157,11 +159,11 @@ function TestimonialForm({
           <label htmlFor="name" className="block m-1 ">
             Full Name
           </label>
-          <input
+          <Input
             type="text"
             placeholder="Mary Jones"
             {...register("name", { required: true })}
-            className="w-full border border-gray-300 py-2 px-4 rounded"
+            className="w-full border border-muted-foreground py-2 px-4 rounded"
           />
           {errors.name && (
             <p className="text-pink-400">{errors.name.message}</p>
@@ -173,11 +175,11 @@ function TestimonialForm({
             <label htmlFor="project" className="block m-1 ">
               Title
             </label>
-            <input
+            <Input
               type="text"
               placeholder="CEO of Tradex"
               {...register("title", { required: true })}
-              className="w-full border border-gray-300 py-2 px-4 rounded"
+              className="w-full border border-muted-foreground py-2 px-4 rounded"
             />
             {errors.title && (
               <p className="text-pink-400 ">{errors.title.message}</p>
@@ -187,11 +189,11 @@ function TestimonialForm({
             <label htmlFor="rating" className="block m-1 ">
               Rating
             </label>
-            <input
+            <Input
               type="number"
               placeholder="4.5"
               {...register("rating", { required: true, valueAsNumber: true })}
-              className="w-full border border-gray-300 py-2 px-4 rounded"
+              className="w-full border border-muted-foreground py-2 px-4 rounded"
             />
             {errors.rating && (
               <p className="text-pink-400 ">{errors.rating.message}</p>
@@ -203,12 +205,12 @@ function TestimonialForm({
           <label htmlFor="subject" className="block m-1 ">
             Bio
           </label>
-          <textarea
+          <Textarea
             rows={3}
             {...register("message", { required: true })}
             placeholder="We strongly recommend this company."
-            className="w-full border border-gray-300 py-2 px-4 rounded "
-          ></textarea>
+            className="w-full border border-muted-foreground py-2 px-4 rounded "
+          ></Textarea>
           {errors.message && (
             <p className="text-pink-400 ">{errors.message.message}</p>
           )}
@@ -216,7 +218,7 @@ function TestimonialForm({
         <button
           type="submit"
           disabled={isPending}
-          className="mt-6 w-full bg-indigo-600 items-center justify-center text-indigo-100 flex cursor-pointer hover:bg-indigo-500 disabled:bg-gray-400 trans rounded  py-2 px-4  "
+          className="mt-6 w-full bg-accent items-center justify-center text-accent-foreground flex cursor-pointer hover:scale-x-105 disabled:bg-gray-400 trans rounded  py-2.5 px-4  "
         >
           {isPending ? (
             <LoadingBTN message="Creating..." />

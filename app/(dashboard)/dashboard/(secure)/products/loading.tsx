@@ -12,9 +12,9 @@ function page() {
         {myArray.map((number) => (
           <div
             key={number}
-            className="p-2 border bg-gray-300  w-[95%] mx-auto max-w-3xl border-gray-300  flex justify-between text-sm lg:text-[16px] items-center rounded-lg "
+            className="p-2 border bg-foreground/20  w-[95%] mx-auto max-w-3xl   flex justify-between text-sm lg:text-[16px] items-center rounded-lg "
           >
-            <div className="  bg-gray-400 rounded-md animate-pulse over ">
+            <div className="  bg-foreground/40 rounded-md animate-pulse over ">
               <Image
               width={150}
               height={100}
@@ -24,8 +24,8 @@ function page() {
               
             </div>
             <div className=" ">
-              <p className="h-3 w-23 animate-pulse bg-gray-200"></p>
-              <p className="h-3 w-18 animate-pulse bg-gray-200 mt-1"></p>
+              <p className="h-3 w-23 animate-pulse bg-foreground/30"></p>
+              <p className="h-3 w-18 animate-pulse bg-foreground/30 mt-1"></p>
             </div>
 
             <div className="flex flex-col gap-">

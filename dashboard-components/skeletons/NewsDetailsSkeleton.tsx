@@ -6,12 +6,12 @@ function NewsDetailsSkeleton() {
         {myArray.map((item) => (
           <article
             key={item}
-            className=" p-4 lg:p-6 bg-gray-100 border border-gray-300 rounded"
+            className=" p-4 lg:p-6 bg-foreground/20 border rounded"
           >
             <div className="flex justify-between items-center ml-2 ">
-              <div className="h-6 w-24 bg-gray-200"></div>
+              <div className="h-6 w-24 bg-foreground/30"></div>
               <div className="flex flex-col gap-1">
-                <div className="bg-gray-200 w-20 h-4"></div>
+                <div className="bg-foreground/30 w-20 h-4"></div>
                 <div className="flex flex-col text-[16px] ">
                   <span className="text-neutral-500 sr-only">Date posted</span>
                   <span className="text-yellow-700">
@@ -24,7 +24,7 @@ function NewsDetailsSkeleton() {
               <span className="text-neutral-500 ">Subject</span>
               <p className="h-4 w-[70%] bg-gray-300 animate-pulse"></p>
             </div>
-            <div className=" mt-5 bg-gray-200 rounded animate-pulse p-2 min-h-15">
+            <div className=" mt-5 bg-foreground/30 rounded animate-pulse p-2 min-h-15">
               <span className=" sr-only">body</span>
             </div>
 
