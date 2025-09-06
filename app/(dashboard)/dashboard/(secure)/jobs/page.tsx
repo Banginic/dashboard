@@ -6,15 +6,15 @@ import {
   ErrorFetching,
   JobCard,
   NoData,
-  ProductForm,
   Title,
   JobCardSkeleton,
+  JobForm,
 } from "@/dashboard-components/index";
 import { useQuery } from "@tanstack/react-query";
 import { JobTypes } from "@/models/types";
 
 function Jobs() {
-  const [showProductForm, setProductForm] = useState(false);
+  const [showJobForm, setShowJobForm] = useState(false);
   const fetchDetails = {
     endpoint: "/jobs/list-all-jobs?limit=20",
     method: "GET",
@@ -26,7 +26,7 @@ function Jobs() {
   });
 
   function openPharmacyForm() {
-    setProductForm(true);
+    setShowJobForm(true);
   }
   return (
     <div className="py-8 relative overflow-y-auto">
@@ -68,9 +68,9 @@ function Jobs() {
       </div>
 
       <>
-        {showProductForm && (
+        {showJobForm && (
           <div className="fixed inset-0 bg-black/80 h-screen border grid place-items-center ovrerflow--scroll">
-            <ProductForm closeForm={setProductForm} />
+            <JobForm closeForm={setShowJobForm} />
           </div>
         )}
       </>

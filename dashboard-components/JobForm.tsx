@@ -1,35 +1,37 @@
 "use client";
 import { Send, X } from "lucide-react";
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { NewsSchema, NewsSchemaType } from "@/schemas/newsSchema";
+import { JobSchema, JobSchemaType } from "@/schemas/jobsSchema";
 import { useMutation } from "@tanstack/react-query";
-import { NewsTypes } from "@/models/types";
+import { JobTypes } from "@/models/types";
 import { LoadingBTN } from "@/dashboard-components/index";
 import { dashboardProvider } from "@/providers/dashboard-provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { projectDetails } from "@/constants/project-details";
 
-function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
+function JobsForm({
+  closeForm,
+}: {
+  closeForm: Dispatch<SetStateAction<boolean>>;
+}) {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  function closeNewsForm() {
-    setNewsForm(false);
+  function closeJobsForm() {
+    closeForm(false);
   }
 
-  const postNews = async (formData: NewsSchemaType): Promise<NewsTypes> => {
+  const postJobs = async (formData: JobSchemaType): Promise<JobTypes> => {
     try {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-      const response = await fetch(
-        `${baseUrl}/api/v1/news/create-single-news`,
-        {
-          method: "POST",
-          body: JSON.stringify(formData),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch(`${baseUrl}/api/v1/jobs/create-single-job`, {
+        method: "POST",
+        body: JSON.stringify(formData),
+        headers: { "Content-Type": "application/json" },
+      });
       const data = await response.json();
       return data;
     } catch (ex) {
@@ -38,23 +40,25 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
       }
       return {
         success: false,
-        message: `Error occoured in Posting News`,
+        message: `Error occoured in Posting Jobs`,
         data: [],
       };
     }
   };
   const { mutate, isPending } = useMutation({
-    mutationFn: postNews,
+    mutationFn: postJobs,
     onSuccess: (data) => {
-      if (!data.success) {
-        return setErrorMessage("Error Creating News");
-      }
-      setSuccessMessage("News created successfully.");
-      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-news"] });
+        if(!data.success){
+            return setErrorMessage('Error Creating Job')
+        }
+      setSuccessMessage("Jobs created successfully.");
+      dashboardProvider.invalidateQueries({
+        queryKey: [`${projectDetails.projectName || "dashboard"}-jobs`],
+      });
       reset();
     },
     onError: () => {
-      setErrorMessage("Faild to create news.");
+      setErrorMessage("Faild to create Jobs.");
     },
   });
   const {
@@ -62,10 +66,10 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<NewsSchemaType>({
-    resolver: zodResolver(NewsSchema),
+  } = useForm<JobSchemaType>({
+    resolver: zodResolver(JobSchema),
   });
-  const onSubmit = (formData: NewsSchemaType) => {
+  const onSubmit = (formData: JobSchemaType) => {
     setErrorMessage("");
     setSuccessMessage("");
     mutate(formData);
@@ -77,45 +81,73 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
       className="relative w-[90%] max-w-md border border-muted-foreground shadow-accent text-foreground  p-4 lg:p-6 text-sm mx-auto rounded-md bg-secondary mt-12"
     >
       <h1 className="font-semibold text-lg lg:text-2xl text-foreground">
-        Create News
+        Create Job
       </h1>
       <p className="text-sm text-secondary-foreground/70">
-        Create news update using the form below.
+        Create new job using the form below.
       </p>
 
       <button
         type="button"
-        onClick={closeNewsForm}
+        onClick={closeJobsForm}
         className="absolute top-4 right-4 text-background rounded cursor-pointer  bg-foreground/80 hover:bg-foreground trans p-1"
       >
         <X size={25} />
       </button>
       <div className="mt-6">
-        <label htmlFor="subject" className="block m-1 ">
-          Subject
+        <label htmlFor="title" className="block m-1 ">
+          Job Title
         </label>
         <Input
           type="text"
-          placeholder="Get 20% Discount on your first purchase"
-          {...register("subject", { required: true })}
+          placeholder="Manager, Clerk ..."
+          {...register("title", { required: true })}
           className="w-full border border-muted-foreground py-2 px-4 rounded"
         />
-        {errors.subject && (
-          <p className="text-pink-400 ">{errors.subject.message}</p>
+        {errors.title && (
+          <p className="text-pink-400 mt-1">{errors.title.message}</p>
+        )}
+      </div>
+      <div className="mt-6">
+        <label htmlFor="location" className="block m-1 ">
+          Location
+        </label>
+        <Input
+          type="text"
+          placeholder="12 street, New York US"
+          {...register("location", { required: true })}
+          className="w-full border border-muted-foreground py-2 px-4 rounded"
+        />
+        {errors.location && (
+          <p className="text-pink-400 mt-1">{errors.location.message}</p>
+        )}
+      </div>
+      <div className="mt-6">
+        <label htmlFor="latestDate" className="block m-1 ">
+          Latest Date
+        </label>
+        <Input
+          type="date"
+          placeholder="12 street, New York US"
+          {...register("latestDate", { required: true })}
+          className="w-full border border-muted-foreground py-2 px-4 rounded"
+        />
+        {errors.latestDate && (
+          <p className="text-pink-400 mt-1">{errors.latestDate.message}</p>
         )}
       </div>
       <div className="mt-4">
-        <label htmlFor="subject" className="block m-1 ">
-          Message
+        <label htmlFor="description" className="block m-1 ">
+          Job Description
         </label>
         <Textarea
           rows={5}
-          {...register("message", { required: true })}
-          placeholder="Enter the news body."
+          {...register("description", { required: true })}
+          placeholder="Enter the job description."
           className="w-full border border-muted-foreground py-2 px-4 rounded "
         ></Textarea>
-        {errors.message && (
-          <p className="text-pink-400 ">{errors.message.message}</p>
+        {errors.description && (
+          <p className="text-pink-400 mt-1">{errors.description.message}</p>
         )}
       </div>
       <button
@@ -128,7 +160,7 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
         ) : (
           <div className="flex items-center gap-2 mx-auto">
             <Send size={18} />
-            <span>Create News</span>
+            <span>Create Job</span>
           </div>
         )}
       </button>
@@ -142,4 +174,4 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   );
 }
 
-export default NewsForm;
+export default JobsForm;
