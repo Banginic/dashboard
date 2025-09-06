@@ -25,7 +25,7 @@ export async function POST(req: Request) {
             { status: 400 }
         );
     }
-    console.log(file)
+
 
     const existTestimony = await db
       .select()

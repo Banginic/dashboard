@@ -27,6 +27,40 @@ export const ProjectInfoTable = pgTable("project_info", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+export const JobTable = pgTable("jobs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: varchar('title', { length: 255 }).notNull().default(''),
+  location: varchar('location', { length: 255 }).notNull().default(''),
+  description: varchar('description', { length: 500 }).notNull().default(''),
+  latestDate: timestamp("latest_date").notNull().defaultNow(),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const JobApplicationTable = pgTable("job_applications", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  jobId: uuid('job_id').notNull().references(() => JobTable.id, {onDelete: 'cascade'}),
+  name: varchar('name', { length: 255 }).notNull().default(''),
+  email: varchar('email', { length: 255 }).notNull().default(''),
+  phone: varchar('phone', { length: 250 }).notNull().default(''),
+  motivation: varchar('motivation', { length: 500 }).notNull().default(''),
+  cv: varchar('cv', { length: 250 }).notNull().default(''),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const BlogTable = pgTable("blogs", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  author: varchar('author', { length: 255 }).notNull().default(''),
+  category: varchar('category', { length: 255 }).notNull().default(''), //tech, health, travel
+  likes: varchar('likes', { length: 255 }).notNull().default(''),
+  post: varchar('likes', { length: 500 }).notNull().default(''),
+  photo: varchar('photo', { length: 255 }).notNull().default(''),
+  avatar: varchar('avatar', { length: 255 }).notNull().default(''),
+  createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 export const ContactTable = pgTable("contact_details", {
   id: uuid("id").defaultRandom().primaryKey(),
   projectId: uuid('project_id').notNull().references(() => ProjectInfoTable.id, {onDelete: 'cascade'}),

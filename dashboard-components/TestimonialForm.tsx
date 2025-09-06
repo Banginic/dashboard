@@ -46,7 +46,7 @@ function TestimonialForm({
       data.append("photo", formData.photo);
 
       const response = await fetch(
-        `${baseUrl}/api/testimonials/create-single-testimony`,
+        `${baseUrl}/api/v1/testimonials/create-single-testimony`,
         {
           method: "POST",
           body: data, // 👈 send FormData object
@@ -70,10 +70,14 @@ function TestimonialForm({
   };
   const { mutate, isPending } = useMutation({
     mutationFn: postTestimony,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (!data.success) {
+        setErrorMessage("Error Creating Testimony. Try Again");
+        return
+      }
       setSuccessMessage("Testimony created successfully.");
       dashboardProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
-      setPhoto(null)
+      setPhoto(null);
       reset();
     },
     onError: () => {
@@ -107,7 +111,7 @@ function TestimonialForm({
         <h1 className="font-semibold text-lg lg:text-2xl text-foreground">
           Create a Testimony
         </h1>
-        <p className="text-xs text-secondary-foreground/70">
+        <p className="text-sm text-secondary-foreground/70">
           Add new Testimony using the form below.
         </p>
 

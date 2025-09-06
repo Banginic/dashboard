@@ -35,7 +35,7 @@ function Testimonials() {
       <div className="w-[95%] max-w-3xl mx-auto">
         <button
           onClick={openPharmacyForm}
-          className="py-2 px-4 rounded bg-indigo-800 mt-12 cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
+          className="py-2 px-4 rounded bg-indigo-800 mt-12 ml-[5%] cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
         >
           <PlusCircle size={18} />
           <span>Add Testimony</span>

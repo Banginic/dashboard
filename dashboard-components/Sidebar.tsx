@@ -4,11 +4,13 @@ import {
   LogOut,
   MessageCircle,
   MessageSquareText,
-  Cake,
   Settings,
   Bike,
   Users,
   Award,
+  BookUser,
+  BookOpenText,
+  Factory,
 } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -26,9 +28,11 @@ function Sidebar({
     { name: "Home", Icon: House, href: "/dashboard" },
     { name: "Orders", Icon: Bike, href: "/dashboard/orders" },
     { name: "Messages", Icon: MessageCircle, href: "/dashboard/messages" },
-    { name: "Products", Icon: Cake, href: "/dashboard/products" },
-    { name: "Employees", Icon: Users, href: "/dashboard/employees" },
+    { name: "Products", Icon: Factory, href: "/dashboard/products" },
+    { name: "Staff / Employee", Icon: Users, href: "/dashboard/employees" },
     { name: "News", Icon: MessageSquareText, href: "/dashboard/news" },
+    { name: "Jobs", Icon: BookUser, href: "/dashboard/jobs" },
+    { name: "Blogs", Icon: BookOpenText, href: "/dashboard/blogs" },
     { name: "Testimonials", Icon: Award, href: "/dashboard/testimonies" },
   ] as const;
   function closeSidebar() {
