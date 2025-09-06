@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { JobTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 
-export async function GET() {
+export async function GET(req: Request) {
+  const { searchParams } = new URL (req.url)
+  const limit = searchParams.get('limit')
   try {
-    const jobs = await db.select().from(JobTable).limit(10);
+    const jobs = await db.select().from(JobTable).limit(Number(limit) || 10);
 
     if (jobs.length === 0) {
       return NextResponse.json({
