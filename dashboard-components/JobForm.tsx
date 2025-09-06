@@ -53,7 +53,7 @@ function JobsForm({
         }
       setSuccessMessage("Jobs created successfully.");
       dashboardProvider.invalidateQueries({
-        queryKey: [`${projectDetails.projectName || "dashboard"}-jobs`],
+        queryKey: [`${projectDetails.projectName || 'dashboard'}-jobs`],
       });
       reset();
     },

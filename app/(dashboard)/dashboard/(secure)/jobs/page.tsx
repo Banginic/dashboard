@@ -12,6 +12,7 @@ import {
 } from "@/dashboard-components/index";
 import { useQuery } from "@tanstack/react-query";
 import { JobTypes } from "@/models/types";
+import { projectDetails } from "@/constants/project-details";
 
 function Jobs() {
   const [showJobForm, setShowJobForm] = useState(false);
@@ -21,7 +22,7 @@ function Jobs() {
     title: "Jobs",
   };
   const { data, isPending, refetch } = useQuery({
-    queryKey: ["admin-Jobs"],
+    queryKey: [`${projectDetails.projectName || 'dashboard'}-jobs`],
     queryFn: () => useFetch<JobTypes>(fetchDetails),
   });
 
@@ -33,7 +34,7 @@ function Jobs() {
       <Title text1="Jobs" />
 
       <div className="w-[95%] max-w-3xl mx-auto">
-        <div className="flex gap-4">
+        <div className="flex gap-4 ml-[5%]">
           <button
             onClick={openPharmacyForm}
             className="py-2 px-4 rounded bg-indigo-800 mt-12 cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
@@ -43,7 +44,7 @@ function Jobs() {
           </button>
           <button
             onClick={openPharmacyForm}
-            className="py-2 px-4 rounded bg-indigo-800 mt-12 cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
+            className="py-2 px-4 rounded bg-chart-3 mt-12 cursor-pointer hover:opacity-80 text-neutral-100 text-sm flex items-center gap-2"
           >
             <PlusCircle size={18} />
             <span>Job Applications</span>

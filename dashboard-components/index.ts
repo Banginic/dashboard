@@ -27,7 +27,9 @@ export { default as RevenueCounts } from './heroCards/RevenueCounts'
 //JOBS
 export { default as JobCard } from './JobCard'
 export { default as JobCardSkeleton } from './skeletons/JobCardSkeleton'
+export { default as JobDetailsSkeleton } from './skeletons/JobDetailsSkeleton'
 export { default as JobForm } from './JobForm'
+export { default as JobDetails } from './JobDetails'
 
 //PRODUCTS
 export { default as ProductCounts } from './heroCards/ProductsCounts'

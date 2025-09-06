@@ -1,4 +1,3 @@
-
 function MessageDetailSkeleton() {
   return (
     <section className="w-[95%] max-w-3xl mx-auto py-8 relative">

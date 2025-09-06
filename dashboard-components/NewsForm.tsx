@@ -10,6 +10,7 @@ import { LoadingBTN } from "@/dashboard-components/index";
 import { dashboardProvider } from "@/providers/dashboard-provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { projectDetails } from "@/constants/project-details";
 
 function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   const [successMessage, setSuccessMessage] = useState("");
@@ -50,7 +51,9 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
         return setErrorMessage("Error Creating News");
       }
       setSuccessMessage("News created successfully.");
-      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-news"] });
+      dashboardProvider.invalidateQueries({
+        queryKey: [`${projectDetails.projectName || "dashboard"}-news `],
+      });
       reset();
     },
     onError: () => {

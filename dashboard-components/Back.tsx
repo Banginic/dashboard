@@ -6,9 +6,9 @@ function Back({link}: {link: string}) {
   return (
     <Link
     title='Go Back'
-     href={link} className='flex items-center gap-2 bg-slate-100 hover:shadow hover:bg-slate-200 trans p-2 rounded cursor-pointer'>
-      <ArrowLeftCircle className='text-neutral-600'/>
-      <span className='hidden lg:block text-sm text-neutral-600'>Back</span>
+     href={link} className='flex items-center gap-2 bg-chart-2 text-background hover:shadow hover:scale-x-105 trans trans p-2 rounded cursor-pointer'>
+      <ArrowLeftCircle className=''/>
+      <span className='hidden lg:block text-sm '>Back</span>
     </Link>
   )
 }
