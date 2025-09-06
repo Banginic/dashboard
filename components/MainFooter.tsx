@@ -1,10 +1,25 @@
+'use client'
 import Link from "next/link";
 import { ChefHat, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 import { Logo } from "@/components/index";
-import { PERSONAL_DATA } from "@/assets/data";
+import { useFetch } from "@/hooks/useFetch";
+import { ProjectDetails } from "@/models/settings";
+import { useQuery } from "@tanstack/react-query";
+import { projectDetails } from "@/constants/project-details";
 
-const MainFooter = () => {
-    
+const MainFooter =  () => {
+  const fetchDetails = {
+    endpoint: '/policies',
+    method: 'GET',
+    title: 'Project details'
+  }
+ const { data, } =  useQuery({
+    queryKey: ['project-details'],
+    queryFn: () => useFetch<ProjectDetails>(fetchDetails),
+  })
+const PROJECT_DATA = data?.data[0] || projectDetails;
+
+
   const footerLinks = {
     company: [
       { name: "About Us", path: "/about" },
@@ -141,7 +156,7 @@ const MainFooter = () => {
         {/* Bottom Section */}
         <div className="border-t border-cream/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-cream/60 text-sm mb-4 md:mb-0">
-            © {new Date().getFullYear()} {PERSONAL_DATA.title}. All rights
+            © {new Date().getFullYear()} {PROJECT_DATA.projectName}. All rights
             reserved.
           </div>
 

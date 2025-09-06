@@ -1,31 +1,11 @@
-// app/privacy/page.tsx (Next.js 13+ App Router)
-// A modern, reusable Privacy Policy page you can drop into any Next.js project.
-// Update the CONFIG below for each project. No external packages required.
+import { projectDetails } from "@/constants/project-details";
+import { useFetch } from "@/hooks/useFetch";
+import { ProjectDetails } from "@/models/settings";
 
 import type { Metadata } from "next";
 
-// === Configuration: edit these per project ===
-const CONFIG = {
-  companyName: "Your Company Ltd.",
-  websiteName: "YourWebsite",
-  contactEmail: "privacy@yourcompany.com",
-  address: "123 Example Street, City, Country",
-  effectiveDate: "2025-01-01",
-  lastUpdated: "2025-09-06",
-  // Optional: list the key vendors you actually use
-  vendors: [
-    { name: "Vercel", purpose: "hosting" },
-    { name: "Google Analytics", purpose: "analytics" },
-    // { name: "Stripe", purpose: "payments" },
-  ],
-};
 
-export const metadata: Metadata = {
-  title: `${CONFIG.websiteName} | Privacy Policy`,
-  description:
-    `${CONFIG.companyName} privacy policy describing how we collect, use, and protect personal data on ${CONFIG.websiteName}.`,
-  robots: { index: true, follow: true },
-};
+
 
 function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
@@ -42,21 +22,37 @@ function Kbd({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function PrivacyPolicyPage() {
-  const { companyName, websiteName, contactEmail, address, effectiveDate, lastUpdated, vendors } = CONFIG;
+export default async function PrivacyPolicyPage() {
+
+    const fetchDetails = {
+    endpoint: '/policies',
+    method: 'GET',
+    title: 'Project details'
+  }
+ const  data = await useFetch<ProjectDetails>(fetchDetails)
+  
+const PROJECT_DATA = data?.data[0] || projectDetails;
+
+const vendors = [
+    { name: "Vercel", purpose: "hosting" },
+    { name: "Google Analytics", purpose: "analytics" },
+    // { name: "Stripe", purpose: "payments" },
+  ]
+  
+  const { projectName,  email, address, city, country, createdAt, updatedAt,  } = PROJECT_DATA
 
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    name: `${websiteName} Privacy Policy`,
+    name: `${projectName} Privacy Policy`,
     description:
-      `${companyName} privacy policy describing how personal data is collected, used, and protected on ${websiteName}.`,
+      `${projectName} privacy policy describing how personal data is collected, used, and protected on ${projectName}.`,
     isPartOf: {
       "@type": "WebSite",
-      name: websiteName,
+      name: projectName,
     },
-    datePublished: effectiveDate,
-    dateModified: lastUpdated,
+    datePublished: createdAt,
+    dateModified: updatedAt,
   };
 
   return (
@@ -67,8 +63,8 @@ export default function PrivacyPolicyPage() {
       <div className="mb-8">
         <h1 className="text-2xl md:text-4xl font-bold tracking-tight">Privacy Policy</h1>
         <p className="mt-2 text-sm md:text-base text-muted-foreground">
-          <span className="mr-3">Effective Date: <time dateTime={effectiveDate}>{effectiveDate}</time></span>
-          <span>Last Updated: <time dateTime={lastUpdated}>{lastUpdated}</time></span>
+          <span className="mr-3">Effective Date: <time dateTime={new Date(createdAt).toISOString()}>{new Date(createdAt).toLocaleDateString('en-GB')}</time></span>
+          <span>Last Updated: <time dateTime={new Date(updatedAt).toISOString()}>{new Date(updatedAt).toLocaleDateString('en-GB')}</time></span>
         </p>
       </div>
 
@@ -100,9 +96,9 @@ export default function PrivacyPolicyPage() {
       </nav>
 
       <div className="space-y-10">
-        <Section id="intro" title={`About ${companyName}`}>
+        <Section id="intro" title={`About ${projectName}`}>
           <p className="text-secondary-foreground">
-            {companyName} operates {websiteName}. This Privacy Policy explains how we
+            {projectName} operates {projectName}. This Privacy Policy explains how we
             collect, use, disclose, and safeguard information when you visit our website or use our services.
             By accessing or using our services, you agree to the terms of this Policy.
           </p>
@@ -158,7 +154,7 @@ export default function PrivacyPolicyPage() {
             </li>
             <li>
               <strong>Legal & safety</strong> — to comply with law, respond to lawful requests, or protect rights, property,
-              or safety of {companyName}, our users, or the public.
+              or safety of {projectName}, our users, or the public.
             </li>
             <li>
               <strong>Business transfers</strong> — in connection with a merger, acquisition, financing, or sale of assets.
@@ -211,7 +207,7 @@ export default function PrivacyPolicyPage() {
             consent where processing is based on consent.
           </p>
           <p className="mt-2">
-            To exercise these rights, contact us at <a className="underline" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+            To exercise these rights, contact us at <a className="underline" href={`mailto:${email}`}>{email}</a>.
             We may request information to verify your identity.
           </p>
           <div className="mt-3 rounded-xl border p-4 text-sm space-y-2">
@@ -251,7 +247,7 @@ export default function PrivacyPolicyPage() {
         <Section id="do-not-sell" title="Do Not Sell/Share (Opt-Out)">
           <p className="text-secondary-foreground">
             We do not sell personal information. Where applicable law provides an opt-out for “sale”, “sharing”, or
-            targeted advertising, you can submit a request by contacting us at <a className="underline" href={`mailto:${contactEmail}`}>{contactEmail}</a>.
+            targeted advertising, you can submit a request by contacting us at <a className="underline" href={`mailto:${email}`}>{email}</a>.
           </p>
         </Section>
 
@@ -260,8 +256,8 @@ export default function PrivacyPolicyPage() {
             If you have questions or concerns about this Policy, contact us:
           </p>
           <ul className="text-secondary-foreground">
-            <li>Email: <a className="underline" href={`mailto:${contactEmail}`}>{contactEmail}</a></li>
-            <li>Address: {address}</li>
+            <li>Email: <a className="underline" href={`mailto:${email}`}>{email}</a></li>
+            <li>Address: {address} {city} {country}</li>
           </ul>
         </Section>
 
