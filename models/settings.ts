@@ -44,9 +44,13 @@ export interface AddressTypes extends APIResponse {
 }
 
 export interface ProjectDetail {
+  id: string;
   facebook: string;
   instagram: string;
   tiktok: string;
+  whatsApp: string;
+  twitter: string;
+  youTube: string;
   email: string;
   phone: string;
   projectName: string;

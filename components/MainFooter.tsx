@@ -1,7 +1,6 @@
 'use client'
 import Link from "next/link";
-import { ChefHat, Facebook, Instagram, Twitter, Youtube } from "lucide-react";
-import { Logo } from "@/components/index";
+import { Logo, SocialLinks } from "@/components/index";
 import { useFetch } from "@/hooks/useFetch";
 import { ProjectDetails } from "@/models/settings";
 import { useQuery } from "@tanstack/react-query";
@@ -47,12 +46,7 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
     ],
   };
 
-  const socialLinks = [
-    { name: "Facebook", icon: Facebook, url: "#" },
-    { name: "Instagram", icon: Instagram, url: "#" },
-    { name: "Twitter", icon: Twitter, url: "#" },
-    { name: "YouTube", icon: Youtube, url: "#" },
-  ];
+
 
   return (
     <footer className="bg-secondary text-secondary-foreground">
@@ -72,18 +66,7 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
             </p>
 
             {/* Social Links */}
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  className="p-2 bg-accent/10 hover:bg-accent/20 rounded-lg transition-colors"
-                  aria-label={social.name}
-                >
-                  <social.icon className="h-5 w-5 text-foreground   " />
-                </a>
-              ))}
-            </div>
+            <SocialLinks projectDetails={PROJECT_DATA} />
           </div>
 
           {/* Links Sections */}
