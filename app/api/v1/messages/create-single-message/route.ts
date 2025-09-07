@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const body = await req.json();
     if (!body) {
       return NextResponse.json(
-        { success: false, error: "Message is required", data: [] },
+        { success: false, message: "Message is required", data: [] },
         { status: 400 }
       );
     }
@@ -41,12 +41,12 @@ export async function POST(req: Request) {
   } catch (ex: unknown) {
     if (ex instanceof Error) {
       return NextResponse.json(
-        { success: false, error: ex.message, data: [] },
+        { success: false, message: ex.message, data: [] },
         { status: 500 }
       );
     }
     return NextResponse.json(
-      { success: false, error: "Message Server Error", data: [] },
+      { success: false, message: "Message Server Error", data: [] },
       { status: 500 }
     );
   }

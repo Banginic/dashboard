@@ -1,6 +1,7 @@
 import { projectDetails } from "@/constants/project-details";
 import { useFetch } from "@/hooks/useFetch";
 import { ProjectDetails } from "@/models/settings";
+import Link from "next/link";
 
 function Section({
   id,
@@ -33,11 +34,7 @@ export default async function CookiePolicyPage() {
 
   const PROJECT_DATA = data?.data[0] || projectDetails;
 
-  const vendors = [
-    { name: "Vercel", purpose: "hosting" },
-    { name: "Google Analytics", purpose: "analytics" },
-    // { name: "Stripe", purpose: "payments" },
-  ];
+
 
   const {
     projectName,
@@ -181,7 +178,7 @@ export default async function CookiePolicyPage() {
             functionality.
           </p>
           <p className="mt-2 text-sm">
-            <span className="underline">Cookie Settings</span>
+            <Link href={'/cookies-settings'} className="underline">Cookie Settings</Link>
           </p>
         </Section>
 
