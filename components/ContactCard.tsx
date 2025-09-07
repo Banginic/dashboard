@@ -27,7 +27,7 @@ async function ContactCard() {
       <CardHeader>
         <CardTitle className="text-xl font-semibold">Get in Touch</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 text-sm">
+      <CardContent className="space-y-3 text-sm text-secondary-foreground">
         <p className="flex items-center gap-2">
           <Mail className="w-5 h-5 text-blue-500" />{" "}
           <span>{PROJECT_DATA.email}</span>

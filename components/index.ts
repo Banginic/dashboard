@@ -8,3 +8,8 @@ export { default as CookieConsent } from './CookieConsent'
 export { default as Map } from './Map'
 export { default as ContactForm } from './ContactForm'
 export { default as ContactCard } from './ContactCard'
+
+//Jobs
+export { default as JobCard } from './JobCard'
+export { default as JobDetail } from './JobDetail'
+export { default as JobForm } from './JobForm'

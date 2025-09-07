@@ -23,8 +23,8 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
     company: [
       { name: "About Us", path: "/about" },
       { name: "Our Story", path: "/about" },
-      { name: "Careers", path: "/careers" },
-      { name: "Blogs", path: "/press" },
+      { name: "Careers", path: "/jobs" },
+      { name: "Blogs", path: "/blogs" },
     ],
     products: [
       { name: "Cakes & Desserts", path: "/products" },
