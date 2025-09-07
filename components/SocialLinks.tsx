@@ -18,10 +18,10 @@ function SocialLinks({ projectDetails }: { projectDetails: any }) {
           key={social.name}
           href={social.url}
           target="blank"
-          className="p-2 bg-accent/10 hover:bg-accent/20 cursor-pointer rounded-lg transition-colors"
+          className="p-2 bg-sidebar/10 hover:bg-sidebar/20 cursor-pointer rounded-lg transition-colors trans"
           aria-label={social.name}
         >
-          <social.icon className="h-5 w-5 text-foreground   " />
+          <social.icon className="h-5 w-5 text-background  " />
         </a>
       ))}
     </div>

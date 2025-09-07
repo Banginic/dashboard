@@ -17,6 +17,7 @@
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
   --color-chart-5: var(--chart-5);
+  --color-footer: var(--footer);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
   --color-chart-2: var(--chart-2);
@@ -47,6 +48,7 @@
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
+  --footer: #2C2C2C;
   --card: oklch(1 0 0);
   --card-foreground: #0a0a0a;
   --popover: oklch(1 0 0);
@@ -82,6 +84,7 @@
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
+   --footer: #1A1A1A;
   --card: oklch(0.205 0 0);
   --sidebar-primary:#d61c1c ;
   --card-foreground: oklch(0.985 0 0);

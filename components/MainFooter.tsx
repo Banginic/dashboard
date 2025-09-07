@@ -49,7 +49,7 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
 
 
   return (
-    <footer className="bg-secondary text-secondary-foreground">
+    <footer className="bg-footer text-background ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-6 gap-8">
           {/* Brand Section */}
@@ -59,7 +59,7 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
               textSize="text-xl lg:text-2xl"
               color={"text-yellow-500"}
             />
-            <p className="text-muted-foreground mt-1 mb-6 leading-relaxed">
+            <p className="text-background/80 mt-1 mb-6 leading-relaxed">
               Creating delicious memories since 2008. From artisan breads to
               custom cakes, we're your neighborhood bakery and restaurant
               committed to quality and community.
@@ -71,13 +71,13 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
 
           {/* Links Sections */}
           <div>
-            <h4 className="font-semibold text-accent mb-4">Company</h4>
+            <h4 className="font-semibold text-background mb-4">Company</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                                 className="text-muted-foreground hover:text-foreground/80 transition-colors text-sm"
+                                 className="text-background/70 hover:text-background transition-colors text-sm"
 
                   >
                     {link.name}
@@ -88,13 +88,13 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
           </div>
 
           <div>
-            <h4 className="font-semibold text-accent mb-4">Products</h4>
+            <h4 className="font-semibold text-background mb-4">Products</h4>
             <ul className="space-y-3">
               {footerLinks.products.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className="text-muted-foreground hover:text-foreground/80 transition-colors text-sm"
+                    className="text-background/70 hover:text-background transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -104,13 +104,13 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
           </div>
 
           <div>
-            <h4 className="font-semibold text-accent mb-4">Services</h4>
+            <h4 className="font-semibold text-background mb-4">Services</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className="text-muted-foreground hover:text-foreground/80 transition-colors text-sm"
+                    className="text-background/70 hover:text-background transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
@@ -120,13 +120,13 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
           </div>
 
           <div>
-            <h4 className="font-semibold text-accent mb-4">Support</h4>
+            <h4 className="font-semibold text-background mb-4">Support</h4>
             <ul className="space-y-3">
               {footerLinks.support.map((link) => (
                 <li key={link.name}>
                   <Link
                     href={link.path}
-                    className="text-muted-foreground hover:text-foreground/80 transition-colors text-sm"
+                    className="text-background/70 hover:text-background transition-colors text-sm"
                   >
                     {link.name}
                   </Link>
