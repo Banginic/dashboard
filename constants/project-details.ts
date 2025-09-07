@@ -2,8 +2,8 @@
 export const projectDetails = { 
     id: '',
     projectName: 'Karma Music',
-    address: 'Sodiko-Bonaberi',
-    city: 'Douala',
+    address: 'Sodiko-Bonaberii',
+    city: 'Yaounde',
     country: 'Cameroon',
     email: 'example@emil.com',
     facebook: 'https://facebook.com',

@@ -186,11 +186,12 @@ function ContactForm() {
                 </div>
               )}
             </Button>
-            {formState.error ? (
+            {formState.error && (
               <p className="text-pink-400 text-center">{formState.error}</p>
-            ) : (
+            )} 
+            {formState.success && (
               <p className="text-green-400 text-center">{formState.success}</p>
-            )}
+            )} 
           </form>
         </CardContent>
       </Card>
