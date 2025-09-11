@@ -1,17 +1,14 @@
-"use client";
-import React from "react";
-import { dashboardProvider } from "@/providers/dashboard-provider";
-import { QueryClientProvider } from "@tanstack/react-query";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
+import DashboardLayoutClient from "./DashboardLayoutClient";
 
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const session = await getServerSession(authOptions);
 
-function AdminLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <QueryClientProvider client={dashboardProvider}>
-      <div className="">
-        {children}
-      </div>
-    </QueryClientProvider>
-  );
+  if (!session) {
+    redirect("/admin/auth/sign-in"); // or wherever your login page is
+  }
+
+  return <DashboardLayoutClient session={session}>{children}</DashboardLayoutClient>;
 }
-
-export default AdminLayout;

@@ -1,7 +1,7 @@
 import React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-function DashboardLayout({ children }: { children: React.ReactNode }) {
+function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <NextThemesProvider
@@ -17,4 +17,4 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default DashboardLayout;
+export default AdminLayout;

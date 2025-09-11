@@ -19,14 +19,14 @@ function JobCard({ job }: { job: JobType }) {
           </p>
           <p className="flex items-center gap-2">
             <CalendarDays className="w-4 h-4 text-green-500" />
-            Posted:{" "}
+            <span className="text-secondary-foreground/80">Posted:{" "}</span>
             <p className="bg-secondary rounded-md p-1">
               {new Date(createdAt).toLocaleDateString("en-GB")}
             </p>
           </p>
           <p className="flex items-center gap-2">
             <CalendarDays className="w-4 h-4 text-red-500" />
-            Apply Before:{" "}
+           <span className="text-secondary-foreground/80">Apply Before:{" "}</span>
             <p className="bg-red-100 text-red-500 rounded-md p-1">
               {new Date(latestDate).toLocaleDateString("en-GB")}
             </p>

@@ -15,6 +15,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "next/navigation";
+import AdminLogOutButton from "@/auth/AdminLogOutButton";
 
 function Sidebar({
   showSidebar,
@@ -90,20 +91,22 @@ function Sidebar({
               Settings
             </span>
           </Link>
-          <Link
-            href={""}
-             onClick={closeSidebar}
-            className="flex items-center gap-4 flex-nowrap px-4 2xl:px-9 py-2 "
-          >
-            <LogOut size={22} />
-            <span
-              className={`${
-                !showSidebar && "lg:hidden"
-              } text-[14px] 2xl:text-sm`}
+           <AdminLogOutButton>
+            <Link
+              href={""}
+              onClick={closeSidebar}
+              className="flex items-center gap-4 flex-nowrap px-4 2xl:px-9 py-2 "
             >
-              Log out
-            </span>
-          </Link>
+              <LogOut size={22} />
+              <span
+                className={`${
+                  !showSidebar && "lg:hidden"
+                } text-[14px] 2xl:text-sm`}
+              >
+                Log out
+              </span>
+            </Link>
+          </AdminLogOutButton>
         </div>
       </div>
     </section>

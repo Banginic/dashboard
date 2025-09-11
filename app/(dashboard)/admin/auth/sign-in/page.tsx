@@ -11,21 +11,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Eye, EyeOff, Mail, Lock, User, Building } from "lucide-react";
-import { PERSONAL_DATA } from "@/assets/data";
+import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { projectDetails } from "@/constants/project-details";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { toast } from "react-toastify";
 
-const SignUp = () => {
+const SignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [ error, setError ] = useState<string | null>(null);
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    bakeryName: "",
     email: "",
     password: "",
-    confirmPassword: "",
   });
-
+  const router = useRouter();
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -33,10 +32,19 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle sign up logic here
-    console.log("Sign up:", formData);
+    const response = await signIn("credentials", {
+      email: formData.email,
+      password: formData.password,
+      redirect: false,
+    });
+       if (response?.error) {
+      setError(response.error);
+    } else {
+      // ✅ user is authenticated at this point
+      router.push("/dashboard"); // or wherever you want
+    }
   };
 
   return (
@@ -45,80 +53,31 @@ const SignUp = () => {
         {/* Logo */}
         <div className="text-center">
           <div className="flex justify-center mb-4"></div>
-          <h1 className="text-3xl font-bold text-foreground">
-            {PERSONAL_DATA.title}
+          <h1 className="text-3xl font-bold text-chart-3 mb-2">
+            {projectDetails.projectName}
           </h1>
           <p className="text-muted-foreground">Admin Dashboard</p>
         </div>
 
-        {/* Sign Up Form */}
-        <Card className="bg-gradient-card border-gray-400 shadow-large">
+        {/* Sign In Form */}
+        <Card className="bg-gradient-card border border-gray-400 shadow-large">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Create Your Account</CardTitle>
+            <CardTitle className="text-2xl">Welcome Back</CardTitle>
             <CardDescription>
-              Start managing your bakery with our admin dashboard
+              Sign in to your admin account to manage your bakery
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="firstName">First Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input
-                      id="firstName"
-                      name="firstName"
-                      type="text"
-                      placeholder="John"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="pl-10"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="lastName">Last Name</Label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                    placeholder="Doe"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-              </div>
-
               <div className="space-y-2">
-                <Label htmlFor="bakeryName">Bakery Name</Label>
-                <div className="relative">
-                  <Building className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="bakeryName"
-                    name="bakeryName"
-                    type="text"
-                    placeholder="Your Sweet Bakery"
-                    value={formData.bakeryName}
-                    onChange={handleInputChange}
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Email</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="admin@yourbakery.com"
+                    placeholder="admin@sweetbakery.com"
                     value={formData.email}
                     onChange={handleInputChange}
                     className="pl-10"
@@ -135,7 +94,7 @@ const SignUp = () => {
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Create a strong password"
+                    placeholder="Enter your password"
                     value={formData.password}
                     onChange={handleInputChange}
                     className="pl-10 pr-10"
@@ -157,67 +116,32 @@ const SignUp = () => {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
-                    value={formData.confirmPassword}
-                    onChange={handleInputChange}
-                    className="pl-10 pr-10"
-                    required
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <input
+                    id="remember"
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0"
                   />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  >
-                    {showConfirmPassword ? (
-                      <EyeOff className="h-4 w-4 text-muted-foreground" />
-                    ) : (
-                      <Eye className="h-4 w-4 text-muted-foreground" />
-                    )}
-                  </Button>
+                  <Label htmlFor="remember" className="text-sm">
+                    Remember me
+                  </Label>
                 </div>
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <input
-                  id="terms"
-                  type="checkbox"
-                  className="h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0"
-                  required
-                />
-                <Label htmlFor="terms" className="text-sm">
-                  I agree to the{" "}
-                  <Link
-                    href="/terms"
-                    className="text-primary hover:text-primary-glow transition-colors"
-                  >
-                    Terms of Service
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/privacy"
-                    className="text-primary hover:text-primary-glow transition-colors"
-                  >
-                    Privacy Policy
-                  </Link>
-                </Label>
+                <Link
+                  href="/admin/forgot-password"
+                  className="text-sm text-primary hover:text-primary-glow transition-colors"
+                >
+                  Forgot password?
+                </Link>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-primary shadow-soft hover:shadow-glow transition-all"
+                className="w-full bg-black shadow-soft hover:shadow-glow transition-all"
               >
-                Create Account
+                Sign In
               </Button>
+              <p className="text-pink-400 text-center h-4">{error}</p>
             </form>
 
             <div className="mt-6">
@@ -261,27 +185,16 @@ const SignUp = () => {
                 </Button>
               </div>
             </div>
-
-            <div className="mt-6 text-center text-sm">
-              <span className="text-muted-foreground">
-                Already have an account?{" "}
-              </span>
-              <Link
-                href="/admin/auth/sign-in"
-                className="text-yellow-700 hover:text-primary-glow transition-colors font-medium"
-              >
-                Sign in
-              </Link>
-            </div>
           </CardContent>
         </Card>
 
         <div className="text-center text-xs text-muted-foreground">
-          © 2025 {PERSONAL_DATA.title}. All rights reserved.
+          © {new Date().getFullYear()} {projectDetails.projectName}. All rights
+          reserved.
         </div>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default SignIn;

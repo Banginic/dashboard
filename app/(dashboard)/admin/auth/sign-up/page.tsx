@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -11,14 +11,21 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {  Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User, Building, Phone } from "lucide-react";
 import { PERSONAL_DATA } from "@/assets/data";
+import { useRouter } from "next/navigation";
+import { projectDetails } from "@/constants/project-details";
 
-const SignIn = () => {
+const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [ error, setError ] = useState<string | null>(null);
   const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
     email: "",
     password: "",
+    confirmPassword: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,10 +35,36 @@ const SignIn = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle sign in logic here
-    console.log("Sign in:", formData);
+     if(formData.password !== formData.confirmPassword){
+      setError("Passwords do not match");
+      return;
+     }
+     try{
+      const response = await fetch('/api/auth/sign-up', {
+        method: 'POST',
+        headers: {  'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      }) 
+      const data = await response.json();
+      if(!response.ok){
+        if(data && data.message){
+          setError(data.message)
+        }else{
+          setError("An unexpected error occurred. Please try again.")
+        }
+      }else{
+        // Redirect to sign-in page on successful sign-up
+        window.location.href = '/dashboard/auth/sign-in';
+      }
+
+     }catch(ex: unknown){
+      if(ex instanceof Error){
+        setError(ex.message)
+      }
+      setError("An unexpected error occurred. Please try again.")
+     }
   };
 
   return (
@@ -41,21 +74,59 @@ const SignIn = () => {
         <div className="text-center">
           <div className="flex justify-center mb-4"></div>
           <h1 className="text-3xl font-bold text-foreground">
-            {PERSONAL_DATA.title}
+            {projectDetails.projectName}
           </h1>
           <p className="text-muted-foreground">Admin Dashboard</p>
         </div>
 
-        {/* Sign In Form */}
-        <Card className="bg-gradient-card border border-gray-400 shadow-large">
+        {/* Sign Up Form */}
+        <Card className="bg-gradient-card border-gray-400 shadow-large">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Welcome Back</CardTitle>
+            <CardTitle className="text-2xl">Create Your Account</CardTitle>
             <CardDescription>
-              Sign in to your admin account to manage your bakery
+              Start managing your bakery with our admin dashboard
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="grid  gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Full Name</Label>
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                    <Input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="John"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      className="pl-10"
+                      required
+                    />
+                  </div>
+                </div>
+
+               
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone Number</Label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="+237 677 00 33 88"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="pl-10"
+                    required
+                  />
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="email">Email Address</Label>
                 <div className="relative">
@@ -64,7 +135,7 @@ const SignIn = () => {
                     id="email"
                     name="email"
                     type="email"
-                    placeholder="admin@sweetbakery.com"
+                    placeholder="admin@yourbakery.com"
                     value={formData.email}
                     onChange={handleInputChange}
                     className="pl-10"
@@ -81,7 +152,7 @@ const SignIn = () => {
                     id="password"
                     name="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
+                    placeholder="Create a strong password"
                     value={formData.password}
                     onChange={handleInputChange}
                     className="pl-10 pr-10"
@@ -103,31 +174,68 @@ const SignIn = () => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <input
-                    id="remember"
-                    type="checkbox"
-                    className="h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0"
+              <div className="space-y-2">
+                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <div className="relative">
+                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Confirm your password"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    className="pl-10 pr-10"
+                    required
                   />
-                  <Label htmlFor="remember" className="text-sm">
-                    Remember me
-                  </Label>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  >
+                    {showConfirmPassword ? (
+                      <EyeOff className="h-4 w-4 text-muted-foreground" />
+                    ) : (
+                      <Eye className="h-4 w-4 text-muted-foreground" />
+                    )}
+                  </Button>
                 </div>
-                <Link
-                  href="/admin/forgot-password"
-                  className="text-sm text-primary hover:text-primary-glow transition-colors"
-                >
-                  Forgot password?
-                </Link>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <input
+                  id="terms"
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-border text-primary focus:ring-primary focus:ring-offset-0"
+                  required
+                />
+                <Label htmlFor="terms" className="text-sm">
+                  I agree to the{" "}
+                  <Link
+                    href="/terms"
+                    className="text-primary hover:text-primary-glow transition-colors"
+                  >
+                    Terms of Service
+                  </Link>{" "}
+                  and{" "}
+                  <Link
+                    href="/privacy"
+                    className="text-primary hover:text-primary-glow transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </Label>
               </div>
 
               <Button
                 type="submit"
-                className="w-full bg-gradient-primary shadow-soft hover:shadow-glow transition-all"
+                className="w-full bg-accent shadow-soft hover:shadow-glow transition-all"
               >
-                Sign In
+                Create Account
               </Button>
+              <p className="text-pink-400 text-center">{error}</p>
             </form>
 
             <div className="mt-6">
@@ -172,26 +280,13 @@ const SignIn = () => {
               </div>
             </div>
 
-            <div className="mt-6 text-center text-sm">
-              <span className="text-muted-foreground">
-                Don't have an account?{" "}
-              </span>
-              <Link
-                href="/admin/auth/sign-up"
-                className="text-yellow-700 hover:text-primary-glow transition-colors font-medium"
-              >
-                Sign up
-              </Link>
-            </div>
+            
           </CardContent>
         </Card>
 
-        <div className="text-center text-xs text-muted-foreground">
-          © 2025 {PERSONAL_DATA.title}. All rights reserved.
-        </div>
       </div>
     </div>
   );
 };
 
-export default SignIn;
+export default SignUp;
