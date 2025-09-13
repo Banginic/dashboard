@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link";
-import { Logo, SocialLinks } from "@/components/index";
+import { DeveloperLink, Logo, SocialLinks } from "@/components/index";
 import { useFetch } from "@/hooks/useFetch";
 import { ProjectDetails } from "@/models/settings";
 import { useQuery } from "@tanstack/react-query";
@@ -164,6 +164,7 @@ const PROJECT_DATA = data?.data[0] || projectDetails;
             </Link>
           </div>
         </div>
+        <DeveloperLink />
       </div>
     </footer>
   );

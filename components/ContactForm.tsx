@@ -131,7 +131,7 @@ function ContactForm() {
               <Input
                 type="tel"
                 {...register("phone", { required: true })}
-                placeholder="+1 (340) 2324 223"
+                placeholder="+237 677 53 72 62"
                 className="py-2"
                 autoComplete="phone"
               />

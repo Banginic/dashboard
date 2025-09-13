@@ -1,6 +1,7 @@
 import { db } from "@/drizzle/index";
 import { usersTable } from "@/drizzle/schema";
 import { hashPassword } from "@/lib/bcrypt";
+
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 

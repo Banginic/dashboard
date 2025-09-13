@@ -1,7 +1,7 @@
 
 export const projectDetails = { 
     id: '',
-    projectName: 'Karma Music',
+    projectName: 'My Dashboard',
     address: 'Sodiko-Bonaberii',
     city: 'Yaounde',
     country: 'Cameroon',
