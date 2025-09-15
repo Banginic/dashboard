@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { useFetch } from "@/hooks/useFetch";
 import { JobTypes } from "@/models/types";
-import { ErrorFetching, NoData } from "@/dashboard-components/index";
+import { ErrorFetching, NoData } from "@/admin-components/index";
 import { JobCard } from "@/components/index";
 
 export default async function JobsPage() {

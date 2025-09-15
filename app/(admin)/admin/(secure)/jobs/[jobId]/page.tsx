@@ -1,50 +1,52 @@
 "use client";
-import { notFound } from "next/navigation";
-import { use } from "react";
+
+import React, { use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { projectDetails } from "@/constants/project-details";
+import {
+  NoData,
+  ErrorFetching,
+  JobDetails,
+  Title,
+  Back,
+  JobDetailsSkeleton,
+} from "@/admin-components/index";
 import { useFetch } from "@/hooks/useFetch";
 import { JobTypes } from "@/models/types";
-import { Back, ErrorFetching, NoData, Title } from "@/admin-components/index";
-import { JobDetail } from "@/components/index";
+import { projectDetails } from "@/constants/project-details";
 
-export default function JobDetailsPage({
-  params,
-}: {
-  params: Promise<{ jobId: string }>;
-}) {
+function JobDetail({ params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = use(params);
-
-  if (!jobId) {
-    notFound();
-  }
   const fetchDetails = {
     endpoint: `/jobs/list-single-job?job_id=${jobId}`,
     method: "GET",
-    title: "Job details",
+    title: "job",
   };
-  const { isPending, isError, data, refetch } = useQuery({
-    queryKey: [`${projectDetails.projectName || "public"}-jobs-${jobId}`],
+  const { data, isPending, refetch, isError } = useQuery({
+    queryKey: [
+      `${projectDetails.projectName || "dashboard"}-messages-${jobId}`,
+    ],
     queryFn: () => useFetch<JobTypes>(fetchDetails),
   });
 
   return (
     <section className="w-[95%] mx-auto py-8 relative">
       <div className="absolute top-10">
-        <Back link="/jobs" />
+        <Back link="/dashboard/jobs" />
       </div>
       <Title text1="Job" text2="Details" />
       <div className="mt-12">
         {isPending ? (
-          <p>Loading....</p>
+          <JobDetailsSkeleton />
         ) : isError && !data?.data ? (
-          <ErrorFetching message="Job detail" retry={() => refetch} />
+          <ErrorFetching message="Job" retry={() => refetch} />
         ) : data.data.length === 0 && data?.message ? (
           <NoData message={data.message} />
         ) : (
-          <JobDetail job={data.data[0]} />
+          <JobDetails job={data.data[0]} />
         )}
       </div>
     </section>
   );
 }
+
+export default JobDetail;

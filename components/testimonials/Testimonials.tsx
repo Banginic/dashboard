@@ -1,5 +1,5 @@
 import TestimonialCarousel from "./TestimonialCarousel";
-import { Title } from "@/dashboard-components";
+import { Title } from "@/admin-components";
 
 const Testimonials = () => {
   return (
@@ -7,11 +7,12 @@ const Testimonials = () => {
       {/* Header Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="text-center mb-16">
-            <Title text1="CLIENT" text2="STORIES"/>
-          
+          <Title text1="CLIENT" text2="STORIES" />
+
           <p className="text-secondary-foreground mt-4 max-w-2xl mx-auto text-[1.3rem] leading-relaxed">
-            Discover how we've helped businesses transform their digital presence 
-            and achieve remarkable results through innovative solutions.
+            Discover how we've helped businesses transform their digital
+            presence and achieve remarkable results through innovative
+            solutions.
           </p>
         </div>
 
