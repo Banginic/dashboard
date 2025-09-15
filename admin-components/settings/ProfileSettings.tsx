@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFetch } from "@/hooks/useFetch";
 import { usePost } from "@/hooks/usePost";
 import { ProfileInfoType, ProfileInfoTypes } from "@/models/settings";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Copy, LoaderCircle } from "lucide-react";
 import React, { useState, useEffect, ChangeEvent } from "react";
@@ -61,11 +61,11 @@ function ProfileSettings() {
     body: projectInfo,
   };
   const { mutate, isPending: updatePending } = useMutation({
-    mutationKey: ["update-admin-profile-info"],
+    mutationKey: ["admin-profile-info", 'update'],
     mutationFn: () => usePost<ProfileInfoTypes>(updateDetails),
     onSuccess: (data) => {
       if (data.success) {
-        dashboardProvider.invalidateQueries({
+        adminProvider.invalidateQueries({
           queryKey: ["admin-profile-info"],
         });
         toast.success("Project information updated successfully");

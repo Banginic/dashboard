@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   const content = `
 User-agent: *
-Disallow: /dashboard/
+Disallow: /admin/
 Disallow: /api/
 Allow: /
 

@@ -15,6 +15,7 @@ import {
 import { TestimonialTypes } from "@/models/types";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { usePost } from "@/hooks/usePost";
 
 interface FormDataType extends TestimonialSchemaType {
   photo: File;
@@ -45,17 +46,14 @@ function TestimonialForm({
       data.append("message", formData.message);
       data.append("photo", formData.photo);
 
-      const response = await fetch(
-        `${baseUrl}/api/v1/testimonials/create-single-testimony`,
-        {
-          method: "POST",
-          body: data, // 👈 send FormData object
-        }
-      );
-      const result = await response.json();
-      if (!result.data) {
-        setErrorMessage(result.message);
+
+      const postDetails = {
+        endpoint: "/testimonials/create-single-testimony",
+        method: "POST",
+        title: "testimony",
+        body: data,
       }
+     const result = await usePost<TestimonialTypes>(postDetails);
       return result;
     } catch (ex) {
       if (ex instanceof Error) {

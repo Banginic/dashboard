@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { useFetch } from "@/hooks/useFetch";
 import { usePost } from "@/hooks/usePost";
 import { ContactType, ContactTypes } from "@/models/settings";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -51,11 +51,11 @@ function ContactSettings({ projectId }: { projectId: string }) {
     body: contactInfo,
   };
   const { mutate, isPending: updatePending } = useMutation({
-    mutationKey: ["update-admin-contact-info"],
+    mutationKey: ["admin-profile-info", 'update'],
     mutationFn: () => usePost<ContactTypes>(updateDetails),
     onSuccess: (data) => {
       if (data.success) {
-        dashboardProvider.invalidateQueries({
+        adminProvider.invalidateQueries({
           queryKey: ["admin-profile-info"],
         });
         toast.success("Address information updated successfully");

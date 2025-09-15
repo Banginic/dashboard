@@ -5,12 +5,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { EmployeeTypes } from "@/models/types";
-import { LoadingBTN } from "@/components";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { LoadingBTN } from "@/admin-components/index";
+import { adminProvider } from "@/providers/admin-provider";
 import { EmployeeSchema, EmployeeSchemaType } from "@/schemas/employeeSchema";
 import Image from "next/image";
 import { place_holder_image } from "@/assets/photos";
 import { toast } from "react-toastify";
+import { usePost } from "@/hooks/usePost";
 
 interface FormDataType extends EmployeeSchemaType {
   photo: File;
@@ -39,15 +40,15 @@ function EmployeeForm({
       data.append("qualification", formData.qualification);
       data.append("bio", formData.bio);
       data.append("photo", formData.photo);
+  
 
-      const response = await fetch(
-        `${baseUrl}/api/employees/create-single-employee`,
-        {
-          method: "POST",
-          body: data, // 👈 send FormData object
-        }
-      );
-      const result = await response.json();
+      const postDetails = {
+        endpoint: "/employees/create-single-employee",
+        method: "POST", 
+        title: "employee",
+        body: data, 
+      };
+     const result = await usePost<EmployeeTypes>(postDetails);
       return result;
     } catch (ex) {
       if (ex instanceof Error) {
@@ -62,9 +63,10 @@ function EmployeeForm({
   };
   const { mutate, isPending } = useMutation({
     mutationFn: postNews,
+    mutationKey: [`admin-employees`, 'create'],
     onSuccess: () => {
       toast.success("Employee created successfully");
-      dashboardProvider.invalidateQueries({ queryKey: ["admin-employees"] });
+      adminProvider.invalidateQueries({ queryKey: ["admin-employees"] });
       reset();
       setPhoto(null);
     },

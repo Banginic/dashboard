@@ -6,7 +6,7 @@ function JobCard({ job }: { job: JobType }) {
   const { id, title, location, createdAt } = job;
   return (
     <Link
-      href={`/dashboard/jobs/${id}`}
+      href={`/admin/jobs/${id}`}
       className="p-6 border text-foreground cursor-pointer border-secondary-foreground/50 bg-secondary shadow-md flex justify-between text-sm lg:text-[16px] items-center rounded-lg "
     >
       <div className=" ">

@@ -13,7 +13,7 @@ interface PropsTypes {
 function MessageCard({message}: { message: PropsTypes}) {
   const { id, name, subject,  createdAt } = message
   return (
-    <Link href={`/kitchen/messages/${id}`} className="p-6 border text-neutral-700 cursor-pointer border-gray-300 shadow-md flex justify-between text-sm lg:text-[16px] items-center rounded-lg shadow-indigo-100 hover:shadow-indigo-200">
+    <Link href={`/admin/messages/${id}`} className="p-6 border text-neutral-700 cursor-pointer border-gray-300 shadow-md flex justify-between text-sm lg:text-[16px] items-center rounded-lg shadow-indigo-100 hover:shadow-indigo-200">
       <div className=" ">
         <p className="text-neutral-500">Sender</p>
         <p >{name}</p>

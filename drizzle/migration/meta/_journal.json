@@ -15,6 +15,13 @@
       "when": 1757169546091,
       "tag": "0001_yummy_hemingway",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757940294369,
+      "tag": "0002_neat_apocalypse",
+      "breakpoints": true
     }
   ]
 }

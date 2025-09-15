@@ -6,12 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { ProductTypes } from "@/models/types";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import Image from "next/image";
 import { ProductSchema, ProductSchemaType } from "@/schemas/productsSchema";
 import { place_holder_image } from "@/assets/photos";
 import { CATEGORIES, SUB_CATEGORIES } from "@/assets/data";
 import { Input } from "@/components/ui/input";
+import { usePost } from "@/hooks/usePost";
 
 interface ProductFormType extends ProductSchemaType {
   photos: File[];
@@ -43,16 +44,14 @@ function ProductForm({
           }
         });
       }
+      const postDetails = {
+        endpoint: "/products/create-single-product",
+        method: "POST",
+        title: "product",
+        body: formData,
+      }
 
-      const response = await fetch(
-        `${baseUrl}/api/products/create-single-product`,
-        {
-          method: "POST",
-          body: formData, // 👈 send FormData object
-        }
-      );
-      const result = await response.json();
-      console.log(result);
+    const result = await usePost<ProductTypes>(postDetails);
       return result;
     } catch (ex) {
       if (ex instanceof Error) {
@@ -67,9 +66,10 @@ function ProductForm({
   };
   const { mutate, isPending } = useMutation({
     mutationFn: postProduct,
+    mutationKey: [`admin-products`, 'create'],
     onSuccess: () => {
       setSuccessMessage("Product created successfully.");
-      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-products"] });
+      adminProvider.invalidateQueries({ queryKey: ["admin-products"] });
       reset();
     },
     onError: () => {

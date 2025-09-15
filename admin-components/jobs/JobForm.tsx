@@ -7,10 +7,10 @@ import { JobSchema, JobSchemaType } from "@/schemas/jobsSchema";
 import { useMutation } from "@tanstack/react-query";
 import { JobTypes } from "@/models/types";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { projectDetails } from "@/constants/project-details";
+import { usePost } from "@/hooks/usePost";
 
 function JobsForm({
   closeForm,
@@ -26,13 +26,13 @@ function JobsForm({
 
   const postJobs = async (formData: JobSchemaType): Promise<JobTypes> => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-      const response = await fetch(`${baseUrl}/api/v1/jobs/create-single-job`, {
+      const postDetails = {
+        endpoint: "/jobs/create-single-job",
         method: "POST",
-        body: JSON.stringify(formData),
-        headers: { "Content-Type": "application/json" },
-      });
-      const data = await response.json();
+        title: "job",
+        body: formData,
+      };
+      const data = await usePost<JobTypes>(postDetails);
       return data;
     } catch (ex) {
       if (ex instanceof Error) {
@@ -52,8 +52,8 @@ function JobsForm({
         return setErrorMessage("Error Creating Job");
       }
       setSuccessMessage("Jobs created successfully.");
-      dashboardProvider.invalidateQueries({
-        queryKey: [`${projectDetails.projectName || "dashboard"}-jobs`],
+      adminProvider.invalidateQueries({
+        queryKey: [`admin-jobs`],
       });
       reset();
     },

@@ -49,7 +49,7 @@ export async function PUT(req: Request) {
  if(availableAdmin[0].role === 'user'){
      const activateAdmin =  await db
       .update(usersTable)
-      .set({role: 'admin', updatedAT: today})
+      .set({role: 'admin', updatedAt: today})
       .where(eq(usersTable.id, admin_id))
       .returning()
 
@@ -66,7 +66,7 @@ export async function PUT(req: Request) {
  //Disactivate admin
    const deactivateAdmin =  await db
       .update(usersTable)
-      .set({role: 'user', updatedAT: today})
+      .set({role: 'user', updatedAt: today})
       .where(eq(usersTable.id, admin_id))
       .returning()
 

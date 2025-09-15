@@ -5,7 +5,7 @@ import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "react-toastify";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -15,21 +15,22 @@ function EmployeeDetails({ employee }: { employee: EmployeeType }) {
     employee;
 
   const updateDetails = {
-    endpoint: `/api/employees/update-active-employee?employee_id=${id}`,
+    endpoint: `/employees/update-active-employee?employee_id=${id}`,
     method: "PUT",
     title: "employee",
   };
   const deleteDetails = {
-    endpoint: `/api/employees/delete-single-employee?employee_id=${id}`,
+    endpoint: `/employees/delete-single-employee?employee_id=${id}`,
     method: "DELETE",
     title: "employee",
   };
 
   const { mutate: updateEmployee, isPending: pendingUpdate } = useMutation({
     mutationFn: () => useFetch<EmployeeTypes>(updateDetails),
+    mutationKey: [`admin-employees`, 'update', id],
     onSuccess: () => {
       toast.success("Employee updated");
-      dashboardProvider.invalidateQueries({
+      adminProvider.invalidateQueries({
         queryKey: [`admin-employee-${id}`],
       });
       return;
@@ -38,12 +39,13 @@ function EmployeeDetails({ employee }: { employee: EmployeeType }) {
   });
   const { mutate: deleteEmpoyee, isPending: pendingDelete } = useMutation({
     mutationFn: () => useFetch<EmployeeTypes>(deleteDetails),
+    mutationKey: [`admin-employees`, 'delete', id],
     onSuccess: () => {
       toast.success("Employee deleted");
-      kitchenClient.invalidateQueries({
+      adminProvider.invalidateQueries({
         queryKey: [`admin-employees`],
       });
-      router.push("/kitchen/employees");
+      router.push("/admin/employees");
       return;
     },
     onError: () => toast.error("Error deleting employee"),

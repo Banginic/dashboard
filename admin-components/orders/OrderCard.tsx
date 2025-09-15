@@ -6,7 +6,7 @@ function OrderCard( {order}: {order : OrderType}) {
   const { id, name, status, price, createdAt, location } = order
   return (
     <Link 
-    href={`/kitchen/orders/${id}`}
+    href={`/admin/orders/${id}`}
     className="p-6 border cursor-pointer border-gray-300 shadow-md flex justify-between text-sm lg:text-[16px] items-center rounded-lg shadow-indigo-100 hover:shadow-indigo-200">
       <div className=" ">
         <p>{name}</p>

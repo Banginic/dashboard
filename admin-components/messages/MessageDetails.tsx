@@ -3,7 +3,7 @@ import { MessageType, MessageTypes } from "@/models/types";
 import { LoaderCircle, Reply, Trash } from "lucide-react";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
@@ -12,7 +12,7 @@ import MessageReplyForm from "./ReplyMessageForm";
 function MessageDetails({ message }: { message: MessageType }) {
   const [showMessageReplyForm, setMessageReplyForm] = useState(false);
   const fetchDetails = {
-    endpoint: "/api/messages/delete-single-message",
+    endpoint: "/messages/delete-single-message",
     method: "DELETE",
     title: "messages",
   };
@@ -21,10 +21,11 @@ function MessageDetails({ message }: { message: MessageType }) {
 
   const { mutate: deleteMutate, isPending: deletePending } = useMutation({
     mutationFn: () => useFetch<MessageTypes>(fetchDetails),
+    mutationKey: ["admin-messages", "delete", id],
     onSuccess: () => {
       toast.success("Message Deleted Successfully");
-      dashboardProvider.invalidateQueries({ queryKey: ["kitchen-messages"] });
-      router.push("/kitchen/messages");
+      adminProvider.invalidateQueries({ queryKey: ["admin-messages"] });
+      router.push("/admin/messages");
       return;
     },
     onError: () => {

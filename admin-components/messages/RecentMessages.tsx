@@ -11,12 +11,12 @@ import { NoData, ErrorFetching } from "@/admin-components/index";
 
 function RecenctMessages() {
   const fetchDetails = {
-    endpoint: "/api/messages/list-all-messages?limit=3",
+    endpoint: "/messages/list-all-messages?limit=3",
     method: "GET",
     title: "Messages",
   };
   const { data, refetch, isPending, isError } = useQuery({
-    queryKey: ["kitchen-messages"],
+    queryKey: ["admin-messages"],
     queryFn: () => useFetch<MessageTypes>(fetchDetails),
   });
   return (

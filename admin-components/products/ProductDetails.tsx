@@ -20,22 +20,23 @@ function ProductDetails({ product }: { product: ProductType }) {
   } = product;
 
   const updateDetails = {
-    endpoint: `/api/products/update-stock-product?product_id=${id}`,
+    endpoint: `/products/update-stock-product?product_id=${id}`,
     method: "PATCH",
     title: "Product",
   };
   const deleteDetails = {
-    endpoint: `/api/products/delete-single-product?product_id=${id}`,
+    endpoint: `/products/delete-single-product?product_id=${id}`,
     method: "DELETE",
     title: "Product",
   };
 
   const { mutate: updateMutate, isPending: updatePending } = useMutation({
     mutationFn: () => useFetch<ProductTypes>(updateDetails),
+    mutationKey: [`admin-products`, 'update', id],
     onSuccess: () => {
       toast.success("Product updated successfully.");
       adminProvider.invalidateQueries({
-        queryKey: [`kitchen-products-${id}`],
+        queryKey: [`admin-products`],
       });
     },
     onError: () => {
@@ -44,9 +45,10 @@ function ProductDetails({ product }: { product: ProductType }) {
   });
   const { mutate: deleteMutate, isPending: deletePending } = useMutation({
     mutationFn: () => useFetch<ProductTypes>(deleteDetails),
+    mutationKey: [`admin-products`, 'delete', id],
     onSuccess: () => {
       toast.success("Product deleted successfully.");
-      adminProvider.invalidateQueries({ queryKey: [`kitchen-products`] });
+      adminProvider.invalidateQueries({ queryKey: [`admin-products`] });
     },
     onError: () => {
       toast.error("Error deleting product");

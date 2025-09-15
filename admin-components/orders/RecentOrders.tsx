@@ -10,12 +10,12 @@ import { useFetch } from "@/hooks/useFetch";
 
 function RecentOrders() {
   const fetchDetails = {
-    endpoint: "/api/orders/list-all-orders?limit=3",
+    endpoint: "/orders/list-all-orders?limit=3",
     method: "GET",
     title: "Ordes",
   };
   const { data, refetch, isPending, isError } = useQuery({
-    queryKey: ["kitchen-orders"],
+    queryKey: ["admin-orders"],
     queryFn: () => useFetch<OrdersTypes>(fetchDetails),
   });
   return (

@@ -3,7 +3,7 @@ import { JobType, MessageTypes } from "@/models/types";
 import { LoaderCircle, Reply, Trash } from "lucide-react";
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";
@@ -21,16 +21,17 @@ function JobDetails({ job }: { job: JobType }) {
 
   const { mutate: deleteMutate, isPending: deletePending } = useMutation({
     mutationFn: () => useFetch<MessageTypes>(fetchDetails),
+    mutationKey: ["admin-jobs", "delete", id],
     onSuccess: (data) => {
       if (!data.success) {
         toast.error("Error deleting job");
         return;
       }
       toast.success("Message Deleted Successfully");
-      dashboardProvider.invalidateQueries({
-        queryKey: [`${projectDetails.projectName || "dashboard"}-jobs-${id}`],
+      adminProvider.invalidateQueries({
+        queryKey: [`admin-jobs`],
       });
-      router.push("/dashboard/jobs");
+      router.push("/admin/jobs");
       return;
     },
     onError: () => {

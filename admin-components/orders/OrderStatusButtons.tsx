@@ -2,7 +2,7 @@
 import { Car, Check, ChefHat, LoaderCircle, Trash, X } from "lucide-react";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import { LoadingBTN } from "@/admin-components/index";
 import { useFetch } from "@/hooks/useFetch";
@@ -18,17 +18,18 @@ function OrderStatusButtons({
   const [newStatus, setNewStatus] = useState<string>(status);
 
   const updateDetails = {
-    endpoint: `/api/orders/update-order-status?status=${newStatus}`,
+    endpoint: `/orders/update-order-status?status=${newStatus}`,
     method: "PUT",
     title: "orders",
   };
 
   const { mutate: cancelOrder, isPending: cancelPending } = useMutation({
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
+    mutationKey: [`admin-orders`, 'update', orderId],
     onSuccess: () => {
       toast.success(newStatus);
-      dashboardProvider.invalidateQueries({
-        queryKey: [`kitchen-orders-${orderId}`],
+      adminProvider.invalidateQueries({
+        queryKey: [`admin-orders`],
       });
       return;
     },
@@ -38,10 +39,11 @@ function OrderStatusButtons({
   });
   const { mutate: prepareOrder, isPending: preparePending } = useMutation({
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
+    mutationKey: [`admin-orders`, 'update', orderId],
     onSuccess: () => {
       toast.success(newStatus);
-      dashboardProvider.invalidateQueries({
-        queryKey: [`kitchen-orders-${orderId}`],
+      adminProvider.invalidateQueries({
+        queryKey: [`admin-orders`],
       });
       return;
     },
@@ -54,7 +56,7 @@ function OrderStatusButtons({
       mutationFn: () => useFetch<MessageTypes>(updateDetails),
       onSuccess: () => {
         toast.success(newStatus);
-        dashboardProvider.invalidateQueries({
+        adminProvider.invalidateQueries({
           queryKey: [`kitchen-orders-${orderId}`],
         });
         return;
@@ -68,7 +70,7 @@ function OrderStatusButtons({
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
     onSuccess: () => {
       toast.success(newStatus);
-      dashboardProvider.invalidateQueries({
+      adminProvider.invalidateQueries({
         queryKey: [`kitchen-orders-${orderId}`],
       });
       return;
@@ -81,7 +83,7 @@ function OrderStatusButtons({
     mutationFn: () => useFetch<MessageTypes>(updateDetails),
     onSuccess: () => {
       toast.success(newStatus);
-      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-orders`] });
+      adminProvider.invalidateQueries({ queryKey: [`kitchen-orders`] });
       return;
     },
     onError: () => {

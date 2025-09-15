@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "react-toastify";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 
 export default function TestimonialCard({
   testimonial,
@@ -16,15 +16,16 @@ export default function TestimonialCard({
 }) {
   const { id, phone, name, project, message, rating, photo } = testimonial;
   const fetchDetails = {
-    endpoint: `/api/testimonials/delete-single-testimony?testimonial_id=${id}`,
+    endpoint: `/testimonials/delete-single-testimony?testimonial_id=${id}`,
     method: "DELETE",
     title: "testimonials",
   };
   const { mutate, isPending } = useMutation({
     mutationFn: () => useFetch<TestimonialTypes>(fetchDetails),
+    mutationKey: [`admin-testimonies`, 'delete', id],
     onSuccess: () => {
       toast.success("Testimony deleted successfully");
-      dashboardProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
+      adminProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
     },
     onError: () => {
       toast.error("Error deleting testimony");

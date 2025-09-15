@@ -9,13 +9,13 @@ import { useFetch } from "@/hooks/useFetch";
 
 function ProductCounts() {
   const fetchDetails = {
-    endpoint: "/api/products/list-all-products",
+    endpoint: "/products/list-all-products",
     method: "GET",
     title: "products",
   };
 
   const { data, refetch, isPending, isError } = useQuery({
-    queryKey: ["kitchen-products"],
+    queryKey: ["admin-products"],
     queryFn: () => useFetch<ProductTypes>(fetchDetails),
   });
   return (

@@ -8,7 +8,7 @@ import { AddressType, AddressTypes } from "@/models/settings";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { usePost } from "@/hooks/usePost";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import LoadingBTN from "@/components/LoadingBTN";
 
@@ -53,11 +53,11 @@ function AddressSettings({ projectId }: { projectId: string }) {
     body: addressInfo,
   };
   const { mutate, isPending: updatePending } = useMutation({
-    mutationKey: ["update-admin-address-info"],
+  mutationKey: ["admin-address-info", 'update'],
     mutationFn: () => usePost<AddressTypes>(updateDetails),
     onSuccess: (data) => {
       if (data.success) {
-        dashboardProvider.invalidateQueries({
+        adminProvider.invalidateQueries({
           queryKey: ["admin-profile-info"],
         });
         toast.success("Address information updated successfully");

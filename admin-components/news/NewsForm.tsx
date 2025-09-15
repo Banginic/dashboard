@@ -10,7 +10,7 @@ import { LoadingBTN } from "@/admin-components/index";
 import { adminProvider } from "@/providers/admin-provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { projectDetails } from "@/constants/project-details";
+import { usePost } from "@/hooks/usePost";
 
 function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   const [successMessage, setSuccessMessage] = useState("");
@@ -22,16 +22,13 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
 
   const postNews = async (formData: NewsSchemaType): Promise<NewsTypes> => {
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL!;
-      const response = await fetch(
-        `${baseUrl}/api/v1/news/create-single-news`,
-        {
-          method: "POST",
-          body: JSON.stringify(formData),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      const data = await response.json();
+      const postDetails = {
+        endpoint: "/news/create-single-news",
+        method: "POST",
+        title: "news",
+        body: formData,
+      }
+      const data = await usePost<NewsTypes>(postDetails);
       return data;
     } catch (ex) {
       if (ex instanceof Error) {
@@ -46,13 +43,14 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
   };
   const { mutate, isPending } = useMutation({
     mutationFn: postNews,
+    mutationKey: [`admin-news`, 'create'],
     onSuccess: (data) => {
       if (!data.success) {
         return setErrorMessage("Error Creating News");
       }
       setSuccessMessage("News created successfully.");
       adminProvider.invalidateQueries({
-        queryKey: [`${projectDetails.projectName || "dashboard"}-news `],
+        queryKey: [`admin-news `],
       });
       reset();
     },

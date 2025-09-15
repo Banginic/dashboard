@@ -16,6 +16,7 @@ export const usersTable = pgTable("users", {
   role: varchar({ length: 255 }).notNull().default("client"),
   password: varchar({ length: 255 }).notNull(),
   createAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp('updated_at').notNull().defaultNow()
 });
 
 export const ProjectInfoTable = pgTable("project_info", {

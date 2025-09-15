@@ -9,13 +9,13 @@ import { MessageTypes } from "@/models/types";
 
 function MessageCounts() {
   const fetchDetails = {
-    endpoint: "/api/messages/list-all-messages",
+    endpoint: "/messages/list-all-messages",
     method: "GET",
     title: "messages",
   };
 
   const { data, refetch, isPending, isError } = useQuery({
-    queryKey: ["kitchen-messages"],
+    queryKey: ["admin-messages"],
     queryFn: () => useFetch<MessageTypes>(fetchDetails),
   });
   return (

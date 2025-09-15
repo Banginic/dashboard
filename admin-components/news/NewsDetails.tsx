@@ -5,7 +5,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useMutation } from "@tanstack/react-query";
 import { NewsType, NewsTypes } from "@/models/types";
 import { toast } from "react-toastify";
-import { dashboardProvider } from "@/providers/admin-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { LoadingBTN } from "@/admin-components/index";
 
 function NewsDetails({ news }: { news: NewsType }) {
@@ -28,7 +28,7 @@ function NewsDetails({ news }: { news: NewsType }) {
     mutationFn: () => useFetch<NewsTypes>(activeDetails),
     onSuccess: () => {
       toast.success("News updated successfully");
-      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-news`] });
+      adminProvider.invalidateQueries({ queryKey: [`admin-news`] });
     },
     onError: () => {
       toast.error("Error updating news");
@@ -36,9 +36,10 @@ function NewsDetails({ news }: { news: NewsType }) {
   });
   const { mutate: deleteMutate, isPending: deletePending } = useMutation({
     mutationFn: () => useFetch<NewsTypes>(deleteDetails),
+    mutationKey: [`admin-news`, 'delete', id],
     onSuccess: () => {
       toast.success("News deleted successfully");
-      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-news`] });
+      adminProvider.invalidateQueries({ queryKey: [`admin-news`] });
     },
     onError: () => {
       toast.error("Error deleting news");
