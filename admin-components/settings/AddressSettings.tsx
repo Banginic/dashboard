@@ -8,7 +8,7 @@ import { AddressType, AddressTypes } from "@/models/settings";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { usePost } from "@/hooks/usePost";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import LoadingBTN from "@/components/LoadingBTN";
 
@@ -200,7 +200,7 @@ function AddressSettings({ projectId }: { projectId: string }) {
         <span>Set / Update map</span>
       </Link>
       <>
-        {isChanged && (!isPending && data?.data ) && !isError && (
+        {isChanged && !isPending && data?.data && !isError && (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

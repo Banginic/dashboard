@@ -5,13 +5,13 @@ import React from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "react-toastify";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 function EmployeeDetails({ employee }: { employee: EmployeeType }) {
-  const router = useRouter()
-  const {  id, name, position, photo, email, bio, phone, isActive, createdAt, } =
+  const router = useRouter();
+  const { id, name, position, photo, email, bio, phone, isActive, createdAt } =
     employee;
 
   const updateDetails = {
@@ -43,7 +43,7 @@ function EmployeeDetails({ employee }: { employee: EmployeeType }) {
       kitchenClient.invalidateQueries({
         queryKey: [`admin-employees`],
       });
-      router.push('/kitchen/employees')
+      router.push("/kitchen/employees");
       return;
     },
     onError: () => toast.error("Error deleting employee"),
@@ -61,9 +61,14 @@ function EmployeeDetails({ employee }: { employee: EmployeeType }) {
         {/* Image */}
         <div className="flex items-center justify-between">
           <div className="h-32 w-32 overflow-hidden rounded-md bg-gray-300">
-            <Image  src={photo} width={400} height={400} alt={` Employee ${name}`} />
+            <Image
+              src={photo}
+              width={400}
+              height={400}
+              alt={` Employee ${name}`}
+            />
           </div>
-          <p className="text-green-500 text-sm">{isActive ? 'Active' : ''}</p>
+          <p className="text-green-500 text-sm">{isActive ? "Active" : ""}</p>
         </div>
         <div className="flex justify-between mt-4">
           <div className="flex flex-col text-xs lg:text-sm">
@@ -110,7 +115,11 @@ function EmployeeDetails({ employee }: { employee: EmployeeType }) {
         <button
           onClick={handleActiveEmployee}
           disabled={pendingUpdate}
-          className={`text-sm disabled:bg-gray-300 disabled:hover:gray-300 ${ isActive ? 'bg-yellow-200 hover:bg-yellow-300 text-yellow-800 ' : 'bg-green-200 hover:bg-green-300 text-green-800 '} py-2 px-4 rounded cursor-pointer`}
+          className={`text-sm disabled:bg-gray-300 disabled:hover:gray-300 ${
+            isActive
+              ? "bg-yellow-200 hover:bg-yellow-300 text-yellow-800 "
+              : "bg-green-200 hover:bg-green-300 text-green-800 "
+          } py-2 px-4 rounded cursor-pointer`}
         >
           {pendingUpdate ? (
             <div className="flex items-center gap-2">

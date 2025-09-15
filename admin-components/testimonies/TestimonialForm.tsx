@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import Image from "next/image";
 import { place_holder_image } from "@/assets/photos";
 import {
@@ -76,7 +76,7 @@ function TestimonialForm({
         return;
       }
       setSuccessMessage("Testimony created successfully.");
-      dashboardProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
+      adminProvider.invalidateQueries({ queryKey: ["admin-testimonies"] });
       setPhoto(null);
       reset();
     },

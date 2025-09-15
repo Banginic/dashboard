@@ -1,18 +1,18 @@
-'use client'
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import HeroCardsSkeleton from "../skeletons/HeroCardsSkeleton";
-import HeroCard from "../HeroCard";
+import HeroCardsSkeleton from "../admin-hero/HeroCardsSkeleton";
+import HeroCard from "../admin-hero/HeroCard";
 import { ShoppingCart, TrendingDown, TrendingUp } from "lucide-react";
 import { OrdersTypes } from "@/models/types";
 import { useFetch } from "@/hooks/useFetch";
 
 function OrderCounts() {
-const fetchDetails = {
-  endpoint: '/api/orders/list-all-orders',
-  method: 'GET',
-  title: 'orders'
-}
+  const fetchDetails = {
+    endpoint: "/api/orders/list-all-orders",
+    method: "GET",
+    title: "orders",
+  };
 
   const { data, refetch, isPending, isError } = useQuery({
     queryKey: ["kitchen-messages"],
@@ -25,15 +25,15 @@ const fetchDetails = {
           <HeroCardsSkeleton />
         ) : !data?.data || !data.success || isError ? (
           <HeroCard
-              Icon={ShoppingCart}
-              interval="Network Error"
-              percent={'0%'}
-              title="Orders"
-              amount={0.0}
-              Graph={TrendingDown}
-              color={ 'red'}
-            />
-        )  : (
+            Icon={ShoppingCart}
+            interval="Network Error"
+            percent={"0%"}
+            title="Orders"
+            amount={0.0}
+            Graph={TrendingDown}
+            color={"red"}
+          />
+        ) : (
           <div>
             <HeroCard
               Icon={ShoppingCart}
@@ -42,7 +42,7 @@ const fetchDetails = {
               title="Orders"
               amount={data.data.length}
               Graph={data.data.length > 10 ? TrendingUp : TrendingDown}
-              color={data.data.length > 10 ? 'green' : 'red'}
+              color={data.data.length > 10 ? "green" : "red"}
             />
           </div>
         )}

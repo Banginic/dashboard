@@ -20,17 +20,17 @@ export async function middleware(req: NextRequest) {
 
   // 3️⃣ Redirect unauthenticated users to sign-in
   if (!token) {
-    return NextResponse.redirect(new URL("/admin/auth/sign-in", req.url));
+    return NextResponse.redirect(new URL("/auth/sign-in", req.url));
   }
 
   // 4️⃣ Role-based protection
-  if (req.nextUrl.pathname.startsWith("/dashboard") && token.role !== "admin") {
-    return NextResponse.redirect(new URL("/admin/auth-sign-in", req.url));
+  if (req.nextUrl.pathname.startsWith("/admin") && token.role !== "admin") {
+    return NextResponse.redirect(new URL("/auth/-sign-in", req.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/api/:path*", "/dashboard/:path*"],
+  matcher: ["/api/:path*", "/admin/:path*"],
 };

@@ -1,4 +1,4 @@
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { useFetch } from "@/hooks/useFetch";
 import { ProductType, ProductTypes } from "@/models/types";
 import { useMutation } from "@tanstack/react-query";
@@ -15,7 +15,6 @@ function ProductDetails({ product }: { product: ProductType }) {
     name,
     category,
     subCategory,
-    allergies,
     description,
     photos,
   } = product;
@@ -35,7 +34,7 @@ function ProductDetails({ product }: { product: ProductType }) {
     mutationFn: () => useFetch<ProductTypes>(updateDetails),
     onSuccess: () => {
       toast.success("Product updated successfully.");
-      dashboardProvider.invalidateQueries({
+      adminProvider.invalidateQueries({
         queryKey: [`kitchen-products-${id}`],
       });
     },
@@ -47,7 +46,7 @@ function ProductDetails({ product }: { product: ProductType }) {
     mutationFn: () => useFetch<ProductTypes>(deleteDetails),
     onSuccess: () => {
       toast.success("Product deleted successfully.");
-      dashboardProvider.invalidateQueries({ queryKey: [`kitchen-products`] });
+      adminProvider.invalidateQueries({ queryKey: [`kitchen-products`] });
     },
     onError: () => {
       toast.error("Error deleting product");
@@ -96,7 +95,7 @@ function ProductDetails({ product }: { product: ProductType }) {
         <div className="mt-4">
           <div className="flex flex-col text-xs lg:text-sm">
             <span className="text-neutral-600">Allergies</span>
-            <span className="text-blue-600">{allergies}</span>
+            <span className="text-blue-600">{'allergies'}</span>
           </div>
           <div className="flex flex-col text-xs lg:text-sm  mt-2">
             <span className="text-neutral-600">Description</span>

@@ -7,7 +7,7 @@ import { NewsSchema, NewsSchemaType } from "@/schemas/newsSchema";
 import { useMutation } from "@tanstack/react-query";
 import { NewsTypes } from "@/models/types";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { projectDetails } from "@/constants/project-details";
@@ -51,7 +51,7 @@ function NewsForm({ setNewsForm }: { setNewsForm: (value: boolean) => void }) {
         return setErrorMessage("Error Creating News");
       }
       setSuccessMessage("News created successfully.");
-      dashboardProvider.invalidateQueries({
+      adminProvider.invalidateQueries({
         queryKey: [`${projectDetails.projectName || "dashboard"}-news `],
       });
       reset();

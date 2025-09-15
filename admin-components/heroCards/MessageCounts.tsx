@@ -1,18 +1,18 @@
-'use client'
+"use client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import HeroCardsSkeleton from "../skeletons/HeroCardsSkeleton";
-import HeroCard from "../HeroCard";
+import HeroCardsSkeleton from "../admin-hero/HeroCardsSkeleton";
+import HeroCard from "../admin-hero/HeroCard";
 import { MessageCircle, TrendingDown, TrendingUp } from "lucide-react";
 import { useFetch } from "@/hooks/useFetch";
 import { MessageTypes } from "@/models/types";
 
 function MessageCounts() {
-const fetchDetails = {
-  endpoint: '/api/messages/list-all-messages',
-  method: 'GET',
-  title: 'messages'
-}
+  const fetchDetails = {
+    endpoint: "/api/messages/list-all-messages",
+    method: "GET",
+    title: "messages",
+  };
 
   const { data, refetch, isPending, isError } = useQuery({
     queryKey: ["kitchen-messages"],
@@ -25,15 +25,15 @@ const fetchDetails = {
           <HeroCardsSkeleton />
         ) : !data?.data || !data.success || isError ? (
           <HeroCard
-              Icon={MessageCircle}
-              interval="Network Error"
-              percent={'0%'}
-              title="Messages"
-              amount={0.0}
-              Graph={TrendingDown}
-              color={'red'}
-            />
-        )  : (
+            Icon={MessageCircle}
+            interval="Network Error"
+            percent={"0%"}
+            title="Messages"
+            amount={0.0}
+            Graph={TrendingDown}
+            color={"red"}
+          />
+        ) : (
           <div>
             <HeroCard
               Icon={MessageCircle}
@@ -42,7 +42,7 @@ const fetchDetails = {
               title="Messages"
               amount={data.data.length}
               Graph={data.data.length > 10 ? TrendingUp : TrendingDown}
-              color={data.data.length > 10 ? 'green' : 'red'}
+              color={data.data.length > 10 ? "green" : "red"}
             />
           </div>
         )}

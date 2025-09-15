@@ -7,7 +7,7 @@ import { JobSchema, JobSchemaType } from "@/schemas/jobsSchema";
 import { useMutation } from "@tanstack/react-query";
 import { JobTypes } from "@/models/types";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { projectDetails } from "@/constants/project-details";

@@ -1,11 +1,9 @@
 "use client";
 
 import React from "react";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { adminProvider } from "@/providers/admin-provider";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { SessionProvider } from "next-auth/react";
-
-
 
 export default function AdminLayoutClient({
   children,
@@ -14,11 +12,9 @@ export default function AdminLayoutClient({
   children: React.ReactNode;
   session: any;
 }) {
-
-
   return (
     <SessionProvider session={session}>
-      <QueryClientProvider client={dashboardProvider}>
+      <QueryClientProvider client={adminProvider}>
         {children}
       </QueryClientProvider>
     </SessionProvider>

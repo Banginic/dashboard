@@ -5,7 +5,7 @@ import { useFetch } from "@/hooks/useFetch";
 import { useMutation } from "@tanstack/react-query";
 import { NewsType, NewsTypes } from "@/models/types";
 import { toast } from "react-toastify";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { LoadingBTN } from "@/admin-components/index";
 
 function NewsDetails({ news }: { news: NewsType }) {

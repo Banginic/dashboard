@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { ProductTypes } from "@/models/types";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import Image from "next/image";
 import { ProductSchema, ProductSchemaType } from "@/schemas/productsSchema";
 import { place_holder_image } from "@/assets/photos";

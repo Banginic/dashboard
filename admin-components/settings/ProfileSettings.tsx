@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useFetch } from "@/hooks/useFetch";
 import { usePost } from "@/hooks/usePost";
 import { ProfileInfoType, ProfileInfoTypes } from "@/models/settings";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Copy, LoaderCircle } from "lucide-react";
 import React, { useState, useEffect, ChangeEvent } from "react";
@@ -128,7 +128,9 @@ function ProfileSettings() {
               )}
             </span>
             <>
-              {isLoading ? '' : (isError || !data?.success) ? (
+              {isLoading ? (
+                ""
+              ) : isError || !data?.success ? (
                 "Network error"
               ) : (
                 <button
@@ -162,7 +164,7 @@ function ProfileSettings() {
       </p>
 
       <>
-        {isChanged && (!isPending && data?.data ) && !isError &&  (
+        {isChanged && !isPending && data?.data && !isError && (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

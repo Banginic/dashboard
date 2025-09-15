@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useFetch } from "@/hooks/useFetch";
 import { toast } from "react-toastify";
 import { LoadingBTN } from "@/admin-components/index";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 
 export default function TestimonialCard({
   testimonial,

@@ -13,7 +13,7 @@ export { default as LoadingBTN } from '../components/LoadingBTN'
 //ADMIN-USERS
 export { default as AdminUserCard } from './admin-users/AdminUserCard'
 export { default as AdminDetails } from './admin-users/AdminDetails'
-export { default as AdminUserCardSkeleton } from './skeletons/AdminUsersCardSkeleton'
+export { default as AdminUserCardSkeleton } from './admin-hero/AdminUsersCardSkeleton'
 
 //SETTINGS
 export { default as ProfileSettings } from './settings/ProfileSettings'
@@ -23,8 +23,8 @@ export { default as TransferSettings } from './settings/TransferSettings'
 export { default as DeleteSettings } from './settings/DeleteSettings'
 export { default as MapForm } from './settings/MapForm'
 
-export { default as HeroCard } from './HeroCard'
-export { default as HeroCardsSkeleton } from './skeletons/HeroCardsSkeleton'
+export { default as HeroCard } from './admin-hero/HeroCard'
+export { default as HeroCardsSkeleton } from './admin-hero/HeroCardsSkeleton'
 
 //REVENUE
 export { default as RevenueCounts } from './heroCards/RevenueCounts'

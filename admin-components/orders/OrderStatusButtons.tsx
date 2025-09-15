@@ -2,7 +2,7 @@
 import { Car, Check, ChefHat, LoaderCircle, Trash, X } from "lucide-react";
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import { LoadingBTN } from "@/admin-components/index";
 import { useFetch } from "@/hooks/useFetch";

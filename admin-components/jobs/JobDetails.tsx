@@ -3,7 +3,7 @@ import { JobType, MessageTypes } from "@/models/types";
 import { LoaderCircle, Reply, Trash } from "lucide-react";
 import React from "react";
 import { useMutation } from "@tanstack/react-query";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useFetch } from "@/hooks/useFetch";

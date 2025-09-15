@@ -1,11 +1,11 @@
-'use client';
+"use client";
 import LoadingBTN from "@/components/LoadingBTN";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useFetch } from "@/hooks/useFetch";
 import { usePost } from "@/hooks/usePost";
 import { ContactType, ContactTypes } from "@/models/settings";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -80,9 +80,10 @@ function ContactSettings({ projectId }: { projectId: string }) {
   const isChanged = data?.data[0] !== contactInfo;
 
   return (
-    <form 
-    onSubmit={handleSubmit}
-    className="border p-4 rounded-md  w-[95%] max-w-2xl mx-auto">
+    <form
+      onSubmit={handleSubmit}
+      className="border p-4 rounded-md  w-[95%] max-w-2xl mx-auto"
+    >
       <h2 className="font-semibold text-lg lg:text-xl mb-4">Contact Details</h2>
       <div className="flex gap-4 flex-col lg:flex-row text-foreground/70">
         <p className="flex flex-col   gap-1 text-sm w-full lg:w-1/2">
@@ -194,7 +195,7 @@ function ContactSettings({ projectId }: { projectId: string }) {
       </div>
 
       <>
-        {isChanged && (!isPending && data?.data ) && !isError &&  (
+        {isChanged && !isPending && data?.data && !isError && (
           <Button
             type="submit"
             className="mt-8 text-sm bg-foreground/70 text-background"

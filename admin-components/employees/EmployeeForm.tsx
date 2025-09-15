@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { EmployeeTypes } from "@/models/types";
 import { LoadingBTN } from "@/components";
-import { dashboardProvider } from "@/providers/dashboard-provider";
+import { dashboardProvider } from "@/providers/admin-provider";
 import { EmployeeSchema, EmployeeSchemaType } from "@/schemas/employeeSchema";
 import Image from "next/image";
 import { place_holder_image } from "@/assets/photos";
