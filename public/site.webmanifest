@@ -1,0 +1,21 @@
+{
+  "name": "Group Engineering Co LTD",
+  "short_name": "Groupengineering",
+  "description": "We provide innovative solutions in solar systems, borehole drilling, electrical installations, water treatment, and real estate development in Cameroon and accross Africa.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

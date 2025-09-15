@@ -10,6 +10,11 @@ export { default as Loader } from './Loader'
 export { default as NoData } from './NoData'
 export { default as LoadingBTN } from '../components/LoadingBTN'
 
+//ADMIN-USERS
+export { default as AdminUserCard } from './admin-users/AdminUserCard'
+export { default as AdminDetails } from './admin-users/AdminDetails'
+export { default as AdminUserCardSkeleton } from './skeletons/AdminUsersCardSkeleton'
+
 //SETTINGS
 export { default as ProfileSettings } from './settings/ProfileSettings'
 export { default as ContactSettings } from './settings/ContactSettings'

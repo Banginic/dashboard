@@ -15,6 +15,18 @@ export interface MessageTypes extends APIResponse {
   data : MessageType [] | []
 }
 
+export interface AdminType {
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    role: string;
+    createdAt: Date;
+    updatedAt: Date;
+  }
+export interface AdminTypes extends APIResponse {
+  data : AdminType [] | []
+}
 export interface ProductType {
     id: string;
     name: string;

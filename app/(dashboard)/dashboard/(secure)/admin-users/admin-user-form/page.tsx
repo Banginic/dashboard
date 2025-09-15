@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -12,14 +12,17 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff, Mail, Lock, User, Building, Phone } from "lucide-react";
-import { PERSONAL_DATA } from "@/assets/data";
-import { useRouter } from "next/navigation";
+
 import { projectDetails } from "@/constants/project-details";
+import { usePost } from "@/hooks/usePost";
+import { AdminTypes } from "@/models/types";
+import { Back, LoadingBTN } from "@/dashboard-components";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [ error, setError ] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [ isLoading, setIsLoading ] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -37,58 +40,67 @@ const SignUp = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-     if(formData.password !== formData.confirmPassword){
+    setError(null);
+    setIsLoading(true)
+    if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match");
       return;
-     }
-     try{
-      const response = await fetch('/api/auth/sign-up', {
-        method: 'POST',
-        headers: {  'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
-      }) 
-      const data = await response.json();
-      if(!response.ok){
-        if(data && data.message){
-          setError(data.message)
-        }else{
-          setError("An unexpected error occurred. Please try again.")
-        }
-      }else{
-        // Redirect to sign-in page on successful sign-up
-        window.location.href = '/dashboard/auth/sign-in';
-      }
+    }
+    try {
+      const postDetails = {
+        endpoint: "/admins/create-single-admin",
+        method: "POST",
+        title: "create user",
+        body: formData,
+      };
 
-     }catch(ex: unknown){
-      if(ex instanceof Error){
-        setError(ex.message)
+      const data = await usePost<AdminTypes>(postDetails);
+
+      if(!data){
+        setError('Error occured creating another user')
       }
-      setError("An unexpected error occurred. Please try again.")
-     }
+      if (!data.success && data.message) {
+        setError(data.message)
+        return
+      } else {
+        // Redirect to sign-in page on successful sign-up
+        window.location.href = "/dashboard";
+      }
+    } catch (ex: unknown) {
+      if (ex instanceof Error) {
+        setError(ex.message);
+      }
+      setError("An unexpected error occurred. Please try again.");
+    }
+    finally{
+      setIsLoading(false)
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-warm p-4">
-      <div className="w-full max-w-md space-y-6">
+    <div className="min-h-screen  flex items-center justify-center bg-gradient-warm p-4">
+      <div className="w-full relative space-y-6">
+        <div className="absolute">
+            <Back link="/dashboard/admin-users"/>
+        </div>
         {/* Logo */}
         <div className="text-center">
           <div className="flex justify-center mb-4"></div>
           <h1 className="text-3xl font-bold text-foreground">
             {projectDetails.projectName}
           </h1>
-          <p className="text-muted-foreground">Admin Dashboard</p>
         </div>
 
         {/* Sign Up Form */}
-        <Card className="bg-gradient-card border-gray-400 shadow-large">
+        <Card className="bg-gradient-card border-gray-400 shadow- w-[95%] max-w-md mx-auto">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Create Your Account</CardTitle>
+            <CardTitle className="text-2xl">Create Another Account</CardTitle>
             <CardDescription>
-              Start managing your bakery with our admin dashboard
+              Start managing your website with our admin dashboard
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit} className="space-y-4 ">
               <div className="grid  gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Full Name</Label>
@@ -106,8 +118,6 @@ const SignUp = () => {
                     />
                   </div>
                 </div>
-
-               
               </div>
 
               <div className="space-y-2">
@@ -214,14 +224,14 @@ const SignUp = () => {
                 <Label htmlFor="terms" className="text-sm">
                   I agree to the{" "}
                   <Link
-                    href="/terms"
+                    href="/footer/terms"
                     className="text-primary hover:text-primary-glow transition-colors"
                   >
                     Terms of Service
                   </Link>{" "}
                   and{" "}
                   <Link
-                    href="/privacy"
+                    href="/footer/privacy"
                     className="text-primary hover:text-primary-glow transition-colors"
                   >
                     Privacy Policy
@@ -230,10 +240,12 @@ const SignUp = () => {
               </div>
 
               <Button
+              disabled={isLoading}
                 type="submit"
-                className="w-full bg-accent shadow-soft hover:shadow-glow transition-all"
-              >
-                Create Account
+                className="w-full disabled:bg-gray-400 bg-accent shadow-soft hover:shadow-glow transition-all"
+              > {
+                isLoading ? (<LoadingBTN message="Creating..."/>) : 'Create Account'
+              }
               </Button>
               <p className="text-pink-400 text-center">{error}</p>
             </form>
@@ -279,11 +291,8 @@ const SignUp = () => {
                 </Button>
               </div>
             </div>
-
-            
           </CardContent>
         </Card>
-
       </div>
     </div>
   );
