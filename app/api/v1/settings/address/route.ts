@@ -1,9 +1,12 @@
 import { db } from "@/drizzle/index";
 import { LocationTable } from '@/drizzle/schema'
+import { protectRoutes } from "@/lib/protectRoutes";
 import { NextResponse } from "next/server";
 
+export const revalidate = 120;
 // Get details
 export async function GET() {
+  const session = await protectRoutes(true)
   try {
     const projectInfo = await db.select().from(LocationTable);
 
@@ -19,7 +22,10 @@ export async function GET() {
         messge: "success fetching address info",
         data: projectInfo,
       },
-      { status: 500 }
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
+    }
     );
   } catch (ex: unknown) {
     if (ex instanceof Error) {
@@ -41,6 +47,7 @@ export async function POST (req: Request){
 
       const body = await req.json();
       try {
+        const session = await protectRoutes(true)
      
         if (!body) {
           return NextResponse.json(

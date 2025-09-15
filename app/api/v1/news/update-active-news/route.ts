@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { newsTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { and, eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function PUT(req: Request) {
   try {
+    const session = await protectRoutes(true)
     const { searchParams } = new URL(req.url);
     const newsId = searchParams.get("news_id");
     const currentStatus = searchParams.get("current_status");

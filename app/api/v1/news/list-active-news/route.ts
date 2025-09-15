@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { newsTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
-import { eq, and } from "drizzle-orm";
+import { eq} from "drizzle-orm";
+
+export const revalidate = 120;
 
 export async function GET(req: Request) {
     
@@ -33,6 +35,10 @@ export async function GET(req: Request) {
       success: true,
       message: "Success Active Fetching News",
       data: news,
+    },
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
     });
   } catch (ex) {
     if (ex instanceof Error) {

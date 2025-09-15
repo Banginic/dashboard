@@ -4,10 +4,13 @@ import { BlogTable } from "@/drizzle/schema";
 import { and, eq } from "drizzle-orm";
 import cloudinary from "@/lib/cloudinary";
 import { projectDetails } from "@/constants/project-details";
-import { rejects } from "assert";
+import { protectRoutes } from "@/lib/protectRoutes";
+
 
 export async function POST(req: Request) {
   try {
+    const session = await protectRoutes(true)
+    
     const formData = await req.formData();
     const photo = formData.get("photo") as File | null;
     const avatar = formData.get("avatar") as File | null;

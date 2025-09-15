@@ -7,6 +7,8 @@ import {
 } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
 
+export const revalidate = 120;
+
 export async function GET() {
   try {
     const projectDetails = await db
@@ -42,7 +44,11 @@ export async function GET() {
 
     return NextResponse.json(
       { success: true, data: projectDetails, message: 'Project details fetched successfully' },
-      { status: 200 }
+     
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
+    }
     );
   } catch (ex: unknown) {
     if (ex instanceof Error) {

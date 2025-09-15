@@ -2,9 +2,13 @@ import { db } from "@/drizzle/index";
 import { NextResponse } from "next/server";
 import { ProjectInfoTable } from "@/drizzle/schema";
 import { eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
+
+export const revalidate = 120;
 
 // Get details
 export async function GET() {
+  const session = await protectRoutes()
   try {
     const projectInfo = await db.select().from(ProjectInfoTable);
 
@@ -20,7 +24,10 @@ export async function GET() {
         messge: "success fetching project infor",
         data: projectInfo,
       },
-      { status: 500 }
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
+    }
     );
   } catch (ex: unknown) {
     if (ex instanceof Error) {
@@ -38,11 +45,12 @@ export async function GET() {
 
 // Update details
 export async function POST(req: Request) {
+  try {
+  const session = await protectRoutes(true)
   const { searchParams } = new URL(req.url);
   const projectId = searchParams.get("project_id");
 
   const body = await req.json();
-  try {
    
     if (!body) {
       return NextResponse.json(

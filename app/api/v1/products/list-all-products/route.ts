@@ -5,6 +5,7 @@ import { db } from "@/drizzle/index";
 export const revalidate = 120;
 
 export async function GET(req: Request) {
+
   const { searchParams } = new URL(req.url)
   const  limit = searchParams.get('limit' )
   try {
@@ -13,13 +14,13 @@ export async function GET(req: Request) {
     if (products.length === 0) {
       return NextResponse.json({
         success: true,
-        message: "No Products Available",
+        message: "No Project Available",
         data: [],
       });
     }
     return NextResponse.json({
       success: true,
-      message: "Success Fetching Products",
+      message: "Success Fetching Project",
       data: products,
     },
     {
@@ -34,7 +35,7 @@ export async function GET(req: Request) {
       );
     }
     return NextResponse.json(
-      { success: false, error: "Error Fetching Products", data: [] },
+      { success: false, error: "Error Fetching Project", data: [] },
       { status: 500 }
     );
   }

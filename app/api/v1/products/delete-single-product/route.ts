@@ -2,15 +2,17 @@ import { NextResponse } from "next/server";
 import { productsTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function DELETE(req: Request) {
   try {
+    const session = await protectRoutes(true)
     const { searchParams } = new URL(req.url);
     const product_id = searchParams.get("product_id");
 
     if (!product_id) {
       return NextResponse.json(
-        { success: false, error: "Please Provide a Product ID", data: [] },
+        { success: false, error: "Please Provide a Project ID", data: [] },
         { status: 400 }
       );
     }
@@ -37,7 +39,7 @@ export async function DELETE(req: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: "Product Deleted Successfully",
+        message: "Project Deleted Successfully",
         data: [],
       },
       { status: 203 }
@@ -50,7 +52,7 @@ export async function DELETE(req: Request) {
       );
     }
     return NextResponse.json(
-      { success: false, error: "Error Deleting Product", data: [] },
+      { success: false, error: "Error Deleting Project", data: [] },
       { status: 500 }
     );
   }

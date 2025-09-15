@@ -2,9 +2,11 @@ import { NextResponse } from "next/server";
 import { messagesTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function DELETE(req: Request) {
   try {
+    const session = await protectRoutes(true)
     const { searchParams } = new URL(req.url);
     const messageId = searchParams.get("messageId");
 

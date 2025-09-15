@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 import { ordersTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function GET() {
   try {
+    const session = await protectRoutes(true)
     const orders = await db.select().from(ordersTable).limit(20);
 
     if (orders.length === 0) {

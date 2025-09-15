@@ -1,10 +1,13 @@
 import { db } from "@/drizzle/index";
 import { ContactTable } from '@/drizzle/schema'
+import { protectRoutes } from "@/lib/protectRoutes";
 import { NextResponse } from "next/server";
 
+export const revalidate = 120;
 // Get details
 export async function GET() {
   try {
+  const session = await protectRoutes(true)
     const contactInfo = await db.select().from(ContactTable);
 
     if (contactInfo.length === 0) {
@@ -19,7 +22,10 @@ export async function GET() {
         messge: "success fetching contact info",
         data: contactInfo,
       },
-      { status: 500 }
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
+    }
     );
   } catch (ex: unknown) {
     if (ex instanceof Error) {
@@ -36,11 +42,13 @@ export async function GET() {
 }
 // CREATE contact IF NOT AVAILABLE
 export async function POST (req: Request){
+  try {
+  const session = await protectRoutes(true)
     const { searchParams} = new URL(req.url)
     const projectId = searchParams.get('project_id')
 
       const body = await req.json();
-      try {
+
      
         if (!body) {
           return NextResponse.json(

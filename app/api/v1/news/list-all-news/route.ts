@@ -3,6 +3,8 @@ import { newsTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { desc } from "drizzle-orm";
 
+export const revalidate = 120;
+
 export async function GET() {
   try {
     const news = await db.select()
@@ -21,6 +23,10 @@ export async function GET() {
       success: true,
       message: "Success Fetching News",
       data: news,
+    },
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
     });
   } catch (ex) {
     if (ex instanceof Error) {

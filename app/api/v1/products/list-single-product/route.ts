@@ -3,6 +3,9 @@ import { productsTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { eq } from "drizzle-orm";
 
+export const revalidate = 120;
+
+
 export async function GET(req: Request) {
     
   try {
@@ -11,7 +14,7 @@ export async function GET(req: Request) {
 
     if(!product_id){
            return NextResponse.json(
-        { success: false, error: 'Please Provide a Product ID', data: [] },
+        { success: false, error: 'Please Project a Product ID', data: [] },
         { status: 400 }
       );
     }
@@ -22,14 +25,18 @@ export async function GET(req: Request) {
     if (products.length === 0) {
       return NextResponse.json({
         success: false,
-        message: "No Product Available with this ID",
+        message: "No Project Available with this ID",
         data: 404,
       });
     }
     return NextResponse.json({
       success: true,
-      message: "Success Fetching Product",
+      message: "Success Fetching Project",
       data: products,
+    },
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
     });
   } catch (ex) {
     console.log(ex)
@@ -40,7 +47,7 @@ export async function GET(req: Request) {
       );
     }
     return NextResponse.json(
-      { success: false, error: "Error Fetching Products", data: [] },
+      { success: false, error: "Error Fetching Project", data: [] },
       { status: 500 }
     );
   }

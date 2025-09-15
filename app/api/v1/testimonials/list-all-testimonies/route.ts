@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { testimonialTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 
+export const revalidate = 120;
+
+
 export async function GET() {
   try {
     const testimonies = await db.select().from(testimonialTable).limit(10);
@@ -17,6 +20,10 @@ export async function GET() {
       success: true,
       message: "Success Fetching Testimonies",
       data: testimonies,
+    },
+    {
+      status: 200,
+     headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
     });
   } catch (ex) {
     if (ex instanceof Error) {

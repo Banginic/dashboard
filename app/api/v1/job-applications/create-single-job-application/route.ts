@@ -6,8 +6,10 @@ import { JobApplicationTable } from "@/drizzle/schema";
 import { and, eq } from "drizzle-orm";
 import cloudinary from "@/lib/cloudinary";
 import { projectDetails } from "@/constants/project-details";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function POST(req: Request) {
+  // const session = await protectRoutes(true)
     const { searchParams } = new URL(req.url)
     const jobId = searchParams.get('job_id')
   try {

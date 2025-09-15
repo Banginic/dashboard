@@ -2,9 +2,11 @@ import { db } from "@/drizzle/index";
 import { NextResponse } from "next/server";
 import { JobTable } from "@/drizzle/schema";
 import { and, eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function POST(req: Request) {
   try {
+  const session = await protectRoutes(true)
     const body = await req.json();
     if (!body) {
       return NextResponse.json(

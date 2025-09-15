@@ -3,9 +3,11 @@ import { NextResponse } from "next/server";
 import { testimonialTable } from "@/drizzle/schema";
 import { and, eq } from "drizzle-orm";
 import cloudinary from "@/lib/cloudinary";
+import { protectRoutes } from "@/lib/protectRoutes";
 
 export async function POST(req: Request) {
   try {
+  const session = await protectRoutes(true)
     const formData = await req.formData();
     const file = formData.get("photo") as File | null;
     const name = formData.get("name") as string;

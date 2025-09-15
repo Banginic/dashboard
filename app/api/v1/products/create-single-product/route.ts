@@ -2,24 +2,23 @@ import { db } from "@/drizzle/index";
 import { NextResponse } from "next/server";
 import { productsTable } from "@/drizzle/schema";
 import { and, eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
 import cloudinary from "@/lib/cloudinary";
-import { rejects } from "assert";
-import { error } from "console";
+
 
 export async function POST(req: Request) {
   try {
+    const session = await protectRoutes(true)
     const formData = await req.formData();
 
    const photos = formData.getAll("photos") as File[]; // 👈 IMPORTANT
-    const subCategory = formData.get("subCategory") as string;
     const name = formData.get("name") as string;
-    const price = formData.get("price") as string;
     const category = formData.get("category") as string;
-    const alergies = formData.get("allergies") as string;
+    const owner = formData.get("owner") as string;
     const description = formData.get("description") as string;
     const rating = formData.get("rating") as string;
 
-    if (!name || !subCategory || !category) {
+    if (!name || !owner || !category) {
       return NextResponse.json(
         { success: false, error: "Category is required", data: [] },
         { status: 400 }
@@ -27,7 +26,7 @@ export async function POST(req: Request) {
     }
     if (photos?.length === 0) {
         return NextResponse.json(
-            { success: false, name: "Photo is required" },
+            { success: false, name: "Photo is required", data: [] },
             { status: 400 }
         );
     }
@@ -46,7 +45,7 @@ export async function POST(req: Request) {
     if (existCategory.length === 1) {
 
       return NextResponse.json(
-        { success: false, name: "Product Already Exist", data: [] },
+        { success: false, name: "Project Already Exist", data: [] },
         { status: 400 }
       );
     }
@@ -61,7 +60,7 @@ export async function POST(req: Request) {
         cloudinary.uploader
         .upload_stream(
             {
-                folder: 'daisy-kitchen products'
+                folder: 'group-engineering projects'
             },
             (error, result) => {
                 if(error) reject(error);
@@ -78,10 +77,8 @@ export async function POST(req: Request) {
       .insert(productsTable)
       .values({
         name,
-        price: Number(price),
-        subCategory,
         category,
-        alergies,
+        owner,
         description,
         rating: Number(rating),
         photos: uploadedUrls,
@@ -89,10 +86,11 @@ export async function POST(req: Request) {
       .returning();
 
     return NextResponse.json(
-      { success: true, name: "Category created successfully", data: [] },
+      { success: true, name: "Project created successfully", data: [] },
       { status: 201 }
     );
   } catch (ex: unknown) {
+    console.log(ex)
     if (ex instanceof Error) {
       return NextResponse.json(
         { success: false, error: ex.name, data: [] },
@@ -100,7 +98,7 @@ export async function POST(req: Request) {
       );
     }
     return NextResponse.json(
-      { success: false, error: "Category Server Error", data: [] },
+      { success: false, error: "Project Server Error", data: [] },
       { status: 500 }
     );
   }

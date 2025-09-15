@@ -2,10 +2,14 @@ import { NextResponse } from "next/server";
 import { messagesTable } from "@/drizzle/schema";
 import { db } from "@/drizzle/index";
 import { eq } from "drizzle-orm";
+import { protectRoutes } from "@/lib/protectRoutes";
+
+export const revalidate = 120;
 
 export async function GET(req: Request) {
-    
+  
   try {
+    const session = await protectRoutes(true)
     const {searchParams} = new URL(req.url)
     const messageId = searchParams.get('messageId')
 
@@ -30,6 +34,10 @@ export async function GET(req: Request) {
       success: true,
       message: "Success Fetching Message",
       data: message,
+    },
+    {
+      status: 200,
+      headers: {'Cache-Control': "public, s-maxage=120, stale-while-revalidating=300"}
     });
   } catch (ex) {
     if (ex instanceof Error) {
